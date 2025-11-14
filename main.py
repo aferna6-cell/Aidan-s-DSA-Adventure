@@ -2,11 +2,13 @@
 """
 Data Structures & Algorithms Study Game
 A terminal-based interactive learning tool for practicing DSA concepts.
+Features adaptive difficulty and spaced repetition.
 """
 
 import json
 import os
 import random
+from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
 
 
@@ -46,7 +48,7 @@ class Game:
         """Initialize the game with questions and progress tracking."""
         self.questions: List[Question] = []
         self.progress: Dict = {
-            "questions": {},  # question_id -> {total_attempts, correct_attempts}
+            "questions": {},  # question_id -> {total_attempts, correct_attempts, last_seen}
             "topics": {}      # topic -> {xp}
         }
         self.load_questions()
@@ -215,6 +217,11 @@ class Game:
             if "questions" not in self.progress:
                 self.progress["questions"] = {}
 
+            # Ensure all question records have last_seen field
+            for qid in self.progress["questions"]:
+                if "last_seen" not in self.progress["questions"][qid]:
+                    self.progress["questions"][qid]["last_seen"] = None
+
     def save_progress(self):
         """Save current progress to progress.json."""
         with open("progress.json", "w") as f:
@@ -226,12 +233,16 @@ class Game:
         if question_id not in self.progress["questions"]:
             self.progress["questions"][question_id] = {
                 "total_attempts": 0,
-                "correct_attempts": 0
+                "correct_attempts": 0,
+                "last_seen": None
             }
 
         self.progress["questions"][question_id]["total_attempts"] += 1
         if correct:
             self.progress["questions"][question_id]["correct_attempts"] += 1
+
+        # Update last_seen timestamp
+        self.progress["questions"][question_id]["last_seen"] = datetime.now().isoformat()
 
         # Update topic XP
         if topic not in self.progress["topics"]:
@@ -245,6 +256,165 @@ class Game:
             print("\n❌ Incorrect!")
 
         self.save_progress()
+
+    # ==================== Adaptive Difficulty & Spaced Repetition ====================
+
+    def get_topic_level(self, topic: str) -> int:
+        """
+        Get the player's level for a topic based on XP.
+        Level 1: < 50 XP
+        Level 2: 50-149 XP
+        Level 3: 150+ XP
+        """
+        xp = self.get_topic_xp(topic)
+        if xp < 50:
+            return 1
+        elif xp < 150:
+            return 2
+        else:
+            return 3
+
+    def get_preferred_difficulties(self, topic: str) -> List[int]:
+        """
+        Get the preferred difficulty levels for a topic based on player level.
+        Returns a list of difficulty values to prioritize.
+        """
+        level = self.get_topic_level(topic)
+        if level == 1:
+            return [1, 2]  # Mainly difficulty 1, some 2
+        elif level == 2:
+            return [1, 2, 3]  # Mix of all, bias toward 1 and 2
+        else:
+            return [2, 3, 1]  # Mainly 2 and 3, some 1 for review
+
+    def calculate_question_weight(self, question: Question, topic_filter: Optional[str] = None) -> float:
+        """
+        Calculate selection weight for a question using spaced repetition algorithm.
+        Higher weight = more likely to be selected.
+
+        Factors:
+        - Success rate (lower is higher weight)
+        - Time since last seen (longer is higher weight)
+        - Difficulty match with player level
+        """
+        qid = question.id
+        stats = self.progress["questions"].get(qid, {
+            "total_attempts": 0,
+            "correct_attempts": 0,
+            "last_seen": None
+        })
+
+        weight = 1.0
+
+        # Factor 1: Success rate (prefer questions with mistakes)
+        total = stats.get("total_attempts", 0)
+        correct = stats.get("correct_attempts", 0)
+
+        if total == 0:
+            # Never seen - high priority
+            weight *= 3.0
+        else:
+            success_rate = correct / total
+            # Lower success rate = higher weight
+            # 0% success = 3x weight, 50% = 1.5x, 100% = 1x
+            weight *= (2.0 - success_rate) + 1.0
+
+        # Factor 2: Time since last seen (spaced repetition)
+        last_seen = stats.get("last_seen")
+        if last_seen is None:
+            # Never seen - very high priority
+            weight *= 2.0
+        else:
+            try:
+                last_seen_dt = datetime.fromisoformat(last_seen)
+                time_diff = datetime.now() - last_seen_dt
+                hours_ago = time_diff.total_seconds() / 3600
+
+                # More weight for questions not seen recently
+                # < 1 hour: 0.5x, 1-24 hours: 1x, 1-7 days: 2x, > 7 days: 3x
+                if hours_ago < 1:
+                    weight *= 0.5
+                elif hours_ago < 24:
+                    weight *= 1.0
+                elif hours_ago < 168:  # 7 days
+                    weight *= 2.0
+                else:
+                    weight *= 3.0
+            except (ValueError, TypeError):
+                # Invalid timestamp, treat as never seen
+                weight *= 2.0
+
+        # Factor 3: Difficulty match with player level
+        if topic_filter:
+            preferred_difficulties = self.get_preferred_difficulties(topic_filter)
+            if question.difficulty in preferred_difficulties[:2]:
+                # Question difficulty matches player level well
+                weight *= 1.5
+            elif question.difficulty not in preferred_difficulties:
+                # Question difficulty doesn't match well
+                weight *= 0.3
+
+        return weight
+
+    def select_adaptive_questions(self, questions: List[Question], num_questions: int,
+                                 topic: Optional[str] = None) -> List[Question]:
+        """
+        Select questions using weighted random selection based on spaced repetition.
+
+        Args:
+            questions: Pool of questions to select from
+            num_questions: Number of questions to select
+            topic: Optional topic filter for difficulty matching
+
+        Returns:
+            List of selected questions
+        """
+        if not questions:
+            return []
+
+        # Calculate weights for all questions
+        weights = [self.calculate_question_weight(q, topic) for q in questions]
+
+        # Handle case where we want more questions than available
+        num_to_select = min(num_questions, len(questions))
+
+        # Weighted random selection without replacement
+        selected = []
+        remaining_questions = list(questions)
+        remaining_weights = list(weights)
+
+        for _ in range(num_to_select):
+            if not remaining_questions:
+                break
+
+            # Normalize weights to probabilities
+            total_weight = sum(remaining_weights)
+            if total_weight == 0:
+                # Fallback to uniform random
+                idx = random.randint(0, len(remaining_questions) - 1)
+            else:
+                probabilities = [w / total_weight for w in remaining_weights]
+                idx = random.choices(range(len(remaining_questions)), weights=probabilities)[0]
+
+            selected.append(remaining_questions[idx])
+            remaining_questions.pop(idx)
+            remaining_weights.pop(idx)
+
+        return selected
+
+    def is_question_new(self, question_id: str) -> bool:
+        """Check if a question has never been attempted."""
+        stats = self.progress["questions"].get(question_id)
+        return stats is None or stats.get("total_attempts", 0) == 0
+
+    def is_question_review(self, question_id: str) -> bool:
+        """Check if a question was previously answered incorrectly."""
+        stats = self.progress["questions"].get(question_id)
+        if stats is None:
+            return False
+        total = stats.get("total_attempts", 0)
+        correct = stats.get("correct_attempts", 0)
+        return total > 0 and correct < total
 
     # ==================== Question Handlers ====================
 
@@ -382,10 +552,17 @@ class Game:
         Args:
             question: The question to ask
         """
+        # Show question status (new or review)
+        status_indicator = ""
+        if self.is_question_new(question.id):
+            status_indicator = " [NEW]"
+        elif self.is_question_review(question.id):
+            status_indicator = " [REVIEW]"
+
         # Print question header
         self.print_header(
             f"Topic: {question.topic.replace('_', ' ').title()} | "
-            f"Difficulty: {'⭐' * question.difficulty}"
+            f"Difficulty: {'⭐' * question.difficulty}{status_indicator}"
         )
         print(f"\n{question.prompt}\n")
 
@@ -411,7 +588,7 @@ class Game:
     # ==================== Game Modes ====================
 
     def study_by_topic(self):
-        """Let user study questions from a specific topic."""
+        """Let user study questions from a specific topic with adaptive difficulty."""
         self.clear_screen()
         self.print_header("Study by Topic")
 
@@ -420,9 +597,12 @@ class Game:
         print("\nAvailable topics:\n")
         for i, topic in enumerate(topics, 1):
             xp = self.get_topic_xp(topic)
-            print(f"  {i}. {topic.replace('_', ' ').title()} (XP: {xp})")
+            level = self.get_topic_level(topic)
+            level_name = ["", "Beginner", "Intermediate", "Advanced"][level]
+            print(f"  {i}. {topic.replace('_', ' ').title()}")
+            print(f"      Level {level} ({level_name}) | XP: {xp}")
 
-        print(f"  {len(topics) + 1}. Back to main menu")
+        print(f"\n  {len(topics) + 1}. Back to main menu")
 
         while True:
             try:
@@ -434,22 +614,32 @@ class Game:
 
                 if 1 <= choice_num <= len(topics):
                     selected_topic = topics[choice_num - 1]
-                    questions = self.get_questions_by_topic(selected_topic)
+                    all_questions = self.get_questions_by_topic(selected_topic)
 
-                    if not questions:
+                    if not all_questions:
                         print("\n⚠️  No questions available for this topic!")
                         input("Press Enter to continue...")
                         return
 
-                    # Shuffle and ask questions
-                    random.shuffle(questions)
+                    # Use adaptive selection
+                    num_questions = min(len(all_questions), 5)
+                    questions = self.select_adaptive_questions(
+                        all_questions, num_questions, topic=selected_topic
+                    )
 
-                    for question in questions:
+                    for i, question in enumerate(questions, 1):
                         self.clear_screen()
+                        print(f"\n[Question {i}/{len(questions)}]\n")
                         self.ask_question(question)
 
                     self.clear_screen()
                     print("\n✅ Topic complete! Great job!\n")
+
+                    # Show level progress
+                    new_xp = self.get_topic_xp(selected_topic)
+                    new_level = self.get_topic_level(selected_topic)
+                    print(f"   {selected_topic.replace('_', ' ').title()} - Level {new_level} | XP: {new_xp}\n")
+
                     input("Press Enter to return to menu...")
                     return
                 else:
@@ -458,7 +648,7 @@ class Game:
                 print("Invalid input. Please enter a number.")
 
     def adventure_mode(self):
-        """Present questions from all topics in random order."""
+        """Present questions from all topics using adaptive selection."""
         self.clear_screen()
         self.print_header("Adventure Mode")
 
@@ -468,13 +658,15 @@ class Game:
             return
 
         print("\n🎮 Get ready for a mixed challenge across all topics!")
-        num_questions = min(5, len(self.questions))  # Ask up to 5 questions
-        print(f"   You'll face {num_questions} random questions.\n")
+        print("   Questions are selected based on your progress and learning needs.\n")
+
+        num_questions = min(5, len(self.questions))
+        print(f"   You'll face {num_questions} adaptive questions.\n")
 
         input("Press Enter to start...")
 
-        # Select random questions
-        questions = random.sample(self.questions, num_questions)
+        # Use adaptive selection across all questions
+        questions = self.select_adaptive_questions(self.questions, num_questions)
 
         for i, question in enumerate(questions, 1):
             self.clear_screen()
@@ -501,9 +693,11 @@ class Game:
         print(f"\n📝 You have {len(mistake_questions)} question(s) to review.\n")
         input("Press Enter to start reviewing...")
 
-        random.shuffle(mistake_questions)
+        # Use adaptive selection for review (prioritize recent mistakes)
+        num_to_review = min(len(mistake_questions), 5)
+        questions = self.select_adaptive_questions(mistake_questions, num_to_review)
 
-        for question in mistake_questions:
+        for question in questions:
             self.clear_screen()
             self.ask_question(question)
 
@@ -518,12 +712,36 @@ class Game:
         self.clear_screen()
         self.print_header("📚 DSA Study Game 📚")
 
-        # Show total XP
+        # Show total XP and overall stats
         total_xp = sum(topic_data.get("xp", 0) for topic_data in self.progress["topics"].values())
-        print(f"\n   Total XP: {total_xp}\n")
+        print(f"\n   Total XP: {total_xp}")
 
-        print("1. Study by topic")
-        print("2. Adventure mode (random topics)")
+        # Show topic levels
+        topics = self.get_topics()
+        if topics:
+            print("\n   Topic Progress:")
+            for topic in topics:
+                level = self.get_topic_level(topic)
+                xp = self.get_topic_xp(topic)
+                level_names = ["", "Beginner", "Intermediate", "Advanced"]
+                bar_length = 20
+
+                # Calculate XP progress within current level
+                if level == 1:
+                    progress = min(xp / 50, 1.0)
+                elif level == 2:
+                    progress = min((xp - 50) / 100, 1.0)
+                else:
+                    progress = 1.0
+
+                filled = int(bar_length * progress)
+                bar = "█" * filled + "░" * (bar_length - filled)
+
+                print(f"   {topic.replace('_', ' ').title()}: Lvl {level} {bar} {xp} XP")
+
+        print("\n" + "─" * 60)
+        print("\n1. Study by topic")
+        print("2. Adventure mode (adaptive)")
         print("3. Review mistakes")
         print("4. Quit")
         print()
