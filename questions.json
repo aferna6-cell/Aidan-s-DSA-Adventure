@@ -1,0 +1,297 @@
+[
+  {
+    "id": "complexity-1",
+    "topic": "complexity",
+    "subtopic": "big-o-basics",
+    "difficulty": 1,
+    "type": "mcq",
+    "prompt": "Which of the following functions has the smallest asymptotic growth rate as n -> infinity?",
+    "choices": [
+      "5n^2 + 3n + 7",
+      "2^n",
+      "n log n",
+      "n^3"
+    ],
+    "correctChoiceIndex": 0,
+    "explanation": "Quadratic O(n^2) grows slower than cubic O(n^3), n log n, and exponential O(2^n) for large n."
+  },
+  {
+    "id": "complexity-2",
+    "topic": "complexity",
+    "subtopic": "dominant-term",
+    "difficulty": 1,
+    "type": "short_answer",
+    "prompt": "Give the tightest Big-O complexity class for f(n) = 6n^3 - 15n^2 + 3n log n. Ignore constants and lower-order terms.",
+    "expectedAnswer": "O(n^3)",
+    "expectedAnswerKeywords": ["n^3"],
+    "explanation": "The n^3 term dominates both n^2 and n log n for large n, so f(n) is O(n^3)."
+  },
+  {
+    "id": "complexity-3",
+    "topic": "complexity",
+    "subtopic": "big-o-proof",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "You are given f(n) = 5n^3 + 3n^2 + 4n + 8. State constants K and n0 that prove f(n) is O(n^3). You do NOT have to show every algebra step, just give one valid pair (K, n0).",
+    "expectedAnswer": "For example, K = 20 and n0 = 1 works.",
+    "expectedAnswerKeywords": ["K", "n0", "20", "1"],
+    "explanation": "For n >= 1, we can bound 3n^2 + 4n + 8 <= 15n^3, so f(n) <= 20n^3. Thus K=20, n0=1 is valid."
+  },
+  {
+    "id": "complexity-4",
+    "topic": "complexity",
+    "subtopic": "logarithmic-loop",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "Consider the function:\n\nvoid method(int n) {\n    int i = 1;\n    while (i < n) {\n        i *= 2;\n        action(); // action() runs in constant time\n    }\n}\n\nWhat is the runtime complexity class of method(n) in Big-O notation, in terms of n?",
+    "expectedAnswer": "O(log n)",
+    "expectedAnswerKeywords": ["log n"],
+    "explanation": "The loop doubles i each time: 1, 2, 4, ..., up to n. This runs about log2(n) iterations, each O(1), so the total is O(log n)."
+  },
+  {
+    "id": "complexity-5",
+    "topic": "complexity",
+    "subtopic": "nested-loops",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "You have the function MostMatches(int *A, int size) that uses a nested i/j loop to count how many times each value appears in an unsorted array. For each i, j runs from i+1 up to size-1. What is the Big-O complexity class (in terms of size) of this function, based on the number of comparisons of A[x] values?",
+    "expectedAnswer": "O(n^2)",
+    "expectedAnswerKeywords": ["n^2"],
+    "explanation": "The nested loops behave similarly to selection sort: for i from 0 to n-1, j scans the remaining elements. The total comparisons are proportional to n(n-1)/2, which is O(n^2)."
+  },
+  {
+    "id": "complexity-6",
+    "topic": "complexity",
+    "subtopic": "linear-vs-quadratic",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "Two different functions both solve the problem 'find the value that appears the most often in an array; if there is a tie, pick the largest value among them.'\n\nAlgorithm A: Use the O(n^2) MostMatches function on the unsorted array.\nAlgorithm B: First sort the array with an O(n log n) sorting algorithm, then run an O(n) single-pass function that only scans the sorted array once to count runs of equal values.\n\nState the overall asymptotic complexity class for each algorithm, and briefly explain which one is asymptotically better and why.",
+    "expectedAnswer": "Algorithm A is O(n^2). Algorithm B is O(n log n). Algorithm B is asymptotically better because n log n grows slower than n^2 for large n.",
+    "expectedAnswerKeywords": ["A", "O(n^2)", "B", "O(n log n)", "better"],
+    "explanation": "Algorithm A is dominated by the O(n^2) MostMatches. Algorithm B is dominated by the sort step, O(n log n), since the single scan is O(n). Thus B is asymptotically faster."
+  },
+  {
+    "id": "lists-1",
+    "topic": "stacks_queues_lists",
+    "subtopic": "reverse-recursive-list",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "A recursive function Reverse(L) reverses a singly linked list L using a divide-and-conquer strategy: it splits off the head node and recursively reverses the tail, then concatenates. Let T(n) be the time to reverse a list of n nodes. Give a recurrence relation for T(n) and its Big-O complexity class.",
+    "expectedAnswer": "T(1) = a, T(n) = T(n-1) + c, so T(n) is O(n).",
+    "expectedAnswerKeywords": ["T(1)", "T(n-1)", "O(n)"],
+    "explanation": "Each recursive call does O(1) extra work besides the recursive call on a list of size n-1. This gives T(n) = T(n-1) + c with base case T(1) = a, whose solution is linear: T(n) = O(n)."
+  },
+  {
+    "id": "arrays-1",
+    "topic": "arrays_memory",
+    "subtopic": "two-sum-bruteforce",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "Design a brute-force C function int* twoSum(int* nums, int numsSize, int target) that returns indices i and j such that nums[i] + nums[j] == target, using an O(n^2) algorithm. Describe the core loop structure in pseudocode.",
+    "expectedAnswer": "Use two nested loops: for i from 0 to n-1, for j from i+1 to n-1, check if nums[i] + nums[j] == target; if so, return [i, j].",
+    "expectedAnswerKeywords": ["nested", "for", "i", "j", "i+1", "O(n^2)"],
+    "explanation": "Trying all unordered pairs (i, j) with i < j uses about n(n-1)/2 checks, which is O(n^2)."
+  },
+  {
+    "id": "arrays-2",
+    "topic": "arrays_memory",
+    "subtopic": "two-sum-nlogn",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "Outline an O(n log n) approach to solve the same two-sum problem for an array nums[0..n-1] and target. You are allowed to call MergeSort to sort a copy of the array and BinarySearch(A, n, key) on a sorted array A. Briefly describe the key steps.",
+    "expectedAnswer": "Copy and sort the array in O(n log n). For each element x in the sorted array, compute y = target - x and use binary search to check if y appears in the array. Overall complexity is O(n log n).",
+    "expectedAnswerKeywords": ["sort", "MergeSort", "BinarySearch", "target - x", "O(n log n)"],
+    "explanation": "Sorting costs O(n log n), and doing n binary searches costs O(n log n), so the total is O(n log n)."
+  },
+  {
+    "id": "queues-1",
+    "topic": "stacks_queues_lists",
+    "subtopic": "queue-implementation",
+    "difficulty": 2,
+    "type": "mcq",
+    "prompt": "In a circular array implementation of a queue with fields Front, Count, and a fixed MAXSIZE, what is the usual time complexity of Insert and Remove operations (ignoring a full queue)?",
+    "choices": [
+      "O(1) each",
+      "O(log n) each",
+      "O(n) each",
+      "Insert is O(n), Remove is O(1)"
+    ],
+    "correctChoiceIndex": 0,
+    "explanation": "Insert and Remove just move indices and assign one element in a well-designed circular array queue, so both are O(1)."
+  },
+  {
+    "id": "queues-2",
+    "topic": "stacks_queues_lists",
+    "subtopic": "reverse-with-stack",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "You are given a queue Q and an empty stack S. Describe an O(n) algorithm that reverses the order of elements in Q using S.",
+    "expectedAnswer": "Repeatedly Remove from Q and Push each item onto S until Q is empty, then Pop each item from S and Insert it back into Q.",
+    "expectedAnswerKeywords": ["Remove", "Push", "Pop", "Insert", "reverse"],
+    "explanation": "Moving all elements from Q to S reverses their order (stack LIFO). Moving them from S back to Q keeps that reversed order in the queue. Each element is moved a constant number of times, so the algorithm is O(n)."
+  },
+  {
+    "id": "arrays-3",
+    "topic": "arrays_memory",
+    "subtopic": "array-delete-cost",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "In an array-based list implementation with n elements, deleting an element at position i (0-based, 0 <= i < n) requires shifting all elements after it one position to the left. If each delete position is equally likely, what is the average-case Big-O time to delete an element? Briefly explain.",
+    "expectedAnswer": "O(n)",
+    "expectedAnswerKeywords": ["O(n)", "average"],
+    "explanation": "Deleting near the front can require almost n moves; near the back, almost none. The average number of moves over all possible positions is proportional to n, so average deletion is O(n)."
+  },
+  {
+    "id": "lists-2",
+    "topic": "arrays_memory",
+    "subtopic": "binary-search-linked-list",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "Explain why implementing binary search on a sorted two-way linked list cannot achieve the same O(log n) time as array-based binary search, even though the list is sorted.",
+    "expectedAnswer": "Random access to the \"middle\" node of a linked list is O(n) because you must traverse from the head (or tail). Each 'mid' access in binary search would be O(n), so the overall algorithm would be O(n log n) or worse, not O(log n).",
+    "expectedAnswerKeywords": ["random access", "O(n)", "middle", "traverse"],
+    "explanation": "Array-based binary search assumes O(1) access to A[mid]. In a linked list, finding the mid node costs O(n) pointer hops, breaking the O(log n) behavior."
+  },
+  {
+    "id": "trees-1",
+    "topic": "trees",
+    "subtopic": "full-binary-tree",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "In a full binary tree (every internal node has exactly 2 children), let l be the number of leaves and i be the number of internal nodes. What is the relationship between l and i? State the formula and one sentence explaining why it holds.",
+    "expectedAnswer": "l = i + 1.",
+    "expectedAnswerKeywords": ["l = i + 1"],
+    "explanation": "A full binary tree with one node has l=1, i=0. Each time you replace a leaf by an internal node with two children, i increases by 1 while the number of leaves also increases by 1, so l - i stays equal to 1."
+  },
+  {
+    "id": "trees-2",
+    "topic": "trees",
+    "subtopic": "complete-tree-size",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "A complete binary tree has levels 0 through n, and level n is completely filled with leaves. How many total nodes does such a tree have, in terms of n?",
+    "expectedAnswer": "2^{n+1} - 1",
+    "expectedAnswerKeywords": ["2^{n+1} - 1", "2^(n+1) - 1"],
+    "explanation": "Each level k has 2^k nodes. Summing from k=0 to n gives 2^{n+1} - 1."
+  },
+  {
+    "id": "trees-3",
+    "topic": "trees",
+    "subtopic": "array-level",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "In a complete binary tree stored in an array A[1..N] using the usual mapping (root at index 1, children of i at 2i and 2i+1), on which level (0-based) is the node stored at index i found? Express your answer using a floor or ceiling of a logarithm.",
+    "expectedAnswer": "Level floor(log2(i)).",
+    "expectedAnswerKeywords": ["floor(log2(i))", "⌊lg i⌋"],
+    "explanation": "Indices from 2^k to 2^{k+1}-1 correspond to nodes on level k, so a node at index i lies on level floor(log2(i))."
+  },
+  {
+    "id": "trees-4",
+    "topic": "trees",
+    "subtopic": "traversals",
+    "difficulty": 2,
+    "type": "mcq",
+    "prompt": "For a binary tree, which traversal order always visits nodes in increasing key order when the tree is a binary search tree (BST)?",
+    "choices": [
+      "PreOrder",
+      "InOrder",
+      "PostOrder",
+      "LevelOrder"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "An InOrder traversal of a BST visits left subtree, then node, then right subtree, which yields keys in sorted order."
+  },
+  {
+    "id": "bst-1",
+    "topic": "trees",
+    "subtopic": "bst-successor",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "Given the root pointer of a balanced BST and a value x that is guaranteed to be in the tree, describe an O(log n) algorithm to find the successor of x (the next larger key in the BST). You may use parent pointers or just the root pointer.",
+    "expectedAnswer": "Search for the node with key x, remembering the last node where you turned left. If the node has a right child, the successor is the leftmost node in its right subtree. If it has no right child, the successor is the lowest ancestor for which x is in the ancestor's left subtree (the last 'turn-left' node).",
+    "expectedAnswerKeywords": ["right subtree", "leftmost", "ancestor", "turn left"],
+    "explanation": "Each step moves down or up a constant amount per level, and the tree height is O(log n), so the algorithm is O(log n)."
+  },
+  {
+    "id": "bst-2",
+    "topic": "trees",
+    "subtopic": "bst-max",
+    "difficulty": 2,
+    "type": "short_answer",
+    "prompt": "Write a recursive strategy (in words or pseudocode) to find the maximum value in a binary tree where keys have no particular order (NOT necessarily a BST or heap).",
+    "expectedAnswer": "If the tree is empty, return -infinity or a sentinel. Otherwise, recursively compute the maximum in the left subtree and right subtree, then return the maximum of (node->key, leftMax, rightMax).",
+    "expectedAnswerKeywords": ["recursive", "left subtree", "right subtree", "max"],
+    "explanation": "Because the tree is not ordered, you must inspect every node. The recursion visits each node once, giving O(n) time."
+  },
+  {
+    "id": "bst-3",
+    "topic": "trees",
+    "subtopic": "bst-validation",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "A buggy BST validation function only checks that each node's left child has a smaller key and each right child has a larger key. Explain why this is not sufficient, and describe the key idea needed to validate a BST correctly.",
+    "expectedAnswer": "Just checking each node against its immediate children misses violations deeper in a subtree (e.g., a node in the left subtree that is greater than the root). A correct algorithm must track an allowed range [min, max] for each subtree and ensure every node's key lies within that range.",
+    "expectedAnswerKeywords": ["range", "min", "max", "subtree"],
+    "explanation": "The BST property is global: all keys in the left subtree must be less than the root, not just the root's direct left child. Carrying min/max bounds while traversing ensures the property holds for every node."
+  },
+  {
+    "id": "avl-1",
+    "topic": "avl_heaps",
+    "subtopic": "avl-min-nodes",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "Let G(h) be the minimum number of nodes in an AVL tree of height h (where a tree with a single node has height 0). What are G(0), G(1), G(2), and G(3)? Then give a recursive formula for G(h).",
+    "expectedAnswer": "G(0) = 1, G(1) = 2, G(2) = 4, G(3) = 7. A common recursive definition is G(h) = 1 + G(h-1) + G(h-2) for h >= 2.",
+    "expectedAnswerKeywords": ["G(0)", "G(1)", "G(2)", "G(3)", "G(h-1)", "G(h-2)"],
+    "explanation": "To keep an AVL tree's height as large as possible for a given node count, you make its two subtrees as small as allowed by the balance condition, giving the recurrence G(h) = 1 + G(h-1) + G(h-2)."
+  },
+  {
+    "id": "avl-2",
+    "topic": "avl_heaps",
+    "subtopic": "avl-insert-rotations",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "In an AVL tree, you insert a sequence of keys and occasionally perform rotations to restore balance. Briefly explain when a single rotation is sufficient and when a double rotation (e.g., left-right or right-left) is required.",
+    "expectedAnswer": "A single rotation is used when the 'heavy' child and grandchild are on the same side (left-left or right-right). A double rotation is used when they are on opposite sides (left-right or right-left).",
+    "expectedAnswerKeywords": ["single rotation", "double rotation", "left-left", "right-right", "left-right", "right-left"],
+    "explanation": "If the imbalance is straight (e.g., inserting into the left child of a left child), a single rotation fixes the height. If it is zig-zag (e.g., left child then right grandchild), you must first rotate at the child, then at the grandparent."
+  },
+  {
+    "id": "treesort-1",
+    "topic": "avl_heaps",
+    "subtopic": "tree-sort-vs-heap-sort",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "We sort n keys by inserting them one-by-one into a BST, then reading them out using an InOrder traversal (tree sort).\n(a) If the keys are inserted in random order into an average BST, what is the Big-O time of this algorithm?\n(b) What is the complexity if the keys are already in sorted order when inserted into an unbalanced BST?\n(c) How can using an AVL tree instead of a plain BST help?\n(d) What is the time complexity of heap sort for n keys?",
+    "expectedAnswer": "(a) O(n log n). (b) O(n^2). (c) An AVL tree keeps height O(log n) regardless of insertion order, so tree sort stays O(n log n). (d) Heap sort runs in O(n log n).",
+    "expectedAnswerKeywords": ["O(n log n)", "O(n^2)", "AVL", "heap sort"],
+    "explanation": "Average BST insertion is O(log n), so n inserts plus one traversal are O(n log n). Sorted input can create a skewed BST of height n, making insertion O(n^2). AVL trees avoid this by rebalancing. Heap sort always guarantees O(n log n)."
+  },
+  {
+    "id": "heap-1",
+    "topic": "avl_heaps",
+    "subtopic": "heapify",
+    "difficulty": 3,
+    "type": "short_answer",
+    "prompt": "You are given an arbitrary array of n keys that you want to turn into a max-heap using the bottom-up Heapify procedure (sift-down from the last internal node to the root). What is the Big-O running time of this algorithm, and why is it better than inserting n keys one-by-one into an initially empty heap?",
+    "expectedAnswer": "Bottom-up heapify runs in O(n) time, which is better than O(n log n) for inserting n keys one at a time.",
+    "expectedAnswerKeywords": ["O(n)", "O(n log n)", "heapify"],
+    "explanation": "Most nodes are near the bottom and have small height, so the total work of all sift-down operations adds up to a constant times n. Inserting n keys individually performs log n work per insert, giving O(n log n)."
+  },
+  {
+    "id": "heap-2",
+    "topic": "avl_heaps",
+    "subtopic": "priority-queue-ops",
+    "difficulty": 2,
+    "type": "mcq",
+    "prompt": "A max-heap is used to implement a priority queue that supports Insert(key, PQ) and Remove(PQ) (which removes the maximum key). What are the typical Big-O time complexities of each operation?",
+    "choices": [
+      "Insert: O(1), Remove: O(1)",
+      "Insert: O(log n), Remove: O(log n)",
+      "Insert: O(n), Remove: O(log n)",
+      "Insert: O(log n), Remove: O(n)"
+    ],
+    "correctChoiceIndex": 1,
+    "explanation": "Both Insert and Remove move along a single root-to-leaf or leaf-to-root path in the heap, so each takes O(log n) time in a heap of size n."
+  }
+]

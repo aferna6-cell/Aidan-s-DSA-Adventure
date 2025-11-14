@@ -13,32 +13,48 @@ from typing import Dict, List, Optional, Tuple
 
 
 class Question:
-    """Represents a single DSA question."""
+    """Represents a single DSA question using the new schema."""
 
     def __init__(self, data: Dict):
         self.id = data["id"]
         self.topic = data["topic"]
+        self.subtopic = data.get("subtopic", "")
         self.difficulty = data["difficulty"]
-        self.type = data["type"]  # "mcq", "short", "complexity_mcq", "trace", "order"
+        self.type = data["type"]  # "mcq" or "short_answer"
         self.prompt = data["prompt"]
-        self.options = data.get("options", [])
-        self.answer = data["answer"]  # Can be string or list (for order questions)
-        self.hints = data.get("hints", [])
+
+        # MCQ-specific fields
+        self.choices = data.get("choices", [])
+        self.correctChoiceIndex = data.get("correctChoiceIndex", None)
+
+        # Short answer-specific fields
+        self.expectedAnswer = data.get("expectedAnswer", "")
+        self.expectedAnswerKeywords = data.get("expectedAnswerKeywords", [])
+
         self.explanation = data["explanation"]
+        self.hints = data.get("hints", [])
 
     def to_dict(self) -> Dict:
         """Convert question back to dictionary format."""
-        return {
+        result = {
             "id": self.id,
             "topic": self.topic,
+            "subtopic": self.subtopic,
             "difficulty": self.difficulty,
             "type": self.type,
             "prompt": self.prompt,
-            "options": self.options,
-            "answer": self.answer,
-            "hints": self.hints,
-            "explanation": self.explanation
+            "explanation": self.explanation,
+            "hints": self.hints
         }
+
+        if self.type == "mcq":
+            result["choices"] = self.choices
+            result["correctChoiceIndex"] = self.correctChoiceIndex
+        elif self.type == "short_answer":
+            result["expectedAnswer"] = self.expectedAnswer
+            result["expectedAnswerKeywords"] = self.expectedAnswerKeywords
+
+        return result
 
 
 class Game:
@@ -56,144 +72,86 @@ class Game:
 
     # ==================== Question Loading ====================
 
-    def load_questions(self):
-        """Load questions from questions.json, create default if doesn't exist."""
-        if not os.path.exists("questions.json"):
-            self.create_default_questions()
+    def load_questions(self, filename: str = "questions.json"):
+        """
+        Load questions from JSON file.
 
-        with open("questions.json", "r") as f:
-            questions_data = json.load(f)
-            self.questions = [Question(q) for q in questions_data]
+        Args:
+            filename: Path to the questions JSON file
+        """
+        if not os.path.exists(filename):
+            print(f"⚠️  Warning: {filename} not found!")
+            print("Please ensure questions.json exists in the same directory as main.py")
+            self.questions = []
+            return
 
-    def create_default_questions(self):
-        """Create a default questions.json file with sample questions of all types."""
-        default_questions = [
-            # Basic MCQ
-            {
-                "id": "complexity_1",
-                "topic": "complexity",
-                "difficulty": 1,
-                "type": "mcq",
-                "prompt": "What is the time complexity of accessing an element in an array by index?",
-                "options": ["A) O(1)", "B) O(n)", "C) O(log n)", "D) O(n²)"],
-                "answer": "A",
-                "hints": [
-                    "Think about how direct array access works.",
-                    "No loops or searching needed for index access."
-                ],
-                "explanation": "Accessing an array element by index is O(1) because it's a direct memory access using pointer arithmetic."
-            },
-            # Complexity MCQ (new type)
-            {
-                "id": "complexity_2",
-                "topic": "complexity",
-                "difficulty": 2,
-                "type": "complexity_mcq",
-                "prompt": "What is the time complexity of binary search on a sorted array?",
-                "options": ["A) O(1)", "B) O(log n)", "C) O(n)", "D) O(n log n)"],
-                "answer": "B",
-                "hints": [
-                    "Think about how the search space is divided in each step.",
-                    "Each comparison eliminates half of the remaining elements."
-                ],
-                "explanation": "Binary search has O(log n) time complexity because it halves the search space with each comparison."
-            },
-            # Stack/Queue MCQ
-            {
-                "id": "stacks_queues_1",
-                "topic": "stacks_queues",
-                "difficulty": 2,
-                "type": "mcq",
-                "prompt": "Which data structure follows the LIFO (Last In First Out) principle?",
-                "options": ["A) Queue", "B) Stack", "C) Linked List", "D) Hash Table"],
-                "answer": "B",
-                "hints": [
-                    "Think about a stack of plates.",
-                    "The last item added is the first one removed."
-                ],
-                "explanation": "A Stack follows LIFO - the last element pushed is the first one popped, like a stack of plates."
-            },
-            # Trace question (new type)
-            {
-                "id": "stacks_queues_2",
-                "topic": "stacks_queues",
-                "difficulty": 2,
-                "type": "trace",
-                "prompt": "Trace the following stack operations:\n  stack = []\n  stack.push(5)\n  stack.push(3)\n  stack.push(7)\n  stack.pop()\n  stack.push(2)\n\nWhat does the stack contain now? (Format: [5, 3, 2])",
-                "options": [],
-                "answer": "[5, 3, 2]",
-                "hints": [
-                    "Remember LIFO - Last In First Out.",
-                    "After pop(), the 7 is removed. Then 2 is pushed."
-                ],
-                "explanation": "Starting empty, we push 5, 3, 7 giving [5,3,7]. Pop removes 7, giving [5,3]. Push 2 gives [5,3,2]."
-            },
-            # Memory MCQ
-            {
-                "id": "memory_1",
-                "topic": "memory",
-                "difficulty": 2,
-                "type": "mcq",
-                "prompt": "Where are local variables typically stored in memory?",
-                "options": ["A) Heap", "B) Stack", "C) Static/Global area", "D) Code segment"],
-                "answer": "B",
-                "hints": [
-                    "Think about automatic memory management.",
-                    "This memory is automatically freed when a function returns."
-                ],
-                "explanation": "Local variables are stored on the stack, which provides automatic memory management for function calls."
-            },
-            # Tree short answer
-            {
-                "id": "trees_1",
-                "topic": "trees",
-                "difficulty": 3,
-                "type": "short",
-                "prompt": "In a binary search tree (BST), what property must be maintained for all nodes?",
-                "options": [],
-                "answer": "left children smaller right children larger",
-                "hints": [
-                    "Think about how BSTs organize data for efficient searching.",
-                    "Consider the relationship between a node and its left/right children."
-                ],
-                "explanation": "In a BST, all nodes in the left subtree must be smaller than the node, and all nodes in the right subtree must be larger. This property enables O(log n) search in balanced trees."
-            },
-            # Order question (new type)
-            {
-                "id": "complexity_3",
-                "topic": "complexity",
-                "difficulty": 2,
-                "type": "order",
-                "prompt": "Order these time complexities from FASTEST to SLOWEST:",
-                "options": ["O(n²)", "O(1)", "O(n log n)", "O(n)", "O(log n)"],
-                "answer": ["O(1)", "O(log n)", "O(n)", "O(n log n)", "O(n²)"],
-                "hints": [
-                    "Constant time is fastest, polynomial is slowest.",
-                    "Logarithmic beats linear, and linear beats linearithmic."
-                ],
-                "explanation": "From fastest to slowest: O(1) constant, O(log n) logarithmic, O(n) linear, O(n log n) linearithmic, O(n²) quadratic."
-            },
-            # Trace question for trees
-            {
-                "id": "trees_2",
-                "topic": "trees",
-                "difficulty": 3,
-                "type": "trace",
-                "prompt": "Given this BST insertion sequence into an empty tree:\n  insert(5), insert(3), insert(7), insert(1)\n\nWhat is the value of the left child of the root?",
-                "options": [],
-                "answer": "3",
-                "hints": [
-                    "The first value inserted becomes the root.",
-                    "Values less than the root go to the left subtree."
-                ],
-                "explanation": "5 becomes the root. 3 is less than 5, so it becomes the left child of the root. 7 goes right, 1 goes to the left of 3."
-            }
-        ]
+        try:
+            with open(filename, "r") as f:
+                questions_data = json.load(f)
 
-        with open("questions.json", "w") as f:
-            json.dump(default_questions, f, indent=2)
+            # Validate and load questions
+            self.questions = []
+            for i, q_data in enumerate(questions_data):
+                try:
+                    # Validate required fields
+                    required = ["id", "topic", "difficulty", "type", "prompt", "explanation"]
+                    missing = [field for field in required if field not in q_data]
+                    if missing:
+                        print(f"⚠️  Question {i}: Missing fields {missing}, skipping...")
+                        continue
 
-        print("✓ Created default questions.json file with multiple question types")
+                    # Set hints to empty list if missing
+                    if "hints" not in q_data:
+                        q_data["hints"] = []
+
+                    # Validate type-specific fields
+                    if q_data["type"] == "mcq":
+                        if "choices" not in q_data or "correctChoiceIndex" not in q_data:
+                            print(f"⚠️  MCQ question {q_data['id']}: Missing choices or correctChoiceIndex, skipping...")
+                            continue
+                    elif q_data["type"] == "short_answer":
+                        if "expectedAnswerKeywords" not in q_data:
+                            q_data["expectedAnswerKeywords"] = []
+                        if "expectedAnswer" not in q_data:
+                            q_data["expectedAnswer"] = ""
+
+                    self.questions.append(Question(q_data))
+
+                except Exception as e:
+                    print(f"⚠️  Error loading question {i}: {e}")
+                    continue
+
+            print(f"✓ Loaded {len(self.questions)} questions from {filename}")
+
+        except json.JSONDecodeError as e:
+            print(f"⚠️  Error parsing {filename}: {e}")
+            self.questions = []
+        except Exception as e:
+            print(f"⚠️  Unexpected error loading questions: {e}")
+            self.questions = []
+
+    def get_questions_by_topic(self, topic: str, min_difficulty: Optional[int] = None,
+                               max_difficulty: Optional[int] = None) -> List[Question]:
+        """
+        Get questions filtered by topic and optionally by difficulty range.
+
+        Args:
+            topic: Topic name to filter by
+            min_difficulty: Minimum difficulty (inclusive), None to ignore
+            max_difficulty: Maximum difficulty (inclusive), None to ignore
+
+        Returns:
+            List of matching questions
+        """
+        filtered = [q for q in self.questions if q.topic == topic]
+
+        if min_difficulty is not None:
+            filtered = [q for q in filtered if q.difficulty >= min_difficulty]
+
+        if max_difficulty is not None:
+            filtered = [q for q in filtered if q.difficulty <= max_difficulty]
+
+        return filtered
 
     # ==================== Progress Tracking ====================
 
@@ -418,139 +376,37 @@ class Game:
 
     # ==================== Question Handlers ====================
 
-    def handle_hint_system(self, question: Question) -> Tuple[Optional[str], bool]:
+    def handle_hint_system(self, question: Question, hints_used: List[int]) -> Optional[str]:
         """
         Handle hint system for any question type.
-        Returns: (user_answer, hint_was_used)
+        Returns: user_answer if they gave an answer, None if they asked for hint
         """
-        hints_used = 0
-        hint_used_flag = False
+        user_input = input("Your answer (or type 'hint' for a hint): ").strip()
 
-        while True:
-            user_input = input("Your answer (or type 'hint' for a hint): ").strip()
-
-            if user_input.lower() == "hint":
-                if hints_used < len(question.hints):
-                    print(f"\n💡 Hint {hints_used + 1}: {question.hints[hints_used]}\n")
-                    hints_used += 1
-                    hint_used_flag = True
+        if user_input.lower() == "hint":
+            if len(hints_used) < len(question.hints):
+                hint_idx = len(hints_used)
+                print(f"\n💡 Hint {hint_idx + 1}: {question.hints[hint_idx]}\n")
+                hints_used.append(hint_idx)
+                return None
+            else:
+                if len(question.hints) == 0:
+                    print("\n⚠️  No hints available for this question!\n")
                 else:
                     print("\n⚠️  No more hints available!\n")
-                continue
+                return None
 
-            return user_input, hint_used_flag
+        return user_input
 
-    def ask_mcq_question(self, question: Question) -> bool:
+    def ask_question(self, question: Question) -> bool:
         """
-        Handle multiple choice questions (both regular and complexity-specific).
-        Returns: True if correct, False otherwise
-        """
-        # Display options
-        for option in question.options:
-            print(f"  {option}")
-        print()
-
-        # Get answer with hint support
-        user_answer, hint_used = self.handle_hint_system(question)
-
-        # Check answer (compare letter only, case-insensitive)
-        correct = user_answer.upper() == question.answer.upper()
-
-        # Update progress
-        self.update_progress(question.id, question.topic, correct, hint_used)
-
-        return correct
-
-    def ask_short_question(self, question: Question) -> bool:
-        """
-        Handle short answer questions.
-        Returns: True if correct, False otherwise
-        """
-        # Get answer with hint support
-        user_answer, hint_used = self.handle_hint_system(question)
-
-        # Check if key terms are present (case-insensitive, fuzzy matching)
-        user_lower = user_answer.lower()
-        answer_lower = question.answer.lower()
-        answer_words = answer_lower.split()
-        matches = sum(1 for word in answer_words if word in user_lower)
-        correct = matches >= len(answer_words) * 0.6  # 60% of keywords must match
-
-        # Update progress
-        self.update_progress(question.id, question.topic, correct, hint_used)
-
-        return correct
-
-    def ask_trace_question(self, question: Question) -> bool:
-        """
-        Handle trace questions (code execution trace).
-        Returns: True if correct, False otherwise
-        """
-        # Get answer with hint support
-        user_answer, hint_used = self.handle_hint_system(question)
-
-        # Simple string comparison after normalizing whitespace
-        user_normalized = user_answer.strip().replace(" ", "").lower()
-        answer_normalized = str(question.answer).strip().replace(" ", "").lower()
-        correct = user_normalized == answer_normalized
-
-        # Update progress
-        self.update_progress(question.id, question.topic, correct, hint_used)
-
-        return correct
-
-    def ask_order_question(self, question: Question) -> bool:
-        """
-        Handle ordering questions.
-        Returns: True if correct, False otherwise
-        """
-        # Display items to order
-        print("  Items to order:")
-        for i, item in enumerate(question.options, 1):
-            print(f"    {i}. {item}")
-        print()
-        print("  Enter your answer as:")
-        print("    - Numbers (e.g., '2,5,1,4,3')")
-        print("    - Or the actual items separated by commas")
-        print()
-
-        # Get answer with hint support
-        user_answer, hint_used = self.handle_hint_system(question)
-
-        # Parse user input
-        user_items = [item.strip() for item in user_answer.split(",")]
-
-        # Convert to canonical form (the actual strings)
-        canonical_order = []
-        for item in user_items:
-            # Check if it's a number (1-indexed position)
-            if item.isdigit():
-                idx = int(item) - 1
-                if 0 <= idx < len(question.options):
-                    canonical_order.append(question.options[idx])
-                else:
-                    canonical_order.append(item)  # Invalid number, will fail comparison
-            else:
-                # It's a string, use as-is
-                canonical_order.append(item)
-
-        # Normalize both for comparison (strip whitespace, case-insensitive)
-        canonical_normalized = [s.strip().lower() for s in canonical_order]
-        answer_normalized = [s.strip().lower() for s in question.answer]
-
-        correct = canonical_normalized == answer_normalized
-
-        # Update progress
-        self.update_progress(question.id, question.topic, correct, hint_used)
-
-        return correct
-
-    def ask_question(self, question: Question) -> None:
-        """
-        Route question to appropriate handler based on type.
+        Ask a question and handle the user's response.
 
         Args:
             question: The question to ask
+
+        Returns:
+            True if answered correctly, False otherwise
         """
         # Show question status (new or review)
         status_indicator = ""
@@ -564,26 +420,88 @@ class Game:
             f"Topic: {question.topic.replace('_', ' ').title()} | "
             f"Difficulty: {'⭐' * question.difficulty}{status_indicator}"
         )
+
+        if question.subtopic:
+            print(f"Subtopic: {question.subtopic}")
         print(f"\n{question.prompt}\n")
 
-        # Route to appropriate handler based on type
-        if question.type in ["mcq", "complexity_mcq"]:
-            self.ask_mcq_question(question)
-        elif question.type == "short":
-            self.ask_short_question(question)
-        elif question.type == "trace":
-            self.ask_trace_question(question)
-        elif question.type == "order":
-            self.ask_order_question(question)
+        hints_used = []
+        correct = False
+
+        if question.type == "mcq":
+            # Display choices with letter labels
+            for i, choice in enumerate(question.choices):
+                letter = chr(ord('A') + i)
+                print(f"  {letter}) {choice}")
+            print()
+
+            # Get answer with hint support
+            while True:
+                user_answer = self.handle_hint_system(question, hints_used)
+                if user_answer is None:
+                    continue  # User asked for hint, re-prompt
+
+                # Parse user answer - accept letters (A, B, C) or numbers (0, 1, 2)
+                user_answer = user_answer.strip().upper()
+
+                # Try to convert letter to index
+                if len(user_answer) == 1 and user_answer.isalpha():
+                    user_idx = ord(user_answer) - ord('A')
+                elif user_answer.isdigit():
+                    user_idx = int(user_answer)
+                else:
+                    print("⚠️  Please enter a letter (A, B, C, ...) or number (0, 1, 2, ...)")
+                    continue
+
+                # Check if valid index
+                if 0 <= user_idx < len(question.choices):
+                    correct = (user_idx == question.correctChoiceIndex)
+                    break
+                else:
+                    print(f"⚠️  Please enter a valid choice (A-{chr(ord('A') + len(question.choices) - 1)})")
+                    continue
+
+        elif question.type == "short_answer":
+            # Get answer with hint support
+            while True:
+                user_answer = self.handle_hint_system(question, hints_used)
+                if user_answer is None:
+                    continue  # User asked for hint, re-prompt
+                break
+
+            # Normalize answer
+            user_normalized = user_answer.strip().lower()
+            expected_normalized = question.expectedAnswer.strip().lower()
+
+            # Check if correct - either exact match or all keywords present
+            if user_normalized == expected_normalized:
+                correct = True
+            elif question.expectedAnswerKeywords:
+                # Check if all keywords appear in the user's answer
+                keywords_found = all(
+                    keyword.lower() in user_normalized
+                    for keyword in question.expectedAnswerKeywords
+                )
+                correct = keywords_found
+            else:
+                # No keywords specified, only accept exact match
+                correct = False
+
         else:
-            # Unknown question type - skip with warning
+            # Unknown question type
             print(f"⚠️  Warning: Unknown question type '{question.type}'. Skipping...")
             input("Press Enter to continue...")
-            return
+            return False
+
+        # Update progress
+        hint_used_flag = len(hints_used) > 0
+        self.update_progress(question.id, question.topic, correct, hint_used_flag)
 
         # Show explanation
         print(f"\n📚 Explanation: {question.explanation}\n")
         input("Press Enter to continue...")
+
+        return correct
 
     # ==================== Game Modes ====================
 
@@ -594,13 +512,19 @@ class Game:
 
         topics = self.get_topics()
 
+        if not topics:
+            print("\n⚠️  No topics available! Please check questions.json")
+            input("Press Enter to continue...")
+            return
+
         print("\nAvailable topics:\n")
         for i, topic in enumerate(topics, 1):
             xp = self.get_topic_xp(topic)
             level = self.get_topic_level(topic)
             level_name = ["", "Beginner", "Intermediate", "Advanced"][level]
+            num_questions = len(self.get_questions_by_topic(topic))
             print(f"  {i}. {topic.replace('_', ' ').title()}")
-            print(f"      Level {level} ({level_name}) | XP: {xp}")
+            print(f"      Level {level} ({level_name}) | XP: {xp} | {num_questions} questions")
 
         print(f"\n  {len(topics) + 1}. Back to main menu")
 
@@ -617,7 +541,7 @@ class Game:
                     all_questions = self.get_questions_by_topic(selected_topic)
 
                     if not all_questions:
-                        print("\n⚠️  No questions available for this topic!")
+                        print(f"\n⚠️  No questions available for topic '{selected_topic}'!")
                         input("Press Enter to continue...")
                         return
 
@@ -646,6 +570,9 @@ class Game:
                     print("Invalid choice. Please try again.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
+            except KeyboardInterrupt:
+                print("\n\nReturning to main menu...")
+                return
 
     def adventure_mode(self):
         """Present questions from all topics using adaptive selection."""
@@ -665,17 +592,21 @@ class Game:
 
         input("Press Enter to start...")
 
-        # Use adaptive selection across all questions
-        questions = self.select_adaptive_questions(self.questions, num_questions)
+        try:
+            # Use adaptive selection across all questions
+            questions = self.select_adaptive_questions(self.questions, num_questions)
 
-        for i, question in enumerate(questions, 1):
+            for i, question in enumerate(questions, 1):
+                self.clear_screen()
+                print(f"\n[Question {i}/{num_questions}]\n")
+                self.ask_question(question)
+
             self.clear_screen()
-            print(f"\n[Question {i}/{num_questions}]\n")
-            self.ask_question(question)
-
-        self.clear_screen()
-        print("\n🏆 Adventure complete! You're getting stronger!\n")
-        input("Press Enter to return to menu...")
+            print("\n🏆 Adventure complete! You're getting stronger!\n")
+            input("Press Enter to return to menu...")
+        except KeyboardInterrupt:
+            print("\n\nReturning to main menu...")
+            return
 
     def review_mistakes(self):
         """Let user review questions they've answered incorrectly."""
@@ -693,17 +624,21 @@ class Game:
         print(f"\n📝 You have {len(mistake_questions)} question(s) to review.\n")
         input("Press Enter to start reviewing...")
 
-        # Use adaptive selection for review (prioritize recent mistakes)
-        num_to_review = min(len(mistake_questions), 5)
-        questions = self.select_adaptive_questions(mistake_questions, num_to_review)
+        try:
+            # Use adaptive selection for review (prioritize recent mistakes)
+            num_to_review = min(len(mistake_questions), 5)
+            questions = self.select_adaptive_questions(mistake_questions, num_to_review)
 
-        for question in questions:
+            for question in questions:
+                self.clear_screen()
+                self.ask_question(question)
+
             self.clear_screen()
-            self.ask_question(question)
-
-        self.clear_screen()
-        print("\n✅ Review session complete! Keep up the great work!\n")
-        input("Press Enter to return to menu...")
+            print("\n✅ Review session complete! Keep up the great work!\n")
+            input("Press Enter to return to menu...")
+        except KeyboardInterrupt:
+            print("\n\nReturning to main menu...")
+            return
 
     # ==================== Main Menu ====================
 
@@ -751,29 +686,30 @@ class Game:
 
     def run(self):
         """Main game loop."""
-        while True:
-            choice = self.display_main_menu()
+        try:
+            while True:
+                choice = self.display_main_menu()
 
-            if choice == "1":
-                self.study_by_topic()
-            elif choice == "2":
-                self.adventure_mode()
-            elif choice == "3":
-                self.review_mistakes()
-            elif choice == "4":
-                self.clear_screen()
-                print("\n👋 Thanks for studying! Keep learning and growing!\n")
-                self.print_separator()
-                break
-            else:
-                print("\n⚠️  Invalid choice. Please select 1-4.")
-                input("Press Enter to continue...")
+                if choice == "1":
+                    self.study_by_topic()
+                elif choice == "2":
+                    self.adventure_mode()
+                elif choice == "3":
+                    self.review_mistakes()
+                elif choice == "4":
+                    self.clear_screen()
+                    print("\n👋 Thanks for studying! Keep learning and growing!\n")
+                    self.print_separator()
+                    break
+                else:
+                    print("\n⚠️  Invalid choice. Please select 1-4.")
+                    input("Press Enter to continue...")
+        except KeyboardInterrupt:
+            self.clear_screen()
+            print("\n\n👋 Thanks for studying! Keep learning and growing!\n")
+            self.print_separator()
 
     # ==================== Helper Methods ====================
-
-    def get_questions_by_topic(self, topic: str) -> List[Question]:
-        """Get all questions for a specific topic."""
-        return [q for q in self.questions if q.topic == topic]
 
     def get_mistake_questions(self) -> List[Question]:
         """Get questions where user has made mistakes."""
@@ -813,6 +749,12 @@ class Game:
 def main():
     """Entry point for the DSA Study Game."""
     game = Game()
+
+    if not game.questions:
+        print("\n⚠️  No questions loaded! Please ensure questions.json exists.")
+        print("Exiting...")
+        return
+
     game.run()
 
 
