@@ -1,10 +1,25 @@
 [
   {
+    "id": "vocab-avl-tree",
     "id": "vocab-stack",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "AVL tree",
+    "definition": "A self-balancing binary search tree that keeps the heights of left and right subtrees within one at every node.",
+    "acceptable_synonyms": [
+      "avl tree",
+      "avl"
+    ],
+    "hints": [
+      "It is named after Adelson-Velsky and Landis.",
+      "Rotations restore balance whenever a node becomes too heavy."
+    ],
+    "explanation": "AVL trees perform rotations whenever the balance factor exceeds 1 in magnitude to keep height O(log n)."
+  },
+  {
+    "id": "vocab-binary-tree",
     "term": "Stack",
     "definition": "A linear collection that supports push and pop at one end only, implementing last-in first-out behavior.",
     "acceptable_synonyms": [
@@ -23,6 +38,19 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Binary tree",
+    "definition": "A hierarchical structure in which each node has at most two children labeled left and right.",
+    "acceptable_synonyms": [
+      "binary tree"
+    ],
+    "hints": [
+      "Think about left and right child pointers.",
+      "Nodes can have zero, one, or two children."
+    ],
+    "explanation": "Binary trees store values in nodes that each reference up to two child subtrees."
+  },
+  {
+    "id": "vocab-coalescing",
     "term": "Queue",
     "definition": "A linear collection where enqueues add to the rear and dequeues remove from the front, yielding first-in first-out order.",
     "acceptable_synonyms": [
@@ -41,6 +69,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Coalescing",
+    "definition": "The allocator action of merging neighboring free memory blocks into a single larger block after a free.",
+    "acceptable_synonyms": [
+      "coalescing",
+      "coalesce"
+    ],
+    "hints": [
+      "It happens inside dynamic memory managers.",
+      "Reduces external fragmentation by joining adjacent holes."
+    ],
+    "explanation": "Coalescing scans the free list for touching blocks and joins them so future large allocations can succeed."
+  },
+  {
+    "id": "vocab-compacting",
     "term": "Deque",
     "definition": "A double-ended queue supporting insertion and removal at both the front and back in constant time.",
     "acceptable_synonyms": [
@@ -59,6 +101,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Compacting",
+    "definition": "Relocating live allocations so that all free memory becomes one contiguous region instead of scattered holes.",
+    "acceptable_synonyms": [
+      "compacting",
+      "compaction"
+    ],
+    "hints": [
+      "Often part of a copying garbage collector.",
+      "Requires updating pointers to moved objects."
+    ],
+    "explanation": "Compaction slides objects together and updates references so the remaining gap is a single large free block."
+  },
+  {
+    "id": "vocab-complete",
     "term": "Singly linked list",
     "definition": "A list composed of nodes where each node stores data plus a pointer to the next node only.",
     "acceptable_synonyms": [
@@ -77,6 +133,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Complete",
+    "definition": "A binary tree property where every level is full except possibly the last, which is filled from left to right.",
+    "acceptable_synonyms": [
+      "complete",
+      "complete binary tree"
+    ],
+    "hints": [
+      "Heaps rely on this property.",
+      "Imagine numbering nodes level by level."
+    ],
+    "explanation": "Complete binary trees keep nodes as far left as possible, allowing array-based representations with no gaps."
+  },
+  {
+    "id": "vocab-complexity-class",
     "term": "Doubly linked list",
     "definition": "A linked list whose nodes store pointers to both the previous and next nodes.",
     "acceptable_synonyms": [
@@ -95,6 +165,19 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Complexity class",
+    "definition": "A set of problems or algorithms grouped by asymptotic resource bounds such as time or space.",
+    "acceptable_synonyms": [
+      "complexity class"
+    ],
+    "hints": [
+      "Examples include P, NP, and EXP.",
+      "Often described with Big-O style notation."
+    ],
+    "explanation": "Complexity classes categorize problems by the amount of computation they require as input size grows."
+  },
+  {
+    "id": "vocab-dominant-term",
     "term": "Sentinel node",
     "definition": "A dummy node placed at an endpoint of a list to simplify insertion and deletion edge cases.",
     "acceptable_synonyms": [
@@ -113,6 +196,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Dominant term",
+    "definition": "The highest-order part of a running-time expression that determines its asymptotic growth.",
+    "acceptable_synonyms": [
+      "dominant term",
+      "leading term"
+    ],
+    "hints": [
+      "Drop lower-order pieces when using Big-O.",
+      "For 3n^2 + 2n, this is the n^2 term."
+    ],
+    "explanation": "The dominant term dictates the Big-O classification because it grows faster than the remaining terms."
+  },
+  {
+    "id": "vocab-equilibrium",
     "term": "Binary tree",
     "definition": "A hierarchical structure in which each node has at most two children called left and right.",
     "acceptable_synonyms": [
@@ -130,6 +227,19 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Equilibrium",
+    "definition": "In balanced trees like AVL, the state where a node's left and right subtrees have equal height so the balance factor is zero.",
+    "acceptable_synonyms": [
+      "equilibrium",
+      "balanced"
+    ],
+    "hints": [
+      "Occurs when the node is perfectly balanced.",
+      "No rotation is needed at that node."
+    ],
+    "explanation": "An AVL node is in equilibrium when both subtrees have the same height, yielding a balance factor of 0."
+  },
+  {
     "term": "Full binary tree",
     "definition": "A binary tree where every internal node has exactly two children.",
     "acceptable_synonyms": [
@@ -165,6 +275,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Extended",
+    "definition": "Describes an extended binary tree where every internal node has two children and null links are represented by external nodes.",
+    "acceptable_synonyms": [
+      "extended",
+      "extended binary tree"
+    ],
+    "hints": [
+      "Sometimes called a 2-tree or proper binary tree.",
+      "Used when counting external nodes explicitly."
+    ],
+    "explanation": "Extended binary trees replace each null child with a special external node so every internal node has exactly two children."
+  },
+  {
+    "id": "vocab-fifo",
     "term": "Extended binary tree",
     "definition": "A binary tree where null children are replaced by special external nodes, aiding traversal proofs.",
     "acceptable_synonyms": [
@@ -183,6 +307,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "FIFO",
+    "definition": "First-in, first-out ordering where the earliest enqueued element is removed first, as in a queue.",
+    "acceptable_synonyms": [
+      "fifo",
+      "first in first out"
+    ],
+    "hints": [
+      "Think of people waiting in line.",
+      "Arrival order equals departure order."
+    ],
+    "explanation": "FIFO disciplines ensure items leave in the same order they arrived, which is the defining behavior of queues."
+  },
+  {
+    "id": "vocab-fragmentation",
     "term": "Binary search tree",
     "definition": "A binary tree organized so left descendants are less than the node and right descendants are greater.",
     "acceptable_synonyms": [
@@ -201,6 +339,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Fragmentation",
+    "definition": "Wasted memory that cannot satisfy large requests because it is split into many separated free pieces.",
+    "acceptable_synonyms": [
+      "fragmentation",
+      "memory fragmentation"
+    ],
+    "hints": [
+      "External fragmentation is the usual culprit.",
+      "Compaction or coalescing can mitigate it."
+    ],
+    "explanation": "Fragmentation leaves sufficient total space but not enough contiguous memory to fit a big allocation."
+  },
+  {
+    "id": "vocab-frame-pointer",
     "term": "AVL tree",
     "definition": "A self-balancing BST keeping subtree heights within one by using rotations.",
     "acceptable_synonyms": [
@@ -219,6 +371,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Frame pointer",
+    "definition": "A register that holds the base address of the current stack frame so local variables and saved registers can be accessed easily.",
+    "acceptable_synonyms": [
+      "frame pointer",
+      "fp"
+    ],
+    "hints": [
+      "Also known as EBP/RBP on x86.",
+      "Stays fixed while the stack pointer moves."
+    ],
+    "explanation": "The frame pointer anchors the active activation record, making consistent offsets for locals and parameters."
+  },
+  {
+    "id": "vocab-free-list",
     "term": "Red-black tree",
     "definition": "A balanced BST that colors nodes red or black and enforces color properties to bound height.",
     "acceptable_synonyms": [
@@ -237,6 +403,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Free list",
+    "definition": "A data structure used by allocators to track available memory blocks along with their sizes and addresses.",
+    "acceptable_synonyms": [
+      "free list",
+      "freelist"
+    ],
+    "hints": [
+      "Updated on every malloc/free cycle.",
+      "May be segregated by block sizes."
+    ],
+    "explanation": "Free lists store metadata about unused blocks so an allocator can quickly find a region that fits the next request."
+  },
+  {
+    "id": "vocab-garbage-collection",
     "term": "Heap",
     "definition": "A tree-based structure satisfying the heap order property so parents dominate their children.",
     "acceptable_synonyms": [
@@ -340,6 +520,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Garbage collection",
+    "definition": "Automatic memory management that reclaims objects no longer reachable by the program.",
+    "acceptable_synonyms": [
+      "garbage collection",
+      "gc"
+    ],
+    "hints": [
+      "Languages like Java and Python rely on it.",
+      "Often implemented with tracing or reference counting."
+    ],
+    "explanation": "Garbage collectors identify unreachable objects and free their memory without manual deletes."
+  },
+  {
+    "id": "vocab-heap",
     "term": "Leaf",
     "definition": "A node in a tree that has no children.",
     "acceptable_synonyms": [
@@ -357,6 +551,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Heap",
+    "definition": "A complete binary tree that satisfies the heap-order property so each node is ordered with respect to its children.",
+    "acceptable_synonyms": [
+      "heap",
+      "binary heap"
+    ],
+    "hints": [
+      "Root holds the extremal key.",
+      "Backs priority queues."
+    ],
+    "explanation": "Heaps support efficient insert and delete-extreme operations in \u0398(log n) time by maintaining both order and completeness."
+  },
+  {
+    "id": "vocab-height",
     "term": "Internal node",
     "definition": "Any node in a tree that has at least one child.",
     "acceptable_synonyms": [
@@ -374,6 +582,19 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Height",
+    "definition": "The number of edges on the longest path from a node down to a leaf; the height of a leaf is zero.",
+    "acceptable_synonyms": [
+      "height"
+    ],
+    "hints": [
+      "Relates directly to recursive tree depth.",
+      "Controls search cost in BSTs."
+    ],
+    "explanation": "Tree height measures the longest downward path and determines how deep recursion or search may go."
+  },
+  {
+    "id": "vocab-in-order",
     "term": "Subtree",
     "definition": "A tree formed by a node together with all its descendants.",
     "acceptable_synonyms": [
@@ -392,6 +613,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "In-order",
+    "definition": "A depth-first traversal that visits the left subtree, then the node, then the right subtree\u2014yielding sorted order for BSTs.",
+    "acceptable_synonyms": [
+      "in-order",
+      "inorder"
+    ],
+    "hints": [
+      "Think left, node, right.",
+      "Produces sorted keys in a BST."
+    ],
+    "explanation": "In-order traversal mirrors the BST ordering relation, so it outputs keys from smallest to largest."
+  },
+  {
+    "id": "vocab-internal-path-length",
     "term": "Root",
     "definition": "The unique top node in a tree that has no parent.",
     "acceptable_synonyms": [
@@ -409,6 +644,20 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Internal path length",
+    "definition": "The sum of the depths of all internal (non-leaf) nodes in a tree.",
+    "acceptable_synonyms": [
+      "internal path length",
+      "ipl"
+    ],
+    "hints": [
+      "Measures overall search cost.",
+      "Closely related to average depth."
+    ],
+    "explanation": "Internal path length approximates the total work required to visit every internal node once."
+  },
+  {
+    "id": "vocab-lifo",
     "term": "Level",
     "definition": "All nodes at the same depth in a tree.",
     "acceptable_synonyms": [
@@ -426,6 +675,215 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "LIFO",
+    "definition": "Last-in, first-out ordering where the most recently added element is removed next, as in a stack.",
+    "acceptable_synonyms": [
+      "lifo",
+      "last in first out"
+    ],
+    "hints": [
+      "Imagine stacking plates.",
+      "Undo operations follow this discipline."
+    ],
+    "explanation": "LIFO disciplines remove the newest element first, which is exactly how stacks behave."
+  },
+  {
+    "id": "vocab-leaf",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Leaf",
+    "definition": "A node in a tree that has no children; it sits at the fringe of the structure.",
+    "acceptable_synonyms": [
+      "leaf",
+      "external node"
+    ],
+    "hints": [
+      "Paths end here.",
+      "Degree zero when rooted."
+    ],
+    "explanation": "Leaves terminate downward paths, so recursive traversals stop at them."
+  },
+  {
+    "id": "vocab-level",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Level",
+    "definition": "All nodes that share the same depth measured from the root; level 0 is the root, level 1 its children, and so on.",
+    "acceptable_synonyms": [
+      "level",
+      "tree level"
+    ],
+    "hints": [
+      "Breadth-first search visits by this grouping.",
+      "Depth equals level number."
+    ],
+    "explanation": "Levels group nodes by distance from the root, which is useful for analyzing complete trees and BFS."
+  },
+  {
+    "id": "vocab-level-order",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Level-order",
+    "definition": "A traversal (breadth-first search) that visits nodes level by level from the root downward.",
+    "acceptable_synonyms": [
+      "level-order",
+      "breadth first"
+    ],
+    "hints": [
+      "Use a queue to implement it.",
+      "Heaps are stored in this order."
+    ],
+    "explanation": "Level-order traversal processes nodes in the same sequence as a queue-driven BFS."
+  },
+  {
+    "id": "vocab-pre-order",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Pre-order",
+    "definition": "A depth-first traversal that visits the node first, then its left subtree, then its right subtree.",
+    "acceptable_synonyms": [
+      "pre-order",
+      "preorder"
+    ],
+    "hints": [
+      "Root, left, right is the mantra.",
+      "Useful for copying trees."
+    ],
+    "explanation": "Pre-order traversal records a node before its descendants, which is handy for serializing a tree."
+  },
+  {
+    "id": "vocab-post-order",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Post-order",
+    "definition": "A depth-first traversal that visits the left subtree, then the right subtree, and finally the node itself.",
+    "acceptable_synonyms": [
+      "post-order",
+      "postorder"
+    ],
+    "hints": [
+      "Left, right, root.",
+      "Useful for freeing nodes."
+    ],
+    "explanation": "Post-order traversal processes children before their parent, which is perfect for deleting or evaluating subtrees."
+  },
+  {
+    "id": "vocab-queue",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Queue",
+    "definition": "A linear collection supporting enqueue at the rear and dequeue at the front so elements follow FIFO order.",
+    "acceptable_synonyms": [
+      "queue"
+    ],
+    "hints": [
+      "Used for scheduling and BFS.",
+      "Departure order matches arrival order."
+    ],
+    "explanation": "Queues enforce FIFO discipline, ensuring the first item inserted is the first removed."
+  },
+  {
+    "id": "vocab-recurrence",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Recurrence relation",
+    "definition": "An equation that defines the running time or value of a function based on smaller input sizes.",
+    "acceptable_synonyms": [
+      "recurrence relation",
+      "recurrence"
+    ],
+    "hints": [
+      "Common when analyzing divide-and-conquer algorithms.",
+      "Often solved with the Master Theorem."
+    ],
+    "explanation": "Recurrences express T(n) in terms of T on smaller arguments, capturing recursive work plus combination cost."
+  },
+  {
+    "id": "vocab-root",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Root",
+    "definition": "The unique top node of a rooted tree that has no parent and depth zero.",
+    "acceptable_synonyms": [
+      "root"
+    ],
+    "hints": [
+      "All other nodes descend from it.",
+      "Acts as the entry point for traversals."
+    ],
+    "explanation": "The root anchors a tree; traversals and recursion typically start from this node."
+  },
+  {
+    "id": "vocab-roving-pointer",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Roving pointer",
+    "definition": "A heap allocator optimization that resumes the search for free space from where the previous search ended.",
+    "acceptable_synonyms": [
+      "roving pointer",
+      "next fit"
+    ],
+    "hints": [
+      "Prevents rescanning the free list from the head.",
+      "Distributes search effort."
+    ],
+    "explanation": "Roving pointers walk the free list in a circular fashion to balance the cost of finding a fitting block."
+  },
+  {
+    "id": "vocab-stack",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Stack",
+    "definition": "A linear collection with push and pop at one end only, enforcing LIFO order.",
+    "acceptable_synonyms": [
+      "stack"
+    ],
+    "hints": [
+      "Think undo/redo operations.",
+      "Newest element leaves first."
+    ],
+    "explanation": "Stacks remove the most recently inserted element first, mirroring call-stack behavior."
+  },
+  {
+    "id": "vocab-trie",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Trie",
+    "definition": "A prefix tree that stores keys character by character so each edge represents one symbol of the key.",
+    "acceptable_synonyms": [
+      "trie",
+      "prefix tree"
+    ],
+    "hints": [
+      "Great for autocomplete and dictionaries.",
+      "Each node may mark the end of a word."
+    ],
+    "explanation": "Tries branch per character so prefix queries run in time proportional to the key length."
+  },
+  {
+    "id": "vocab-two-three-tree",
     "term": "Level-order traversal",
     "definition": "A breadth-first traversal visiting nodes level by level from the root downward.",
     "acceptable_synonyms": [
@@ -444,6 +902,642 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
+    "term": "Two-three tree",
+    "definition": "A balanced search tree where every internal node has either two children and one key or three children and two keys, keeping all leaves at the same depth.",
+    "acceptable_synonyms": [
+      "two-three tree",
+      "2-3 tree"
+    ],
+    "hints": [
+      "Nodes can temporarily split when inserting.",
+      "All leaves stay perfectly level."
+    ],
+    "explanation": "Two-three trees maintain balance by allowing nodes with two or three children so the height stays logarithmic."
+  },
+  {
+    "id": "sa-nested-loop-n2",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "complexity",
+    "prompt": "Consider two nested loops: the outer loop runs n times and the inner loop runs n times. What is the time complexity?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(n^2)",
+      "n^2"
+    ],
+    "expectedKeywordsPartial": [
+      "quadratic",
+      "nested"
+    ],
+    "hints": [
+      "Count how many times the body executes.",
+      "Multiplying outer and inner counts gives total work."
+    ],
+    "explanation": "Each of the n iterations of the outer loop triggers n inner iterations, so the total work is \u0398(n^2)."
+  },
+  {
+    "id": "sa-log-loop",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "complexity",
+    "prompt": "A loop repeatedly halves n until it becomes 0. What is the time complexity?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(log n)",
+      "log n"
+    ],
+    "expectedKeywordsPartial": [
+      "logarithmic",
+      "halving"
+    ],
+    "hints": [
+      "How many times can you divide n by 2?",
+      "Logarithms count repeated halving."
+    ],
+    "explanation": "Halving each step yields \u230alog\u2082 n\u230b iterations, giving \u0398(log n)."
+  },
+  {
+    "id": "sa-triple-loop",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "complexity",
+    "prompt": "Two nested loops each run n times, and an innermost loop runs 5 times regardless of n. What is the complexity?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(n^2)",
+      "n^2"
+    ],
+    "expectedKeywordsPartial": [
+      "constant inner",
+      "constant factor"
+    ],
+    "hints": [
+      "Ignore constant 5.",
+      "Outer loops dominate."
+    ],
+    "explanation": "The constant-time inner loop does not change growth, so the runtime stays \u0398(n^2)."
+  },
+  {
+    "id": "sa-n-log-n",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "complexity",
+    "prompt": "An algorithm splits the problem in half then spends linear time merging results. What is the time complexity?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(n log n)",
+      "n log n"
+    ],
+    "expectedKeywordsPartial": [
+      "divide and conquer",
+      "mergesort"
+    ],
+    "hints": [
+      "Write the recurrence.",
+      "Use the Master Theorem."
+    ],
+    "explanation": "The recurrence T(n) = 2T(n/2) + \u0398(n) solves to \u0398(n log n)."
+  },
+  {
+    "id": "sa-queue-use",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "linear structures",
+    "prompt": "Name a realistic use case for a queue and explain why FIFO order is required.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "fifo",
+      "order"
+    ],
+    "expectedKeywordsPartial": [
+      "scheduling",
+      "breadth",
+      "buffer"
+    ],
+    "hints": [
+      "Think about fairness.",
+      "What data structure powers BFS?"
+    ],
+    "explanation": "Queues model resources such as print jobs or BFS frontiers where the earliest arrivals must be processed first."
+  },
+  {
+    "id": "sa-stack-use",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "linear structures",
+    "prompt": "Why are stacks a good fit for evaluating arithmetic expressions using postfix notation?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "lifo",
+      "operands"
+    ],
+    "expectedKeywordsPartial": [
+      "push",
+      "pop",
+      "operators"
+    ],
+    "hints": [
+      "Consider reverse Polish notation.",
+      "Think of the order operands are processed."
+    ],
+    "explanation": "Stacks keep the most recent operands handy so each operator pops its operands and pushes the result."
+  },
+  {
+    "id": "sa-array-insert-front",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "arrays",
+    "prompt": "What is the time complexity of inserting an element at the front of a dynamic array of length n?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(n)",
+      "n"
+    ],
+    "expectedKeywordsPartial": [
+      "shift",
+      "move"
+    ],
+    "hints": [
+      "Do you have to move other elements?",
+      "Compare with append."
+    ],
+    "explanation": "All n elements shift one position, so insertion at the front costs \u0398(n)."
+  },
+  {
+    "id": "sa-array-insert-back",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "arrays",
+    "prompt": "Assuming unused capacity, what is the time complexity of appending to the end of a dynamic array?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(1)",
+      "constant"
+    ],
+    "expectedKeywordsPartial": [
+      "amortized",
+      "append"
+    ],
+    "hints": [
+      "Consider amortized analysis.",
+      "Most appends do no copying."
+    ],
+    "explanation": "Appending is \u0398(1) amortized because it only copies when resizing."
+  },
+  {
+    "id": "sa-linkedlist-middle",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "linked lists",
+    "prompt": "Why is inserting at the middle of a singly linked list \u0398(n) even if insertion itself is O(1)?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "traverse",
+      "find"
+    ],
+    "expectedKeywordsPartial": [
+      "need predecessor",
+      "no random access"
+    ],
+    "hints": [
+      "How do you reach the middle node?",
+      "What extra info do you need to insert?"
+    ],
+    "explanation": "Finding the node before the insertion point requires linear traversal, dominating the cost."
+  },
+  {
+    "id": "sa-binary-search",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "searching",
+    "prompt": "Binary search on a sorted array repeatedly halves the search range. State its complexity and requirement on the data.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(log n)",
+      "sorted"
+    ],
+    "expectedKeywordsPartial": [
+      "halving",
+      "order"
+    ],
+    "hints": [
+      "What structure enables midpoints?",
+      "Why can't it handle unsorted arrays?"
+    ],
+    "explanation": "Binary search runs in \u0398(log n) but only works on data with random access arranged in sorted order."
+  },
+  {
+    "id": "sa-linear-vs-binary",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "searching",
+    "prompt": "When would linear search be preferable to binary search even on sorted data?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "unsorted",
+      "small",
+      "linked"
+    ],
+    "expectedKeywordsPartial": [
+      "stream",
+      "no random"
+    ],
+    "hints": [
+      "Consider access cost.",
+      "What about streaming data?"
+    ],
+    "explanation": "Linear search may win on tiny arrays, streaming inputs, or linked lists where random access is expensive."
+  },
+  {
+    "id": "sa-tree-height-depth",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "trees",
+    "prompt": "Explain the relationship between the depth of a node and the height of the tree.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "depth",
+      "root",
+      "longest"
+    ],
+    "expectedKeywordsPartial": [
+      "levels",
+      "distance"
+    ],
+    "hints": [
+      "One measures downward, the other upward.",
+      "Which one is global?"
+    ],
+    "explanation": "Depth counts edges from the root to a node, while height is the maximum depth among nodes (or maximum root-to-leaf path)."
+  },
+  {
+    "id": "sa-bst-search",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "trees",
+    "prompt": "Describe how BST search locates a key and why its average cost is logarithmic.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "compare",
+      "left",
+      "right"
+    ],
+    "expectedKeywordsPartial": [
+      "balanced",
+      "height"
+    ],
+    "hints": [
+      "How many children do you examine?",
+      "What happens with balanced vs skewed trees?"
+    ],
+    "explanation": "BST search compares the key to the node value and recurses left or right, halving the search space when the tree is balanced so cost is \u0398(log n)."
+  },
+  {
+    "id": "sa-bst-skew",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "trees",
+    "prompt": "What causes a BST to devolve to linear time, and how can you prevent it?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "skew",
+      "sorted"
+    ],
+    "expectedKeywordsPartial": [
+      "balancing",
+      "avl",
+      "red-black"
+    ],
+    "hints": [
+      "Think of inserting sorted data.",
+      "What rotations keep height small?"
+    ],
+    "explanation": "Inserting keys in sorted order creates a skewed tree of height n; self-balancing trees like AVL or red-black maintain logarithmic height."
+  },
+  {
+    "id": "sa-heap-insert",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "heaps",
+    "prompt": "Outline the steps of inserting a key into a binary heap and state the complexity.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "bubble",
+      "up",
+      "o(log n)"
+    ],
+    "expectedKeywordsPartial": [
+      "swap",
+      "parent",
+      "heap property"
+    ],
+    "hints": [
+      "Where is the new key placed initially?",
+      "How do you restore order?"
+    ],
+    "explanation": "Insert at the end, then bubble up swapping with parents until the heap property holds, taking \u0398(log n)."
+  },
+  {
+    "id": "sa-heapify-vs-insert",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "heaps",
+    "prompt": "Compare building a heap by repeated insertions versus the heapify algorithm.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "n log n",
+      "linear"
+    ],
+    "expectedKeywordsPartial": [
+      "heapify",
+      "bottom-up"
+    ],
+    "hints": [
+      "How many inserts occur?",
+      "Why does heapify start from the middle?"
+    ],
+    "explanation": "Individual inserts cost \u0398(n log n) total, whereas heapify runs in \u0398(n) by sifting down from the middle."
+  },
+  {
+    "id": "sa-heap-sort",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "heaps",
+    "prompt": "Explain why heapsort has \u0398(n log n) complexity even though heapify is linear.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "extract",
+      "log n",
+      "n times"
+    ],
+    "expectedKeywordsPartial": [
+      "delete max",
+      "heap property"
+    ],
+    "hints": [
+      "What operation repeats n times?",
+      "What is the cost of delete-max?"
+    ],
+    "explanation": "After heapify builds the heap, heapsort performs n delete-max operations, each \u0398(log n), dominating the runtime."
+  },
+  {
+    "id": "sa-tree-traversal",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "trees",
+    "prompt": "What traversal order prints BST keys in sorted order, and why?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "in-order",
+      "left",
+      "right"
+    ],
+    "expectedKeywordsPartial": [
+      "sorted",
+      "visit"
+    ],
+    "hints": [
+      "Which traversal visits a node between its subtrees?",
+      "How does BST order map to traversal order?"
+    ],
+    "explanation": "In-order traversal visits left subtree, node, then right, matching the BST ordering relation, so output is sorted."
+  },
+  {
+    "id": "sa-recursion-base",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "recursion",
+    "prompt": "Why must every recursive function have a base case, and what happens if it does not?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "terminate",
+      "stop"
+    ],
+    "expectedKeywordsPartial": [
+      "infinite",
+      "stack",
+      "overflow"
+    ],
+    "hints": [
+      "What prevents infinite recursion?",
+      "What error occurs if recursion never stops?"
+    ],
+    "explanation": "The base case halts the recursion; without it the function calls itself indefinitely until stack overflow."
+  },
+  {
+    "id": "sa-recursion-trees",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "recursion",
+    "prompt": "Explain why recursion is a natural fit for tree traversals.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "subtree",
+      "self-similar"
+    ],
+    "expectedKeywordsPartial": [
+      "divide",
+      "left",
+      "right"
+    ],
+    "hints": [
+      "How does a tree's definition relate to recursion?",
+      "What does each recursive call handle?"
+    ],
+    "explanation": "Trees are defined recursively: each node roots smaller subtrees, so recursive functions naturally process the node then recurse on children."
+  },
+  {
+    "id": "sa-queue-implementation",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "linear structures",
+    "prompt": "Why might a linked list implementation of a queue be preferable to an array implementation?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "o(1)",
+      "front",
+      "rear"
+    ],
+    "expectedKeywordsPartial": [
+      "no shifting",
+      "dynamic"
+    ],
+    "hints": [
+      "What happens when array front moves?",
+      "How does linked storage grow?"
+    ],
+    "explanation": "Linked queues add/remove nodes in \u0398(1) without shifting or resizing, and they can grow until memory runs out."
+  },
+  {
+    "id": "sa-stack-callstack",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "recursion",
+    "prompt": "How does the call stack emulate a stack data structure during recursion?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "push",
+      "pop",
+      "frames"
+    ],
+    "expectedKeywordsPartial": [
+      "activation",
+      "return"
+    ],
+    "hints": [
+      "What happens when a function calls another?",
+      "Where are return addresses stored?"
+    ],
+    "explanation": "Each call pushes a frame storing parameters/local variables; returning pops it, mirroring stack push/pop behavior."
+  },
+  {
+    "id": "sa-amortized-dynamic-array",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "analysis",
+    "prompt": "Explain why dynamic array append has amortized O(1) cost even though occasional resizes copy many elements.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "amortized",
+      "spread"
+    ],
+    "expectedKeywordsPartial": [
+      "doubling",
+      "rare"
+    ],
+    "hints": [
+      "How often do resizes happen?",
+      "What happens to unused capacity after doubling?"
+    ],
+    "explanation": "Expensive resizes happen after capacity doubles, so the total cost over many appends is linear, giving O(1) amortized per append."
+  },
+  {
+    "id": "sa-graph-bfs-queue",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "graphs",
+    "prompt": "Why does BFS require a queue while DFS is typically implemented with a stack or recursion?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "fifo",
+      "level"
+    ],
+    "expectedKeywordsPartial": [
+      "order",
+      "frontier"
+    ],
+    "hints": [
+      "How do BFS and DFS differ in exploration order?",
+      "Which frontier ordering matches each?"
+    ],
+    "explanation": "BFS explores level by level, needing a queue to process vertices in order of discovery, whereas DFS dives deep using stack/LIFO behavior."
+  },
+  {
+    "id": "sa-graph-dfs-recursion",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "graphs",
+    "prompt": "What risks arise from using recursion for DFS on very deep graphs?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "stack",
+      "overflow"
+    ],
+    "expectedKeywordsPartial": [
+      "depth",
+      "recursion"
+    ],
+    "hints": [
+      "How much stack space does each call consume?",
+      "What if the graph is like a linked list?"
+    ],
+    "explanation": "Deep recursion may exhaust the call stack, causing stack overflow or high memory usage."
+  },
+  {
+    "id": "sa-hash-table-load",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "hashing",
+    "prompt": "How does the load factor of a hash table influence performance?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "collisions",
+      "alpha"
+    ],
+    "expectedKeywordsPartial": [
+      "resize",
+      "expected"
+    ],
+    "hints": [
+      "Define load factor.",
+      "What happens when many keys share buckets?"
+    ],
+    "explanation": "Higher load factors increase collisions, slowing lookups; resizing keeps the load factor below a threshold to maintain O(1) expected operations."
+  },
+  {
+    "id": "sa-hash-open-addressing",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "hashing",
+    "prompt": "Why does open addressing require low load factors compared to chaining?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "clusters",
+      "probe"
+    ],
+    "expectedKeywordsPartial": [
+      "performance",
+      "empty"
+    ],
+    "hints": [
+      "What happens as the table fills?",
+      "How are collisions resolved without lists?"
+    ],
+    "explanation": "Open addressing searches sequential slots during collisions; without many empty slots, probe sequences grow long, hurting performance."
+  },
+  {
+    "id": "sa-memory-fragmentation",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "memory",
+    "prompt": "Explain how coalescing free blocks reduces external fragmentation.",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "merge",
+      "adjacent"
+    ],
+    "expectedKeywordsPartial": [
+      "bigger",
+      "contiguous"
+    ],
+    "hints": [
+      "What stops big allocations when free space is scattered?",
+      "What happens after combining blocks?"
+    ],
+    "explanation": "Coalescing merges neighbors so larger contiguous blocks exist, letting future allocations succeed."
+  },
+  {
+    "id": "sa-call-stack-cost",
+    "level": 2,
+    "question_type": "short_answer",
+    "topic": "recursion",
+    "prompt": "What additional overhead does recursion impose compared to an iterative loop?",
+    "expectedAnswer": "See explanation.",
+    "expectedKeywordsRequired": [
+      "stack frame",
+      "push"
+    ],
+    "expectedKeywordsPartial": [
+      "return",
+      "call"
+    ],
+    "hints": [
+      "Consider activation records.",
+      "How many frames exist simultaneously?"
+    ],
+    "explanation": "Each call pushes a new frame with parameters and locals, so recursion pays overhead in stack space and call setup/teardown time."
+  },
+  {
     "term": "Pre-order traversal",
     "definition": "A traversal order visiting the node, then the left subtree, then the right subtree.",
     "acceptable_synonyms": [
