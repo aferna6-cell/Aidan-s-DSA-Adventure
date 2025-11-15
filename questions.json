@@ -1,959 +1,824 @@
 [
   {
-    "id": "complexity-1-1",
-    "topic": "complexity",
-    "subtopic": "big-o-definition",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What does Big-O notation describe?",
-    "choices": [
-      "The exact running time of an algorithm",
-      "The upper bound on the growth rate of an algorithm",
-      "The lower bound on the growth rate of an algorithm",
-      "The average case performance"
+    "id": "vocab-1",
+    "level": 1,
+    "topic": "stacks_queues",
+    "subtopic": "stack",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A linear data structure that supports insertion and deletion only at one end, following a Last-In First-Out discipline.",
+    "term": "stack",
+    "acceptable_synonyms": ["stack", "lifo stack"],
+    "hints": [
+      "Think of a pile of plates where you add and remove from the top.",
+      "Its acronym is LIFO."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "Big-O notation provides an upper bound on the growth rate of an algorithm's running time as input size increases."
+    "explanation": "A stack is a linear structure where the most recently inserted item is the first one removed. This is called Last-In First-Out (LIFO)."
   },
   {
-    "id": "complexity-1-2",
-    "topic": "complexity",
-    "subtopic": "constant-time",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "Which operation on an array is O(1)?",
-    "choices": [
-      "Searching for an element",
-      "Accessing element at index i",
-      "Sorting the array",
-      "Finding the maximum element"
+    "id": "vocab-2",
+    "level": 1,
+    "topic": "stacks_queues",
+    "subtopic": "queue",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A linear data structure that supports insertion at the rear and deletion at the front, following a First-In First-Out discipline.",
+    "term": "queue",
+    "acceptable_synonyms": ["queue", "fifo queue"],
+    "hints": [
+      "Think of people waiting in line at a store.",
+      "Its acronym is FIFO."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "Array access by index is O(1) because it uses direct memory addressing: address = base + (index * element_size)."
+    "explanation": "A queue processes elements in First-In First-Out order: the earliest inserted element is removed first."
   },
   {
-    "id": "complexity-1-3",
-    "topic": "complexity",
-    "subtopic": "linear-time",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "A loop runs from i=0 to i=n-1, performing constant work each iteration. What is the time complexity?",
-    "expectedAnswer": "O(n)",
-    "expectedAnswerKeywords": ["O(n)", "n"],
-    "explanation": "A single loop iterating n times with O(1) work per iteration gives O(n) total time complexity."
-  },
-  {
-    "id": "complexity-1-4",
-    "topic": "complexity",
-    "subtopic": "dominant-term",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "Give the tightest Big-O for f(n) = 6n^3 - 15n^2 + 3n log n.",
-    "expectedAnswer": "O(n^3)",
-    "expectedAnswerKeywords": ["n^3", "n³"],
-    "explanation": "The n^3 term dominates for large n, so f(n) is O(n^3)."
-  },
-  {
-    "id": "complexity-1-5",
-    "topic": "complexity",
-    "subtopic": "growth-rates",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "Which grows fastest as n approaches infinity?",
-    "choices": [
-      "log n",
-      "n",
-      "n log n",
-      "n^2"
-    ],
-    "correctChoiceIndex": 3,
-    "explanation": "Growth rates from slowest to fastest: log n < n < n log n < n^2."
-  },
-  {
-    "id": "complexity-2-1",
-    "topic": "complexity",
-    "subtopic": "nested-loops",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What is the time complexity of two nested loops, each running from 0 to n-1, with O(1) work in the inner loop?",
-    "expectedAnswer": "O(n^2)",
-    "expectedAnswerKeywords": ["n^2", "n²", "quadratic"],
-    "explanation": "Nested loops each running n times give n*n = n^2 iterations, so O(n^2).",
-    "hints": ["Count total iterations", "Outer loop runs n times, inner loop runs n times for each outer iteration"]
-  },
-  {
-    "id": "complexity-2-2",
-    "topic": "complexity",
-    "subtopic": "logarithmic-loop",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "A loop starts with i=1 and doubles i each iteration (i*=2) until i >= n. What is the complexity?",
-    "expectedAnswer": "O(log n)",
-    "expectedAnswerKeywords": ["log n", "logarithmic"],
-    "explanation": "The loop runs log₂(n) times: 1, 2, 4, 8, ..., n. This is O(log n).",
-    "hints": ["How many times can you double starting from 1 until you reach n?"]
-  },
-  {
-    "id": "complexity-2-3",
-    "topic": "complexity",
-    "subtopic": "recurrence",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Binary search has recurrence T(n) = T(n/2) + O(1). What is the solution?",
-    "expectedAnswer": "O(log n)",
-    "expectedAnswerKeywords": ["log n", "logarithmic"],
-    "explanation": "Dividing problem size by 2 each time with constant work gives O(log n) by the Master Theorem.",
-    "hints": ["How many times can you divide n by 2?", "Use the Master Theorem"]
-  },
-  {
-    "id": "complexity-2-4",
-    "topic": "complexity",
-    "subtopic": "algorithm-comparison",
-    "difficulty": 2,
-    "type": "mcq",
-    "prompt": "Which is asymptotically faster for large n?",
-    "choices": [
-      "O(n^2)",
-      "O(n log n)",
-      "O(2^n)",
-      "O(n!)"
-    ],
-    "correctChoiceIndex": 1,
-    "explanation": "Growth rates: O(n log n) < O(n^2) < O(2^n) < O(n!). n log n is fastest among these."
-  },
-  {
-    "id": "complexity-2-5",
-    "topic": "complexity",
-    "subtopic": "best-worst-case",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Linear search has best case O(1) and worst case O(n). What are these cases?",
-    "expectedAnswer": "Best: element is first. Worst: element is last or not present.",
-    "expectedAnswerKeywords": ["first", "last", "not present"],
-    "explanation": "Best case: target is the first element (1 comparison). Worst case: target is last or absent (n comparisons)."
-  },
-  {
-    "id": "complexity-3-1",
-    "topic": "complexity",
-    "subtopic": "big-o-proof",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Prove f(n) = 5n^3 + 3n^2 + 4n + 8 is O(n^3) by giving constants c and n₀.",
-    "expectedAnswer": "c = 20, n₀ = 1 works",
-    "expectedAnswerKeywords": ["c", "n₀", "20", "1"],
-    "explanation": "For n≥1: 3n^2+4n+8 ≤ 15n^3, so f(n) ≤ 20n^3. Thus c=20, n₀=1 satisfy the definition.",
-    "hints": ["Bound each term by the dominant term", "For n≥1, n^2 ≤ n^3, n ≤ n^3, 1 ≤ n^3"]
-  },
-  {
-    "id": "complexity-3-2",
-    "topic": "complexity",
-    "subtopic": "complex-recurrence",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Solve T(n) = 2T(n/2) + O(n) using the Master Theorem.",
-    "expectedAnswer": "O(n log n)",
-    "expectedAnswerKeywords": ["n log n", "nlogn"],
-    "explanation": "This is case 2 of Master Theorem: a=2, b=2, f(n)=O(n). Since log₂(2)=1 and f(n)=Θ(n^1), result is O(n log n).",
-    "hints": ["Identify a, b, and f(n)", "Compare f(n) with n^(log_b(a))"]
-  },
-  {
-    "id": "complexity-3-3",
-    "topic": "complexity",
-    "subtopic": "algorithm-analysis",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Algorithm A: O(n^2) unsorted search. Algorithm B: O(n log n) sort then O(n) scan. Which is better for large n and why?",
-    "expectedAnswer": "Algorithm B is better because n log n grows slower than n^2",
-    "expectedAnswerKeywords": ["B", "better", "n log n", "slower", "n^2"],
-    "explanation": "B's total is O(n log n) + O(n) = O(n log n), which is asymptotically faster than O(n^2) for large n.",
-    "hints": ["What is the dominant term in B?", "Compare n log n vs n^2 for large n"]
-  },
-  {
-    "id": "complexity-3-4",
-    "topic": "complexity",
-    "subtopic": "amortized-analysis",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "A dynamic array doubles its size when full. If n insertions are performed, what is the amortized cost per insertion?",
-    "expectedAnswer": "O(1) amortized",
-    "expectedAnswerKeywords": ["O(1)", "amortized", "constant"],
-    "explanation": "Though occasional resizing costs O(n), it happens infrequently. Total cost for n insertions is O(n), so amortized cost is O(1) per insertion.",
-    "hints": ["How often does resizing occur?", "Count total operations over n insertions"]
-  },
-  {
-    "id": "complexity-3-5",
-    "topic": "complexity",
-    "subtopic": "space-complexity",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Quicksort has O(n log n) average time. What is its average space complexity (stack depth)?",
-    "expectedAnswer": "O(log n)",
-    "expectedAnswerKeywords": ["log n", "logarithmic"],
-    "explanation": "Recursive quicksort stack depth is proportional to recursion depth, which is O(log n) on average (balanced partitions).",
-    "hints": ["How deep is the recursion tree on average?", "Consider balanced partitioning"]
-  },
-  {
-    "id": "stacks-1-1",
-    "topic": "stacks_queues_lists",
-    "subtopic": "stack-basics",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "Which principle does a stack follow?",
-    "choices": [
-      "FIFO (First In First Out)",
-      "LIFO (Last In First Out)",
-      "Random access",
-      "Priority-based"
-    ],
-    "correctChoiceIndex": 1,
-    "explanation": "A stack follows LIFO: the last element pushed is the first one popped, like a stack of plates."
-  },
-  {
-    "id": "stacks-1-2",
-    "topic": "stacks_queues_lists",
-    "subtopic": "queue-basics",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What principle does a queue follow?",
-    "choices": [
-      "LIFO",
-      "FIFO",
-      "Random access",
-      "Priority-based"
-    ],
-    "correctChoiceIndex": 1,
-    "explanation": "A queue follows FIFO: first element enqueued is first to be dequeued, like a line at a store."
-  },
-  {
-    "id": "stacks-1-3",
-    "topic": "stacks_queues_lists",
-    "subtopic": "stack-operations",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "What are the two main operations of a stack?",
-    "expectedAnswer": "push and pop",
-    "expectedAnswerKeywords": ["push", "pop"],
-    "explanation": "Stack supports push (add to top) and pop (remove from top) as primary operations."
-  },
-  {
-    "id": "stacks-1-4",
-    "topic": "stacks_queues_lists",
-    "subtopic": "linked-list-access",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What is the time complexity to access the i-th element in a singly linked list?",
-    "choices": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n^2)"
-    ],
-    "correctChoiceIndex": 2,
-    "explanation": "Linked lists require O(n) time to access the i-th element because you must traverse from the head."
-  },
-  {
-    "id": "stacks-1-5",
-    "topic": "stacks_queues_lists",
-    "subtopic": "array-vs-list",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "Name one advantage of linked lists over arrays.",
-    "expectedAnswer": "Dynamic size or efficient insertion/deletion at known positions",
-    "expectedAnswerKeywords": ["dynamic", "insertion", "deletion", "size"],
-    "explanation": "Linked lists can grow dynamically and allow O(1) insertion/deletion when you have a pointer to the position."
-  },
-  {
-    "id": "stacks-2-1",
-    "topic": "stacks_queues_lists",
-    "subtopic": "stack-trace",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Trace: push(5), push(3), pop(), push(7), pop(). What is the final stack state?",
-    "expectedAnswer": "[5]",
-    "expectedAnswerKeywords": ["5"],
-    "explanation": "Push 5: [5]. Push 3: [5,3]. Pop: [5]. Push 7: [5,7]. Pop: [5].",
-    "hints": ["Track each operation step by step", "Remember LIFO"]
-  },
-  {
-    "id": "stacks-2-2",
-    "topic": "stacks_queues_lists",
-    "subtopic": "queue-implementation",
-    "difficulty": 2,
-    "type": "mcq",
-    "prompt": "In a circular array queue with Front and Count, what is the complexity of enqueue and dequeue?",
-    "choices": [
-      "Both O(1)",
-      "Both O(n)",
-      "Enqueue O(1), Dequeue O(n)",
-      "Enqueue O(n), Dequeue O(1)"
-    ],
-    "correctChoiceIndex": 0,
-    "explanation": "Circular array queues support O(1) enqueue and dequeue by maintaining front/rear pointers.",
-    "hints": ["No shifting needed in circular implementation"]
-  },
-  {
-    "id": "stacks-2-3",
-    "topic": "stacks_queues_lists",
-    "subtopic": "list-insertion",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What is the time complexity to insert at the beginning of a singly linked list?",
-    "expectedAnswer": "O(1)",
-    "expectedAnswerKeywords": ["O(1)", "constant"],
-    "explanation": "Inserting at the head requires creating a new node and updating the head pointer - both O(1) operations."
-  },
-  {
-    "id": "stacks-2-4",
-    "topic": "stacks_queues_lists",
-    "subtopic": "reverse-with-stack",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "How can you reverse a queue using a stack?",
-    "expectedAnswer": "Dequeue all to stack, then pop all back to queue",
-    "expectedAnswerKeywords": ["dequeue", "push", "pop", "enqueue"],
-    "explanation": "Dequeue everything to stack (reverses order), then pop from stack and enqueue back (maintains reversed order).",
-    "hints": ["Stack reverses the order", "FIFO + LIFO = reverse"]
-  },
-  {
-    "id": "stacks-2-5",
-    "topic": "stacks_queues_lists",
-    "subtopic": "doubly-linked",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What advantage does a doubly linked list have over singly linked?",
-    "expectedAnswer": "Can traverse backwards and delete in O(1) with node pointer",
-    "expectedAnswerKeywords": ["backwards", "reverse", "delete", "O(1)"],
-    "explanation": "Doubly linked lists can traverse both directions and delete a node in O(1) when given a pointer to it (no predecessor search needed)."
-  },
-  {
-    "id": "stacks-3-1",
-    "topic": "stacks_queues_lists",
-    "subtopic": "stack-recursion",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Explain how the call stack works in recursive functions and why deep recursion can cause stack overflow.",
-    "expectedAnswer": "Each call creates a stack frame. Deep recursion uses excessive stack memory causing overflow.",
-    "expectedAnswerKeywords": ["stack frame", "memory", "overflow", "deep"],
-    "explanation": "Each recursive call pushes a new activation record (stack frame) onto the call stack. Very deep recursion exhausts stack memory, causing overflow.",
-    "hints": ["What happens on each function call?", "Stack memory is limited"]
-  },
-  {
-    "id": "stacks-3-2",
-    "topic": "stacks_queues_lists",
-    "subtopic": "two-stacks-queue",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Describe how to implement a queue using two stacks, achieving amortized O(1) enqueue and dequeue.",
-    "expectedAnswer": "Use one stack for enqueue, another for dequeue. Transfer when dequeue stack empty.",
-    "expectedAnswerKeywords": ["two stacks", "transfer", "amortized", "O(1)"],
-    "explanation": "Stack1 for enqueue (O(1)). Stack2 for dequeue (O(1) when non-empty). When Stack2 empty, transfer all from Stack1 to Stack2. Amortized O(1) per operation.",
-    "hints": ["One stack for input, one for output", "Transfer only when necessary"]
-  },
-  {
-    "id": "stacks-3-3",
-    "topic": "stacks_queues_lists",
-    "subtopic": "list-cycle-detection",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Describe Floyd's cycle detection algorithm for linked lists (tortoise and hare).",
-    "expectedAnswer": "Use two pointers: slow moves 1 step, fast moves 2 steps. If they meet, there's a cycle.",
-    "expectedAnswerKeywords": ["two pointers", "slow", "fast", "meet", "cycle"],
-    "explanation": "Slow pointer moves 1 node per step, fast moves 2. If there's a cycle, fast will eventually lap and meet slow. If no cycle, fast reaches end.",
-    "hints": ["One pointer moves faster than the other", "Like runners on a track"]
-  },
-  {
-    "id": "stacks-3-4",
-    "topic": "stacks_queues_lists",
-    "subtopic": "reverse-list-recursive",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Give recurrence T(n) for reversing a singly linked list recursively (detach head, reverse tail, append head).",
-    "expectedAnswer": "T(n) = T(n-1) + O(n), which is O(n^2)",
-    "expectedAnswerKeywords": ["T(n-1)", "O(n)", "n^2"],
-    "explanation": "Each call does O(n) work to append head to reversed tail, plus T(n-1) for recursion. This sums to O(n^2).",
-    "hints": ["What's the cost of appending to the end of a list?", "Recursion depth is n"]
-  },
-  {
-    "id": "stacks-3-5",
-    "topic": "stacks_queues_lists",
+    "id": "vocab-3",
+    "level": 1,
+    "topic": "heaps",
     "subtopic": "priority-queue",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Compare implementing a priority queue with sorted array vs heap. Which is better for what operations?",
-    "expectedAnswer": "Sorted array: O(1) getMax, O(n) insert. Heap: O(log n) both. Heap better for insertions.",
-    "expectedAnswerKeywords": ["sorted array", "heap", "O(1)", "O(n)", "O(log n)", "insert"],
-    "explanation": "Sorted array gives O(1) max but O(n) insert (shifting). Heap gives O(log n) for both. Heap is better when insertions are frequent.",
-    "hints": ["Consider both insert and extract-max", "What's the cost of maintaining sorted order?"]
-  },
-  {
-    "id": "arrays-1-1",
-    "topic": "arrays_memory",
-    "subtopic": "array-basics",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What is the time complexity of accessing an array element by index?",
-    "choices": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n^2)"
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "An abstract data type where each element has a key and removals always return the element with the highest (or lowest) priority key.",
+    "term": "priority queue",
+    "acceptable_synonyms": ["priority queue", "pq"],
+    "hints": [
+      "It can be implemented with a binary heap.",
+      "It generalizes both stacks and queues by using priorities."
     ],
-    "correctChoiceIndex": 0,
-    "explanation": "Array access is O(1) using address calculation: base + (index × element_size)."
+    "explanation": "A priority queue always removes the element with the best (highest or lowest) key, rather than strictly FIFO or LIFO order."
   },
   {
-    "id": "arrays-1-2",
-    "topic": "arrays_memory",
-    "subtopic": "memory-layout",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "Are array elements stored contiguously in memory?",
-    "expectedAnswer": "Yes",
-    "expectedAnswerKeywords": ["yes", "contiguous"],
-    "explanation": "Arrays store elements in contiguous memory locations, enabling O(1) random access via pointer arithmetic."
-  },
-  {
-    "id": "arrays-1-3",
-    "topic": "arrays_memory",
-    "subtopic": "stack-vs-heap",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "Where are local variables typically stored?",
-    "choices": [
-      "Heap",
-      "Stack",
-      "Static memory",
-      "Code segment"
-    ],
-    "correctChoiceIndex": 1,
-    "explanation": "Local variables are stored on the stack, which provides automatic memory management for function scope."
-  },
-  {
-    "id": "arrays-1-4",
-    "topic": "arrays_memory",
-    "subtopic": "array-vs-linked",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "Name one advantage of arrays over linked lists.",
-    "expectedAnswer": "O(1) random access by index",
-    "expectedAnswerKeywords": ["random access", "O(1)", "index", "fast access"],
-    "explanation": "Arrays provide O(1) random access by index, while linked lists require O(n) traversal."
-  },
-  {
-    "id": "arrays-1-5",
-    "topic": "arrays_memory",
-    "subtopic": "searching",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What is the worst-case time for linear search in an array of n elements?",
-    "choices": [
-      "O(1)",
-      "O(log n)",
-      "O(n)",
-      "O(n log n)"
-    ],
-    "correctChoiceIndex": 2,
-    "explanation": "Linear search must check all n elements in the worst case (element not present or at end)."
-  },
-  {
-    "id": "arrays-2-1",
-    "topic": "arrays_memory",
-    "subtopic": "array-deletion",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What is the average-case time complexity for deleting an element from an array?",
-    "expectedAnswer": "O(n)",
-    "expectedAnswerKeywords": ["O(n)", "linear"],
-    "explanation": "Deletion requires shifting elements. On average, n/2 elements need shifting, which is O(n).",
-    "hints": ["How many elements need to shift on average?"]
-  },
-  {
-    "id": "arrays-2-2",
-    "topic": "arrays_memory",
-    "subtopic": "binary-search",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What is required for binary search to work, and what is its time complexity?",
-    "expectedAnswer": "Sorted array, O(log n)",
-    "expectedAnswerKeywords": ["sorted", "log n", "logarithmic"],
-    "explanation": "Binary search requires a sorted array and runs in O(log n) by halving the search space each iteration."
-  },
-  {
-    "id": "arrays-2-3",
-    "topic": "arrays_memory",
-    "subtopic": "two-sum-bruteforce",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Describe a brute-force O(n^2) solution for two-sum problem.",
-    "expectedAnswer": "Two nested loops checking all pairs for sum equal to target",
-    "expectedAnswerKeywords": ["nested loops", "pairs", "O(n^2)"],
-    "explanation": "Check all pairs (i,j) where i<j: if nums[i]+nums[j]==target, return [i,j]. This is O(n^2).",
-    "hints": ["Try all possible pairs"]
-  },
-  {
-    "id": "arrays-2-4",
-    "topic": "arrays_memory",
-    "subtopic": "pointer-arithmetic",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "If array A starts at address 1000 and each int is 4 bytes, what is the address of A[5]?",
-    "expectedAnswer": "1020",
-    "expectedAnswerKeywords": ["1020", "20"],
-    "explanation": "Address of A[i] = base + (i × size). A[5] = 1000 + (5 × 4) = 1020.",
-    "hints": ["Base address + (index × element size)"]
-  },
-  {
-    "id": "arrays-2-5",
-    "topic": "arrays_memory",
-    "subtopic": "dynamic-array",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Why do dynamic arrays double their capacity when growing?",
-    "expectedAnswer": "To achieve O(1) amortized insertion cost",
-    "expectedAnswerKeywords": ["amortized", "O(1)", "constant"],
-    "explanation": "Doubling ensures each element is copied at most log n times, giving O(1) amortized cost per insertion despite occasional O(n) resize.",
-    "hints": ["Consider total cost over many insertions"]
-  },
-  {
-    "id": "arrays-3-1",
-    "topic": "arrays_memory",
-    "subtopic": "two-sum-optimal",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Describe an O(n) solution for two-sum using a hash table.",
-    "expectedAnswer": "Store seen elements in hash table. For each element x, check if target-x exists in table.",
-    "expectedAnswerKeywords": ["hash table", "target - x", "O(n)"],
-    "explanation": "Iterate once, storing each element in hash table. For element x, check if (target-x) was seen. O(1) per lookup gives O(n) total.",
-    "hints": ["Use hash table for O(1) lookup", "What complement are you looking for?"]
-  },
-  {
-    "id": "arrays-3-2",
-    "topic": "arrays_memory",
-    "subtopic": "two-sum-sorted",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "For a SORTED array, describe an O(n) two-pointer solution for two-sum.",
-    "expectedAnswer": "Use two pointers at start and end. Move based on sum comparison with target.",
-    "expectedAnswerKeywords": ["two pointers", "start", "end", "O(n)"],
-    "explanation": "Left=0, right=n-1. If sum<target, left++. If sum>target, right--. If equal, found. O(n) single pass.",
-    "hints": ["Start from both ends", "How does sorting help?"]
-  },
-  {
-    "id": "arrays-3-3",
-    "topic": "arrays_memory",
-    "subtopic": "memory-alignment",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Explain why struct padding exists and how it affects memory usage.",
-    "expectedAnswer": "CPU requires aligned access for performance. Padding ensures fields align to their size boundaries.",
-    "expectedAnswerKeywords": ["alignment", "padding", "performance", "boundaries"],
-    "explanation": "CPUs access memory more efficiently when data is aligned (e.g., 4-byte int at address divisible by 4). Compiler adds padding to ensure this.",
-    "hints": ["Consider CPU memory access requirements", "Why can't you pack everything tightly?"]
-  },
-  {
-    "id": "arrays-3-4",
-    "topic": "arrays_memory",
-    "subtopic": "cache-locality",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Why are arrays faster than linked lists for sequential access despite both being O(n)?",
-    "expectedAnswer": "Arrays have better cache locality due to contiguous memory storage.",
-    "expectedAnswerKeywords": ["cache", "locality", "contiguous", "memory"],
-    "explanation": "Contiguous array elements are loaded into cache together (spatial locality), while linked list nodes are scattered, causing more cache misses.",
-    "hints": ["Consider how CPU cache works", "Contiguous vs scattered memory"]
-  },
-  {
-    "id": "arrays-3-5",
-    "topic": "arrays_memory",
-    "subtopic": "matrix-multiplication",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "What is the time complexity of multiplying two n×n matrices using the standard algorithm?",
-    "expectedAnswer": "O(n^3)",
-    "expectedAnswerKeywords": ["n^3", "n³", "cubic"],
-    "explanation": "Computing each of n² output elements requires n multiplications and additions, giving O(n² × n) = O(n³).",
-    "hints": ["How many output elements?", "How many operations per output element?"]
-  },
-  {
-    "id": "trees-1-1",
+    "id": "vocab-4",
+    "level": 1,
     "topic": "trees",
-    "subtopic": "tree-basics",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What is the maximum number of children a node in a binary tree can have?",
-    "choices": [
-      "1",
-      "2",
-      "3",
-      "Unlimited"
+    "subtopic": "binary-tree",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A tree data structure in which each node has at most two children.",
+    "term": "binary tree",
+    "acceptable_synonyms": ["binary tree"],
+    "hints": [
+      "It is the base structure for BSTs, heaps, and AVL trees.",
+      "Each node has at most two children."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "By definition, binary tree nodes have at most 2 children: left and right."
+    "explanation": "A binary tree is any tree where each node has at most two children, usually called left and right."
   },
   {
-    "id": "trees-1-2",
+    "id": "vocab-5",
+    "level": 1,
     "topic": "trees",
-    "subtopic": "bst-property",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "In a BST, how do left subtree keys compare to a node's key?",
-    "expectedAnswer": "All left subtree keys are smaller",
-    "expectedAnswerKeywords": ["smaller", "less", "left"],
-    "explanation": "BST property: all keys in left subtree < node key < all keys in right subtree."
-  },
-  {
-    "id": "trees-1-3",
-    "topic": "trees",
-    "subtopic": "tree-height",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "What is the height of a tree with just one node (the root)?",
-    "expectedAnswer": "0",
-    "expectedAnswerKeywords": ["0", "zero"],
-    "explanation": "Height is the number of edges on the longest path from root to leaf. Single node has no edges, so height is 0."
-  },
-  {
-    "id": "trees-1-4",
-    "topic": "trees",
-    "subtopic": "complete-tree",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "In a complete binary tree, how are levels filled?",
-    "choices": [
-      "All levels partially filled",
-      "All levels fully filled except possibly the last, which fills left-to-right",
-      "Only the last level is filled",
-      "Random filling"
+    "subtopic": "bst",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A binary tree in which, for every node, all keys in its left subtree are smaller and all keys in its right subtree are larger.",
+    "term": "binary search tree",
+    "acceptable_synonyms": ["binary search tree", "bst"],
+    "hints": [
+      "In-order traversal of this structure visits keys in sorted order.",
+      "It supports efficient search, insert, and delete on average."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "Complete binary tree: all levels full except possibly the last, which fills left to right."
+    "explanation": "A binary search tree (BST) is a binary tree that enforces an ordering invariant on keys, enabling efficient searching."
   },
   {
-    "id": "trees-1-5",
+    "id": "vocab-6",
+    "level": 1,
     "topic": "trees",
-    "subtopic": "traversals",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "Which traversal visits nodes in sorted order for a BST?",
-    "choices": [
-      "PreOrder",
-      "InOrder",
-      "PostOrder",
-      "LevelOrder"
+    "subtopic": "avl",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A self-balancing binary search tree in which the heights of left and right subtrees of any node differ by at most 1.",
+    "term": "avl tree",
+    "acceptable_synonyms": ["avl tree", "avl"],
+    "hints": [
+      "It uses rotations after insert and delete to maintain balance.",
+      "Named after its inventors Adelson-Velsky and Landis."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "InOrder traversal (left-node-right) visits BST nodes in ascending key order."
+    "explanation": "An AVL tree is a height-balanced BST that keeps height O(log n) by performing rotations whenever the balance factor becomes too large."
   },
   {
-    "id": "trees-2-1",
+    "id": "vocab-7",
+    "level": 1,
+    "topic": "heaps",
+    "subtopic": "max-heap",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A complete binary tree in which every node’s key is greater than or equal to the keys of its children.",
+    "term": "max-heap",
+    "acceptable_synonyms": ["max-heap", "max heap"],
+    "hints": [
+      "The largest key is always at the root.",
+      "Often used to implement a priority queue where Remove returns the maximum."
+    ],
+    "explanation": "A max-heap is a heap where the largest key is at the root and every parent is at least as large as its children."
+  },
+  {
+    "id": "vocab-8",
+    "level": 1,
+    "topic": "heaps",
+    "subtopic": "min-heap",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A complete binary tree in which every node’s key is less than or equal to the keys of its children.",
+    "term": "min-heap",
+    "acceptable_synonyms": ["min-heap", "min heap"],
+    "hints": [
+      "The smallest key is always at the root.",
+      "Useful for algorithms like Dijkstra’s shortest path."
+    ],
+    "explanation": "A min-heap is a heap where the smallest key is at the root and every parent is at most as large as its children."
+  },
+  {
+    "id": "vocab-9",
+    "level": 1,
+    "topic": "trees",
+    "subtopic": "full-binary-tree",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A binary tree in which every internal node has exactly two children.",
+    "term": "full binary tree",
+    "acceptable_synonyms": ["full binary tree"],
+    "hints": [
+      "Also called a proper binary tree.",
+      "Every internal node has exactly two children, not zero or one."
+    ],
+    "explanation": "A full binary tree has no nodes with only one child; each internal node has exactly two, and leaves have none."
+  },
+  {
+    "id": "vocab-10",
+    "level": 1,
+    "topic": "trees",
+    "subtopic": "complete-binary-tree",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.",
+    "term": "complete binary tree",
+    "acceptable_synonyms": ["complete binary tree"],
+    "hints": [
+      "Heaps are usually stored as this kind of tree.",
+      "This property makes array representation easy."
+    ],
+    "explanation": "A complete binary tree has nodes packed as far left as possible, making it ideal for array-based heaps."
+  },
+  {
+    "id": "vocab-11",
+    "level": 1,
+    "topic": "analysis",
+    "subtopic": "big-o",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A notation that gives an asymptotic upper bound on the growth rate of a function, ignoring constant factors and lower-order terms.",
+    "term": "big-o notation",
+    "acceptable_synonyms": ["big-o", "big o", "big-o notation", "big o notation"],
+    "hints": [
+      "We write it as O(f(n)).",
+      "It describes worst-case or upper-bound behavior."
+    ],
+    "explanation": "Big-O notation describes an upper bound on how fast a function grows as n becomes large, used to classify algorithm running times."
+  },
+  {
+    "id": "vocab-12",
+    "level": 1,
+    "topic": "analysis",
+    "subtopic": "big-theta",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A notation that tightly bounds a function from above and below, indicating that two functions grow at the same rate asymptotically.",
+    "term": "big-theta notation",
+    "acceptable_synonyms": ["big-theta", "theta", "big theta", "theta notation", "big-theta notation"],
+    "hints": [
+      "We write it as Θ(f(n)).",
+      "It gives a tight bound, not just an upper bound."
+    ],
+    "explanation": "Big-Theta notation describes a tight bound on a function’s growth rate, meaning the function is both O(f(n)) and Ω(f(n))."
+  },
+  {
+    "id": "vocab-13",
+    "level": 1,
+    "topic": "analysis",
+    "subtopic": "big-omega",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A notation that gives an asymptotic lower bound on the growth rate of a function.",
+    "term": "big-omega notation",
+    "acceptable_synonyms": ["big-omega", "big omega", "omega notation", "big-omega notation"],
+    "hints": [
+      "We write it as Ω(f(n)).",
+      "It describes at least how fast something grows."
+    ],
+    "explanation": "Big-Omega notation provides a lower bound on how fast a function grows, used to describe best-case or guaranteed growth."
+  },
+  {
+    "id": "vocab-14",
+    "level": 1,
+    "topic": "trees",
+    "subtopic": "leaf",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A node in a tree that has no children.",
+    "term": "leaf",
+    "acceptable_synonyms": ["leaf", "leaf node"],
+    "hints": [
+      "These are often counted to derive relationships like l = i + 1.",
+      "They appear at the fringe of the tree."
+    ],
+    "explanation": "A leaf is a node with no children; in many algorithms we treat leaves as base cases."
+  },
+  {
+    "id": "vocab-15",
+    "level": 1,
+    "topic": "trees",
+    "subtopic": "internal-node",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A node in a tree that has at least one child.",
+    "term": "internal node",
+    "acceptable_synonyms": ["internal node", "internal"],
+    "hints": [
+      "Complement of a leaf.",
+      "In full binary trees, these always have two children."
+    ],
+    "explanation": "Internal nodes are non-leaf nodes; they have at least one child and lie inside the tree, not at the fringe."
+  },
+  {
+    "id": "vocab-16",
+    "level": 1,
+    "topic": "memory",
+    "subtopic": "fragmentation",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "The phenomenon where free memory is split into many small pieces, making it difficult to satisfy large allocation requests.",
+    "term": "fragmentation",
+    "acceptable_synonyms": ["fragmentation"],
+    "hints": [
+      "It can be internal or external.",
+      "Memory allocators try to reduce this problem."
+    ],
+    "explanation": "Fragmentation occurs when free memory becomes broken into small chunks so that large contiguous allocations become difficult."
+  },
+  {
+    "id": "vocab-17",
+    "level": 1,
+    "topic": "memory",
+    "subtopic": "free-list",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A data structure, often a linked list, that keeps track of all currently available blocks of memory.",
+    "term": "free list",
+    "acceptable_synonyms": ["free list"],
+    "hints": [
+      "Memory allocators use it to find space for new requests.",
+      "It stores unallocated blocks."
+    ],
+    "explanation": "A free list is a collection of free memory blocks that an allocator uses to satisfy future allocation requests."
+  },
+  {
+    "id": "vocab-18",
+    "level": 1,
+    "topic": "recursion",
+    "subtopic": "base-case",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A condition in a recursive function that stops the recursion and returns a simple, direct answer.",
+    "term": "base case",
+    "acceptable_synonyms": ["base case"],
+    "hints": [
+      "Without this, recursion would never terminate.",
+      "It usually handles the smallest input size."
+    ],
+    "explanation": "The base case is the non-recursive part of a recursive function that stops the recursion and provides a direct answer."
+  },
+  {
+    "id": "vocab-19",
+    "level": 1,
+    "topic": "recursion",
+    "subtopic": "recursive-step",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "The part of a recursive function where the function calls itself on a smaller or simpler input.",
+    "term": "recursive step",
+    "acceptable_synonyms": ["recursive step"],
+    "hints": [
+      "It reduces the problem toward the base case.",
+      "Combined with the base case, it defines the recursion."
+    ],
+    "explanation": "The recursive step is where a function solves a problem by calling itself on a smaller or simpler version of the same problem."
+  },
+  {
+    "id": "vocab-20",
+    "level": 1,
+    "topic": "analysis",
+    "subtopic": "amortized-analysis",
+    "question_type": "vocab",
+    "prompt": "Given the definition below, type the corresponding term.",
+    "definition": "A technique for averaging the cost of a sequence of operations to show that the average cost per operation is small, even if some individual operations are expensive.",
+    "term": "amortized analysis",
+    "acceptable_synonyms": ["amortized analysis"],
+    "hints": [
+      "Used for dynamic array resizing and some complex data structures.",
+      "It gives an average cost over a sequence, not per individual operation alone."
+    ],
+    "explanation": "Amortized analysis spreads occasional expensive operations over many cheap ones, giving a small average cost per operation."
+  },
+
+  /* LEVEL 2: SHORT ANSWER / CONCEPTUAL (about 18) */
+
+  {
+    "id": "sa-1",
+    "level": 2,
+    "topic": "analysis",
+    "subtopic": "nested-loops",
+    "question_type": "short_answer",
+    "prompt": "A function has two nested loops: for i = 0..n-1 and for j = 0..n-1, each doing O(1) work. What is the overall time complexity in Big-O notation, and why?",
+    "expectedAnswer": "O(n^2), because the inner loop runs n times for each of the n outer iterations.",
+    "expectedKeywordsRequired": ["o(n^2)", "inner loop", "outer", "n times"],
+    "expectedKeywordsPartial": ["n*n", "quadratic", "n squared"],
+    "hints": [
+      "Count how many times the inner loop runs in total.",
+      "How many combinations of (i, j) are there?"
+    ],
+    "explanation": "There are n choices for i and n choices for j, giving n·n = n^2 iterations. Each does constant work, so the overall complexity is O(n^2)."
+  },
+  {
+    "id": "sa-2",
+    "level": 2,
+    "topic": "analysis",
+    "subtopic": "log-loop",
+    "question_type": "short_answer",
+    "prompt": "Consider a loop that starts int i = 1 and repeatedly doubles i (i *= 2) until i > n. What is the runtime complexity in terms of n, and why?",
+    "expectedAnswer": "O(log n), because we double i each time, so it takes about log2(n) steps to exceed n.",
+    "expectedKeywordsRequired": ["o(log n)", "double", "log2", "iterations"],
+    "expectedKeywordsPartial": ["logarithmic", "base 2"],
+    "hints": [
+      "Think: 1, 2, 4, 8, ..., when do you pass n?",
+      "How many times can you double 1 before exceeding n?"
+    ],
+    "explanation": "Each iteration doubles i, so after k iterations, i = 2^k. The loop stops when 2^k > n, so k ≈ log2(n), giving O(log n)."
+  },
+  {
+    "id": "sa-3",
+    "level": 2,
+    "topic": "analysis",
+    "subtopic": "compare-growth",
+    "question_type": "short_answer",
+    "prompt": "Between O(n log n) and O(n^2), which grows faster for large n and why does that matter when choosing algorithms?",
+    "expectedAnswer": "O(n^2) grows faster than O(n log n). For large n, an O(n log n) algorithm will be much more efficient than an O(n^2) algorithm.",
+    "expectedKeywordsRequired": ["o(n^2)", "o(n log n)", "grows faster", "efficient"],
+    "expectedKeywordsPartial": ["quadratic", "n log n", "slower"],
+    "hints": [
+      "Compare n log n vs n^2 for big n.",
+      "Which term has higher degree in n?"
+    ],
+    "explanation": "n^2 dominates n log n as n becomes large, so O(n^2) grows faster and is usually less efficient than O(n log n) for big inputs."
+  },
+  {
+    "id": "sa-4",
+    "level": 2,
+    "topic": "stacks_queues",
+    "subtopic": "stack-applications",
+    "question_type": "short_answer",
+    "prompt": "Name one practical use of a stack in algorithm design and briefly explain why a stack is appropriate.",
+    "expectedAnswer": "Stacks are used for expression evaluation or checking balanced parentheses because they naturally match opening and closing symbols in LIFO order.",
+    "expectedKeywordsRequired": ["stack", "expression", "balanced", "lifo"],
+    "expectedKeywordsPartial": ["function calls", "recursion"],
+    "hints": [
+      "Think of parsing parentheses: (), [], {}.",
+      "What structure does the call stack in a program resemble?"
+    ],
+    "explanation": "Stacks support LIFO behavior, which matches nested structures like parentheses or function calls, making them ideal for parsing expressions or managing recursion."
+  },
+  {
+    "id": "sa-5",
+    "level": 2,
+    "topic": "stacks_queues",
+    "subtopic": "queue-applications",
+    "question_type": "short_answer",
+    "prompt": "Give one example of a real-world system modeled naturally by a queue and explain why FIFO order makes sense.",
+    "expectedAnswer": "Customer service lines are modeled by queues: the first person to arrive should be the first person served, so FIFO order is natural.",
+    "expectedKeywordsRequired": ["queue", "fifo", "first", "served"],
+    "expectedKeywordsPartial": ["printer queue", "process scheduling"],
+    "hints": [
+      "Think of people waiting in line.",
+      "Think of jobs waiting for a printer."
+    ],
+    "explanation": "In many systems like waiting lines, fairness means serving people in arrival order, which is exactly the FIFO behavior of a queue."
+  },
+  {
+    "id": "sa-6",
+    "level": 2,
+    "topic": "arrays_memory",
+    "subtopic": "array-delete",
+    "question_type": "short_answer",
+    "prompt": "In an array-based list with n elements, what is the worst-case time complexity of deleting an element at the front (index 0), and why?",
+    "expectedAnswer": "O(n), because all other elements must be shifted one position to the left.",
+    "expectedKeywordsRequired": ["o(n)", "shift", "remaining", "elements"],
+    "expectedKeywordsPartial": ["linear", "move"],
+    "hints": [
+      "After removing index 0, what happens to index 1, 2, etc.?",
+      "How many elements might need to move?"
+    ],
+    "explanation": "Deleting the first element requires moving every other element down by one index, so up to n−1 moves, giving O(n) time."
+  },
+  {
+    "id": "sa-7",
+    "level": 2,
+    "topic": "arrays_memory",
+    "subtopic": "linkedlist-vs-array",
+    "question_type": "short_answer",
+    "prompt": "Why can inserting into the middle of a linked list be more efficient than inserting into the middle of an array?",
+    "expectedAnswer": "Linked list insertions only require changing a few pointers once you have the node, which is O(1), while arrays require shifting many elements, which is O(n).",
+    "expectedKeywordsRequired": ["pointer", "o(1)", "shift", "o(n)"],
+    "expectedKeywordsPartial": ["no shifting", "move elements"],
+    "hints": [
+      "Think about what must move in an array vs a linked list.",
+      "In a linked list, what changes when you insert a node?"
+    ],
+    "explanation": "Arrays store elements contiguously, so inserting in the middle requires shifting many elements. Linked lists only store pointers, so inserting is O(1) once you have a pointer to the insertion point."
+  },
+  {
+    "id": "sa-8",
+    "level": 2,
+    "topic": "trees",
+    "subtopic": "inorder-bst",
+    "question_type": "short_answer",
+    "prompt": "Why does an inorder traversal of a binary search tree visit keys in sorted order?",
+    "expectedAnswer": "Because the BST property guarantees that all keys in the left subtree are smaller and all keys in the right subtree are larger, and inorder visits left, node, then right.",
+    "expectedKeywordsRequired": ["left", "smaller", "right", "larger", "inorder"],
+    "expectedKeywordsPartial": ["sorted", "bst property"],
+    "hints": [
+      "Recall the definition of a BST.",
+      "Inorder order is left, node, right."
+    ],
+    "explanation": "In a BST, all keys in the left subtree are smaller than the node and all in the right are larger. Inorder visits left subtree, node, then right subtree, so keys appear in ascending order."
+  },
+  {
+    "id": "sa-9",
+    "level": 2,
+    "topic": "trees",
+    "subtopic": "height-vs-levels",
+    "question_type": "short_answer",
+    "prompt": "Explain the difference between the height of a tree and the depth (or level) of a node.",
+    "expectedAnswer": "Height is the length of the longest path from the root to any leaf, while the depth of a node is the length of the path from the root to that node.",
+    "expectedKeywordsRequired": ["height", "longest path", "root", "leaf", "depth"],
+    "expectedKeywordsPartial": ["distance", "levels"],
+    "hints": [
+      "Height is a property of the whole tree.",
+      "Depth describes where a specific node lies."
+    ],
+    "explanation": "The height of a tree is the maximum depth of any node (distance from root to farthest leaf). A node’s depth (or level) is how far it is from the root."
+  },
+  {
+    "id": "sa-10",
+    "level": 2,
     "topic": "trees",
     "subtopic": "bst-search",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What is the time complexity of searching in a balanced BST of n nodes?",
-    "expectedAnswer": "O(log n)",
-    "expectedAnswerKeywords": ["log n", "logarithmic"],
-    "explanation": "Balanced BST has height O(log n). Search follows one path from root to leaf, so O(log n).",
-    "hints": ["What is the height of a balanced tree?"]
+    "question_type": "short_answer",
+    "prompt": "What is the average-case time complexity of searching for a key in a balanced binary search tree with n nodes, and why?",
+    "expectedAnswer": "O(log n), because the tree height is O(log n) and each comparison moves you down one level.",
+    "expectedKeywordsRequired": ["o(log n)", "height", "balanced", "comparison"],
+    "expectedKeywordsPartial": ["logarithmic", "balanced tree"],
+    "hints": [
+      "Think about how many levels a balanced tree of n nodes can have.",
+      "Each comparison eliminates about half the remaining subtree."
+    ],
+    "explanation": "A balanced BST keeps its height proportional to log n, so searching at most visits one node per level, giving O(log n) time."
   },
   {
-    "id": "trees-2-2",
+    "id": "sa-11",
+    "level": 2,
+    "topic": "heaps",
+    "subtopic": "heapify",
+    "question_type": "short_answer",
+    "prompt": "Why is building a heap from an array using the bottom-up heapify procedure O(n), rather than O(n log n)?",
+    "expectedAnswer": "Because most nodes are near the bottom and require only a small amount of sift-down work, so the total work over all nodes sums to O(n).",
+    "expectedKeywordsRequired": ["bottom-up", "most nodes", "near bottom", "o(n)"],
+    "expectedKeywordsPartial": ["few levels", "sift-down"],
+    "hints": [
+      "How many nodes are at or near the leaves?",
+      "Do all nodes sift down the full height?"
+    ],
+    "explanation": "In bottom-up heapify, only a few nodes near the root can sift down many levels; most nodes are leaves or near leaves and do little work. Summing the costs yields O(n) time."
+  },
+  {
+    "id": "sa-12",
+    "level": 2,
+    "topic": "heaps",
+    "subtopic": "heap-ops",
+    "question_type": "short_answer",
+    "prompt": "What are the typical Big-O time complexities for Insert and RemoveMax in a binary max-heap of size n, and why?",
+    "expectedAnswer": "Both operations are O(log n) because they move up or down along a single root-to-leaf path in a tree of height O(log n).",
+    "expectedKeywordsRequired": ["insert", "remove", "o(log n)", "path", "height"],
+    "expectedKeywordsPartial": ["sift-up", "sift-down"],
+    "hints": [
+      "What is the height of a complete binary tree with n nodes?",
+      "Each insert/remove travels at most the height of the heap."
+    ],
+    "explanation": "A heap is a complete tree of height O(log n). Insert may sift new elements up, and RemoveMax may sift the replacement down, both traversing at most the tree height."
+  },
+  {
+    "id": "sa-13",
+    "level": 2,
     "topic": "trees",
-    "subtopic": "full-tree",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "In a full binary tree, what is the relationship between internal nodes (i) and leaves (l)?",
-    "expectedAnswer": "l = i + 1",
-    "expectedAnswerKeywords": ["l = i + 1", "leaves", "internal"],
-    "explanation": "Full binary tree: every internal node has 2 children. This gives l = i + 1.",
-    "hints": ["Start with one node", "What happens when you add 2 children?"]
+    "subtopic": "bst-vs-heap",
+    "question_type": "short_answer",
+    "prompt": "Give one key difference between a binary search tree and a binary heap in terms of the ordering property.",
+    "expectedAnswer": "In a BST, all keys in the left subtree are smaller and all in the right are larger, giving sorted inorder traversal. In a heap, only parent-child relationships are ordered, not between siblings or cousins.",
+    "expectedKeywordsRequired": ["bst", "left", "right", "sorted", "heap", "parent"],
+    "expectedKeywordsPartial": ["global order", "local order"],
+    "hints": [
+      "Which structure lets you get all keys in sorted order by traversal?",
+      "Which structure only ensures the root is extreme (max or min)?"
+    ],
+    "explanation": "BSTs impose a global order across the entire tree; heaps only enforce a local relationship between parents and children. As a result, BSTs support sorted traversal, heaps do not."
   },
   {
-    "id": "trees-2-3",
+    "id": "sa-14",
+    "level": 2,
+    "topic": "recursion",
+    "subtopic": "tree-recursion",
+    "question_type": "short_answer",
+    "prompt": "Why are recursive algorithms especially natural for tree problems?",
+    "expectedAnswer": "Trees are defined recursively as nodes with subtrees, so recursion matches this structure by solving the problem on subtrees and combining the results.",
+    "expectedKeywordsRequired": ["subtree", "recursively", "structure", "combine"],
+    "expectedKeywordsPartial": ["induction", "divide and conquer"],
+    "hints": [
+      "How do you define a tree from its subtrees?",
+      "How does recursion mirror that definition?"
+    ],
+    "explanation": "A tree is defined in terms of smaller trees (its subtrees). Recursive algorithms naturally process a node and then recursively process its subtrees, making them a good fit."
+  },
+  {
+    "id": "sa-15",
+    "level": 2,
+    "topic": "analysis",
+    "subtopic": "amortized",
+    "question_type": "short_answer",
+    "prompt": "Dynamic arrays sometimes double their capacity when full. Why is the average cost per insertion still O(1) over many operations?",
+    "expectedAnswer": "Because expensive resize operations happen infrequently; their cost is spread out over many cheap insertions, giving amortized O(1) per operation.",
+    "expectedKeywordsRequired": ["rare", "resize", "spread", "amortized", "o(1)"],
+    "expectedKeywordsPartial": ["doubling", "average"],
+    "hints": [
+      "Does every push cause a full copy?",
+      "What happens between expansions?"
+    ],
+    "explanation": "Although a resize costs O(n) when it occurs, it only happens after many cheap inserts. Amortized analysis shows that the average cost per insert is still O(1)."
+  },
+  {
+    "id": "sa-16",
+    "level": 2,
+    "topic": "arrays_memory",
+    "subtopic": "binary-search-array",
+    "question_type": "short_answer",
+    "prompt": "Why is binary search efficient on arrays but not on general linked lists?",
+    "expectedAnswer": "Arrays allow O(1) access to the middle element, so binary search is O(log n). Linked lists require O(n) time to reach the middle, so each step of binary search would be expensive.",
+    "expectedKeywordsRequired": ["array", "o(1)", "middle", "linked list", "o(n)"],
+    "expectedKeywordsPartial": ["random access", "sequential"],
+    "hints": [
+      "How do you jump to element A[mid] in an array?",
+      "How do you reach the mid node in a linked list?"
+    ],
+    "explanation": "Binary search assumes you can jump directly to the middle element. Arrays support this via indexing, but linked lists require sequential traversal, defeating the O(log n) advantage."
+  },
+  {
+    "id": "sa-17",
+    "level": 2,
     "topic": "trees",
-    "subtopic": "tree-size",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "A complete binary tree has levels 0 through n (all full). How many total nodes?",
-    "expectedAnswer": "2^(n+1) - 1",
-    "expectedAnswerKeywords": ["2^(n+1) - 1", "2^n+1 - 1"],
-    "explanation": "Sum of geometric series: 2^0 + 2^1 + ... + 2^n = 2^(n+1) - 1.",
-    "hints": ["Sum of powers of 2"]
+    "subtopic": "full-tree-relation",
+    "question_type": "short_answer",
+    "prompt": "In a full binary tree, what is the relationship between the number of leaves l and the number of internal nodes i, and why?",
+    "expectedAnswer": "l = i + 1, because each time you turn a leaf into an internal node by adding two children, the number of leaves increases by exactly one.",
+    "expectedKeywordsRequired": ["l = i + 1", "leaf", "internal", "increase"],
+    "expectedKeywordsPartial": ["full binary tree", "relation"],
+    "hints": [
+      "Start with one node. What are l and i?",
+      "What happens when you replace a leaf by an internal node with two children?"
+    ],
+    "explanation": "A single-node tree has l=1, i=0, so l−i=1. Each time a leaf is replaced by an internal node with two children, l and i both increase by 1, keeping l−i constant at 1."
   },
   {
-    "id": "trees-2-4",
+    "id": "sa-18",
+    "level": 2,
     "topic": "trees",
-    "subtopic": "preorder-postorder",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "In PreOrder traversal, when is the root visited relative to its children?",
-    "expectedAnswer": "Before (root-left-right)",
-    "expectedAnswerKeywords": ["before", "first", "root-left-right"],
-    "explanation": "PreOrder: visit root, then left subtree, then right subtree (root first)."
+    "subtopic": "bst-buggy-validation",
+    "question_type": "short_answer",
+    "prompt": "Why is it incorrect to validate a BST by only checking that each node’s left child is smaller and right child is larger?",
+    "expectedAnswer": "Because this local check can miss violations deeper in the subtree; you must ensure all keys in the left subtree are smaller than the root and all in the right subtree are larger.",
+    "expectedKeywordsRequired": ["subtree", "global", "violation", "range"],
+    "expectedKeywordsPartial": ["min", "max", "bounds"],
+    "hints": [
+      "Consider a node deep in the left subtree that is larger than the root.",
+      "Local parent-child checks don’t enforce the global property."
+    ],
+    "explanation": "Just comparing a node with its children doesn’t guarantee that all nodes in a subtree respect the BST property with respect to ancestors. A correct algorithm must track a valid key range for each subtree."
   },
+
+  /* LEVEL 3: TREE / HEAP INSERTION (6 EXAMPLES) */
+
   {
-    "id": "trees-2-5",
+    "id": "th-1",
+    "level": 3,
     "topic": "trees",
-    "subtopic": "bst-min-max",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Where is the minimum value in a BST located?",
-    "expectedAnswer": "Leftmost node",
-    "expectedAnswerKeywords": ["leftmost", "left"],
-    "explanation": "BST property means smallest values are left. Keep going left until no left child - that's the minimum.",
-    "hints": ["Follow the BST property"]
+    "subtopic": "bst-insert",
+    "question_type": "tree_heap",
+    "prompt": "You are given a BST in level-order and a sequence of keys to insert. Perform standard BST insertions and give the final tree in level-order.",
+    "structure_kind": "bst",
+    "representation": "Initial BST level-order: 10 5 20 3 7 15 25",
+    "inserts": [6],
+    "expected_representation": "10 5 20 3 7 15 25 6",
+    "grading_representation_hint": "Type the final BST level-order as space-separated keys, e.g. 10 5 20 ...",
+    "hints": [
+      "Remember BST insertion: compare with root and go left or right.",
+      "Insert 6: compare to 10 (left), 5 (right), 7 (left)."
+    ],
+    "explanation": "Inserting 6 into the BST: 6 < 10 → go left; 6 > 5 → go right; 6 < 7 → goes to the left child of 7. Level-order after insertion is 10 5 20 3 7 15 25 6."
   },
   {
-    "id": "trees-3-1",
+    "id": "th-2",
+    "level": 3,
+    "topic": "trees",
+    "subtopic": "bst-insert-multiple",
+    "question_type": "tree_heap",
+    "prompt": "You are given a BST in level-order and two keys to insert in order. Perform standard BST insertions and give the final tree in level-order.",
+    "structure_kind": "bst",
+    "representation": "Initial BST level-order: 8 4 12 2 6 10 14",
+    "inserts": [5, 11],
+    "expected_representation": "8 4 12 2 6 10 14 5 11",
+    "grading_representation_hint": "Type the final BST level-order as space-separated keys.",
+    "hints": [
+      "Insert 5: 5 < 8 → left, 5 > 4 → right, 5 < 6 → left.",
+      "Insert 11: 11 > 8 → right, 11 > 10 → right."
+    ],
+    "explanation": "5 becomes the left child of 6; 11 becomes the right child of 10. Level-order is 8 4 12 2 6 10 14 5 11."
+  },
+  {
+    "id": "th-3",
+    "level": 3,
+    "topic": "trees",
+    "subtopic": "avl-insert",
+    "question_type": "tree_heap",
+    "prompt": "Starting from an empty AVL tree, insert the keys 30, 20, 10 in order. Give the final tree level-order after rebalancing.",
+    "structure_kind": "avl",
+    "representation": "Initial AVL tree is empty.",
+    "inserts": [30, 20, 10],
+    "expected_representation": "20 10 30",
+    "grading_representation_hint": "Type the final AVL tree level-order as space-separated keys.",
+    "hints": [
+      "Insert 30, then 20, then 10 as in a BST.",
+      "This creates a left-left imbalance at 30; fix with a single right rotation."
+    ],
+    "explanation": "Inserting 30, 20, 10 into an empty AVL tree gives a left-heavy chain 30-20-10. A single right rotation makes 20 the root, 10 its left child, and 30 its right child: level-order 20 10 30."
+  },
+  {
+    "id": "th-4",
+    "level": 3,
+    "topic": "trees",
+    "subtopic": "avl-insert-zigzag",
+    "question_type": "tree_heap",
+    "prompt": "Starting from an empty AVL tree, insert the keys 30, 10, 20 in order. Give the final tree level-order after rebalancing.",
+    "structure_kind": "avl",
+    "representation": "Initial AVL tree is empty.",
+    "inserts": [30, 10, 20],
+    "expected_representation": "20 10 30",
+    "grading_representation_hint": "Type the final AVL tree level-order as space-separated keys.",
+    "hints": [
+      "Insert as BST: 30, then 10 (left), then 20 (right child of 10).",
+      "This is a left-right imbalance that requires a double rotation."
+    ],
+    "explanation": "After BST insertions, 30 has left child 10 with right child 20. This left-right (LR) case is fixed by rotating left at 10, then right at 30, producing root 20 with children 10 and 30."
+  },
+  {
+    "id": "th-5",
+    "level": 3,
+    "topic": "heaps",
+    "subtopic": "max-heap-insert",
+    "question_type": "tree_heap",
+    "prompt": "You are given a max-heap stored as an array and a key to insert. Perform standard heap insertion and give the final array.",
+    "structure_kind": "max_heap",
+    "representation": "Initial max-heap array: [50, 30, 20, 10, 15]",
+    "inserts": [35],
+    "expected_representation": "50 35 20 10 15 30",
+    "grading_representation_hint": "Type the final heap array as space-separated keys, in array index order.",
+    "hints": [
+      "Insert 35 at the end, then sift it up.",
+      "Compare 35 with its parent 30 and swap if necessary."
+    ],
+    "explanation": "After inserting 35 at the end, the array is [50, 30, 20, 10, 15, 35]. 35 > 30, so they swap, giving [50, 35, 20, 10, 15, 30]. The heap property holds with root 50."
+  },
+  {
+    "id": "th-6",
+    "level": 3,
+    "topic": "heaps",
+    "subtopic": "max-heapify",
+    "question_type": "tree_heap",
+    "prompt": "You are given an array and told to turn it into a max-heap using the bottom-up heapify procedure. The array is [10, 40, 20, 35]. After heapify, what is the final heap array?",
+    "structure_kind": "max_heap",
+    "representation": "Initial array (not a heap): [10, 40, 20, 35]",
+    "inserts": [],
+    "expected_representation": "40 35 20 10",
+    "grading_representation_hint": "Type the final heap array as space-separated keys, in array index order.",
+    "hints": [
+      "Start heapify from the last internal node (index 1 in 0-based).",
+      "Sift down 10 to restore heap order."
+    ],
+    "explanation": "Heapify will move 40 to the root and 10 to the last position. One valid resulting max-heap array is [40, 35, 20, 10]."
+  },
+
+  /* LEVEL 4: ALGORITHM DESIGN / DEEP CONCEPTS (6 EXAMPLES) */
+
+  {
+    "id": "design-1",
+    "level": 4,
+    "topic": "arrays_memory",
+    "subtopic": "two-sum-n2",
+    "question_type": "design",
+    "prompt": "Design an O(n^2) algorithm in words or pseudocode to solve the two-sum problem: given an array A of n integers and a target T, find indices i != j such that A[i] + A[j] = T, or report that none exist.",
+    "expectedAnswer": "Use a double loop: for each i, for each j > i, check if A[i] + A[j] == T; if so, return (i, j).",
+    "expectedKeywordsRequired": ["double loop", "i", "j", "a[i] + a[j]", "o(n^2)"],
+    "expectedKeywordsPartial": ["nested", "pair", "brute force"],
+    "hints": [
+      "Brute force is allowed here.",
+      "Consider all unordered pairs (i, j)."
+    ],
+    "explanation": "A straightforward algorithm is to try all pairs (i, j) with i < j and check if A[i] + A[j] equals T. There are O(n^2) pairs, so this runs in O(n^2) time."
+  },
+  {
+    "id": "design-2",
+    "level": 4,
+    "topic": "arrays_memory",
+    "subtopic": "two-sum-nlogn",
+    "question_type": "design",
+    "prompt": "Design an O(n log n) algorithm in words or pseudocode to solve the same two-sum problem using sorting and binary search.",
+    "expectedAnswer": "Copy and sort the array, then for each element x, binary search for T - x in the sorted array. Overall cost is O(n log n) for sorting plus O(n log n) for n binary searches.",
+    "expectedKeywordsRequired": ["sort", "binary search", "t - a[i]", "o(n log n)"],
+    "expectedKeywordsPartial": ["sorted", "search for complement"],
+    "hints": [
+      "First, put the data in a form where binary search is possible.",
+      "For each element, think about its complement T - A[i]."
+    ],
+    "explanation": "Sorting the array costs O(n log n). For each sorted element x, binary searching for T - x takes O(log n), yielding O(n log n) total after sorting."
+  },
+  {
+    "id": "design-3",
+    "level": 4,
     "topic": "trees",
     "subtopic": "bst-successor",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Describe an O(log n) algorithm to find the successor of a node in a balanced BST.",
-    "expectedAnswer": "If right subtree exists, return its minimum. Else, return lowest ancestor where node is in left subtree.",
-    "expectedAnswerKeywords": ["right subtree", "minimum", "ancestor", "left subtree"],
-    "explanation": "With right child: successor is leftmost in right subtree. Without: successor is lowest ancestor for which this node is in its left subtree.",
-    "hints": ["Consider two cases: with and without right child"]
-  },
-  {
-    "id": "trees-3-2",
-    "topic": "trees",
-    "subtopic": "bst-validation",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Why is checking only immediate children insufficient to validate a BST?",
-    "expectedAnswer": "Must check all descendants. Need min/max range tracking for each subtree.",
-    "expectedAnswerKeywords": ["descendants", "range", "min", "max", "subtree"],
-    "explanation": "BST property is global: ALL left descendants < node < ALL right descendants. Must track valid range [min,max] for each node.",
-    "hints": ["What about grandchildren?", "Use range bounds"]
-  },
-  {
-    "id": "trees-3-3",
-    "topic": "trees",
-    "subtopic": "tree-recursion",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Write recursive strategy to find maximum value in an unordered binary tree.",
-    "expectedAnswer": "If null, return -infinity. Else, return max(node.key, maxLeft, maxRight).",
-    "expectedAnswerKeywords": ["recursive", "max", "left", "right", "null"],
-    "explanation": "Base: null returns -∞. Recursive: max of current node and max from each subtree. O(n) to visit all nodes.",
-    "hints": ["What do you return for null?", "Combine results from left and right"]
-  },
-  {
-    "id": "trees-3-4",
-    "topic": "trees",
-    "subtopic": "lca",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Describe finding lowest common ancestor (LCA) in a BST for nodes p and q.",
-    "expectedAnswer": "Start at root. If both p,q < root, go left. If both > root, go right. Else, root is LCA.",
-    "expectedAnswerKeywords": ["both", "left", "right", "split", "BST"],
-    "explanation": "In BST, LCA is where paths to p and q diverge. If both smaller, LCA is left. If both larger, LCA is right. Otherwise, current node is LCA.",
-    "hints": ["Use BST property", "Where do the paths split?"]
-  },
-  {
-    "id": "trees-3-5",
-    "topic": "trees",
-    "subtopic": "array-representation",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "In array representation of complete binary tree (root at index 1), on which level is node at index i?",
-    "expectedAnswer": "floor(log2(i))",
-    "expectedAnswerKeywords": ["floor", "log2", "logarithm"],
-    "explanation": "Nodes on level k occupy indices 2^k to 2^(k+1)-1. So node i is on level floor(log₂(i)).",
-    "hints": ["Indices double at each level"]
-  },
-  {
-    "id": "avl-1-1",
-    "topic": "avl_heaps",
-    "subtopic": "avl-basics",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "What is the maximum allowed height difference between left and right subtrees in an AVL tree?",
-    "choices": [
-      "0",
-      "1",
-      "2",
-      "log n"
+    "question_type": "design",
+    "prompt": "Given a pointer to the root of a BST and a key x that is guaranteed to be in the tree, describe an O(log n) algorithm to find the successor of x (the next larger key).",
+    "expectedAnswer": "Search for the node containing x. If it has a right child, successor is the leftmost node in the right subtree. Otherwise, go back up the search path to the lowest ancestor for which x is in its left subtree.",
+    "expectedKeywordsRequired": ["search", "right subtree", "leftmost", "ancestor", "left"],
+    "expectedKeywordsPartial": ["parent", "next larger"],
+    "hints": [
+      "Consider the case when the node has a right subtree.",
+      "If there is no right subtree, think about ancestors."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "AVL trees maintain balance by ensuring height difference between left and right subtrees is at most 1."
+    "explanation": "The successor of x is either the smallest key in its right subtree (if it exists) or the nearest ancestor whose left subtree contains x. This search follows a single path, so it runs in O(log n) for a balanced BST."
   },
   {
-    "id": "avl-1-2",
-    "topic": "avl_heaps",
-    "subtopic": "heap-property",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "In a max-heap, how does a parent compare to its children?",
-    "choices": [
-      "Smaller than both",
-      "Greater than or equal to both",
-      "Equal to both",
-      "No relationship"
+    "id": "design-4",
+    "level": 4,
+    "topic": "trees",
+    "subtopic": "max-binary-tree",
+    "question_type": "design",
+    "prompt": "Describe a recursive algorithm (in words or pseudocode) to find the maximum key in a general binary tree (not necessarily a BST).",
+    "expectedAnswer": "If the tree is empty, return minus infinity. Otherwise, recursively compute the maximum in the left subtree and right subtree, then return the maximum of the root key, leftMax, and rightMax.",
+    "expectedKeywordsRequired": ["recursive", "left subtree", "right subtree", "max"],
+    "expectedKeywordsPartial": ["base case", "empty"],
+    "hints": [
+      "You cannot skip subtrees, because the tree is not ordered.",
+      "Treat leaves as base cases."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "Max-heap property: parent ≥ children. This ensures maximum is at root."
+    "explanation": "A recursive function that visits each node, computing max over its left and right subtrees, will eventually see every key. This yields O(n) time where n is the number of nodes."
   },
   {
-    "id": "avl-1-3",
-    "topic": "avl_heaps",
-    "subtopic": "heap-shape",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "What shape property must a binary heap maintain?",
-    "expectedAnswer": "Complete binary tree",
-    "expectedAnswerKeywords": ["complete", "binary tree"],
-    "explanation": "Heaps must be complete binary trees: all levels full except possibly last, which fills left-to-right."
-  },
-  {
-    "id": "avl-1-4",
-    "topic": "avl_heaps",
-    "subtopic": "avl-height",
-    "difficulty": 1,
-    "type": "short_answer",
-    "prompt": "What is the guaranteed height of an AVL tree with n nodes?",
-    "expectedAnswer": "O(log n)",
-    "expectedAnswerKeywords": ["log n", "logarithmic"],
-    "explanation": "AVL balance constraint ensures height is O(log n), guaranteeing efficient operations."
-  },
-  {
-    "id": "avl-1-5",
-    "topic": "avl_heaps",
-    "subtopic": "heap-root",
-    "difficulty": 1,
-    "type": "mcq",
-    "prompt": "In a max-heap, where is the largest element located?",
-    "choices": [
-      "Any leaf",
-      "Root",
-      "Leftmost leaf",
-      "Rightmost leaf"
+    "id": "design-5",
+    "level": 4,
+    "topic": "heaps",
+    "subtopic": "heapsort",
+    "question_type": "design",
+    "prompt": "Describe how to use a max-heap to implement heap sort on an array of n keys. Mention the main steps and overall time complexity.",
+    "expectedAnswer": "First, build a max-heap from the array using bottom-up heapify. Then repeatedly remove the maximum and place it at the end of the array, shrinking the heap. This runs in O(n log n) time.",
+    "expectedKeywordsRequired": ["build heap", "heapify", "remove max", "place at end", "o(n log n)"],
+    "expectedKeywordsPartial": ["max-heap", "sorting"],
+    "hints": [
+      "Heaps can give you the maximum quickly.",
+      "Think: remove the max one by one and put it in its final position."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "Max-heap property ensures root is the maximum element."
+    "explanation": "Heap sort builds a max-heap in O(n) time, then performs n deletions of the maximum, each costing O(log n). Together this gives O(n log n) time."
   },
   {
-    "id": "avl-2-1",
-    "topic": "avl_heaps",
-    "subtopic": "avl-rotations",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "When is a single rotation sufficient in AVL tree rebalancing?",
-    "expectedAnswer": "When imbalance is straight (left-left or right-right)",
-    "expectedAnswerKeywords": ["straight", "left-left", "right-right", "same side"],
-    "explanation": "Single rotation fixes straight-line imbalances (both heavy child and grandchild on same side).",
-    "hints": ["Consider the shape of the imbalance"]
-  },
-  {
-    "id": "avl-2-2",
-    "topic": "avl_heaps",
-    "subtopic": "heap-insert",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "What is the time complexity of inserting into a binary heap?",
-    "expectedAnswer": "O(log n)",
-    "expectedAnswerKeywords": ["log n", "logarithmic"],
-    "explanation": "Insert at bottom, then bubble up. At most log n swaps (tree height).",
-    "hints": ["How tall is the heap?"]
-  },
-  {
-    "id": "avl-2-3",
-    "topic": "avl_heaps",
-    "subtopic": "priority-queue",
-    "difficulty": 2,
-    "type": "mcq",
-    "prompt": "A max-heap implements a priority queue. What are the complexities of insert and extract-max?",
-    "choices": [
-      "Both O(1)",
-      "Both O(log n)",
-      "Insert O(1), Extract O(log n)",
-      "Insert O(log n), Extract O(1)"
+    "id": "design-6",
+    "level": 4,
+    "topic": "trees",
+    "subtopic": "tree-sort-vs-heap-sort",
+    "question_type": "design",
+    "prompt": "Compare tree sort using a plain BST vs tree sort using an AVL tree vs heap sort, focusing on asymptotic time complexity in the average and worst case.",
+    "expectedAnswer": "Plain BST tree sort is O(n log n) on average but can degrade to O(n^2) in the worst case (e.g., sorted input). AVL tree sort is O(n log n) in both average and worst case because the tree stays balanced. Heap sort is O(n log n) in all cases.",
+    "expectedKeywordsRequired": ["plain bst", "o(n log n)", "o(n^2)", "avl", "balanced", "heap sort", "o(n log n)"],
+    "expectedKeywordsPartial": ["worst case", "average case"],
+    "hints": [
+      "What happens if we insert sorted keys into an unbalanced BST?",
+      "How does AVL balancing change this?",
+      "Heaps always maintain O(log n) height."
     ],
-    "correctChoiceIndex": 1,
-    "explanation": "Both operations require bubbling up or down the height of the heap, giving O(log n)."
-  },
-  {
-    "id": "avl-2-4",
-    "topic": "avl_heaps",
-    "subtopic": "avl-double-rotation",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "When is a double rotation needed in AVL rebalancing?",
-    "expectedAnswer": "When imbalance is zig-zag (left-right or right-left)",
-    "expectedAnswerKeywords": ["zig-zag", "left-right", "right-left", "opposite"],
-    "explanation": "Double rotation (child then grandparent) fixes zig-zag imbalances where heavy child and grandchild are on opposite sides.",
-    "hints": ["What if the heavy parts aren't in a straight line?"]
-  },
-  {
-    "id": "avl-2-5",
-    "topic": "avl_heaps",
-    "subtopic": "heap-delete",
-    "difficulty": 2,
-    "type": "short_answer",
-    "prompt": "Describe the algorithm to extract max from a max-heap.",
-    "expectedAnswer": "Replace root with last element, remove last, bubble down root.",
-    "expectedAnswerKeywords": ["root", "last", "bubble down", "remove"],
-    "explanation": "Save root (max). Replace with last leaf. Remove last. Bubble replacement down to restore heap property. O(log n)."
-  },
-  {
-    "id": "avl-3-1",
-    "topic": "avl_heaps",
-    "subtopic": "avl-min-nodes",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Give recurrence for minimum nodes in AVL tree of height h: G(h).",
-    "expectedAnswer": "G(h) = G(h-1) + G(h-2) + 1, with G(0)=1, G(1)=2",
-    "expectedAnswerKeywords": ["G(h-1)", "G(h-2)", "1", "G(0)", "G(1)"],
-    "explanation": "Minimum AVL tree has one subtree of height h-1, another of h-2 (maximally unbalanced while staying AVL), plus root.",
-    "hints": ["Make subtrees as small as possible while maintaining AVL property"]
-  },
-  {
-    "id": "avl-3-2",
-    "topic": "avl_heaps",
-    "subtopic": "heapify",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Why is bottom-up heapify O(n) instead of O(n log n)?",
-    "expectedAnswer": "Most nodes are near bottom with small height. Work sums to O(n).",
-    "expectedAnswerKeywords": ["bottom", "height", "sum", "O(n)"],
-    "explanation": "Half the nodes are leaves (0 work). Quarter are height 1 (1 work each). Work decreases geometrically: n/2·0 + n/4·1 + n/8·2 + ... = O(n).",
-    "hints": ["Count work by level", "Most nodes do little work"]
-  },
-  {
-    "id": "avl-3-3",
-    "topic": "avl_heaps",
-    "subtopic": "heap-sort",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "What is heap sort's time and space complexity?",
-    "expectedAnswer": "Time: O(n log n), Space: O(1)",
-    "expectedAnswerKeywords": ["time", "n log n", "space", "O(1)"],
-    "explanation": "Heapify: O(n). n extractions: O(log n) each = O(n log n). In-place: O(1) space.",
-    "hints": ["Count heapify + extraction costs", "Can sort in-place"]
-  },
-  {
-    "id": "avl-3-4",
-    "topic": "avl_heaps",
-    "subtopic": "avl-vs-redblack",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "Compare AVL trees to Red-Black trees in terms of balance strictness and rotation frequency.",
-    "expectedAnswer": "AVL more strictly balanced, more rotations. Red-Black less balanced, fewer rotations.",
-    "expectedAnswerKeywords": ["AVL", "strict", "rotations", "Red-Black", "fewer"],
-    "explanation": "AVL enforces stricter balance (height diff ≤1) requiring more rotations. Red-Black allows looser balance (black-height) with fewer rotations. Trade-off: AVL faster lookups, RB faster insertions/deletions.",
-    "hints": ["Which requires more rebalancing?", "Consider lookup vs modification performance"]
-  },
-  {
-    "id": "avl-3-5",
-    "topic": "avl_heaps",
-    "subtopic": "k-th-smallest",
-    "difficulty": 3,
-    "type": "short_answer",
-    "prompt": "How can you find the k-th smallest element using a max-heap of size k?",
-    "expectedAnswer": "Maintain max-heap of k smallest seen. Final root is k-th smallest.",
-    "expectedAnswerKeywords": ["max-heap", "k", "smallest", "root"],
-    "explanation": "Process elements: if heap size < k, insert. If element < heap max, remove max and insert element. After processing all, heap root is k-th smallest. O(n log k).",
-    "hints": ["Keep the k smallest elements", "What should you do when you find something smaller than the max of your k elements?"]
+    "explanation": "Unbalanced BSTs may become skewed, giving O(n^2) insertion. AVL and heap structures keep height O(log n), so their sorts stay O(n log n) for both average and worst cases."
   }
 ]
