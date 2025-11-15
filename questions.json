@@ -1,111 +1,21 @@
 [
   {
-    "id": "vocab-stack",
+    "id": "vocab-avl-tree",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Stack",
-    "definition": "A linear collection that supports push and pop at one end only, implementing last-in first-out behavior.",
+    "term": "AVL tree",
+    "definition": "A self-balancing binary search tree that keeps the heights of left and right subtrees within one at every node.",
     "acceptable_synonyms": [
-      "stack",
-      "lifo"
+      "avl tree",
+      "avl"
     ],
     "hints": [
-      "Think about undo operations.",
-      "Newest element leaves first."
+      "It is named after Adelson-Velsky and Landis.",
+      "Rotations restore balance whenever a node becomes too heavy."
     ],
-    "explanation": "Stacks are LIFO structures with O(1) push/pop at the top."
-  },
-  {
-    "id": "vocab-queue",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Queue",
-    "definition": "A linear collection where enqueues add to the rear and dequeues remove from the front, yielding first-in first-out order.",
-    "acceptable_synonyms": [
-      "queue",
-      "fifo"
-    ],
-    "hints": [
-      "Imagine people waiting in line.",
-      "Departure order matches arrival order."
-    ],
-    "explanation": "Queues model FIFO behavior and power BFS frontiers."
-  },
-  {
-    "id": "vocab-deque",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Deque",
-    "definition": "A double-ended queue supporting insertion and removal at both the front and back in constant time.",
-    "acceptable_synonyms": [
-      "deque",
-      "double ended queue"
-    ],
-    "hints": [
-      "Generalizes both stacks and queues.",
-      "Push or pop on either end."
-    ],
-    "explanation": "Deques allow O(1) operations at both ends."
-  },
-  {
-    "id": "vocab-singly",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Singly linked list",
-    "definition": "A list composed of nodes where each node stores data plus a pointer to the next node only.",
-    "acceptable_synonyms": [
-      "singly linked list",
-      "sll"
-    ],
-    "hints": [
-      "Traversal is forward only.",
-      "Each node knows only its successor."
-    ],
-    "explanation": "Singly linked lists chain nodes with a data field and one next pointer."
-  },
-  {
-    "id": "vocab-doubly",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Doubly linked list",
-    "definition": "A linked list whose nodes store pointers to both the previous and next nodes.",
-    "acceptable_synonyms": [
-      "dll",
-      "doubly linked list"
-    ],
-    "hints": [
-      "Bidirectional traversal is possible.",
-      "Each node has two links."
-    ],
-    "explanation": "Doubly linked lists maintain next and prev references for flexible inserts."
-  },
-  {
-    "id": "vocab-sentinel-node",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Sentinel node",
-    "definition": "A dummy node placed at an endpoint of a list to simplify insertion and deletion edge cases.",
-    "acceptable_synonyms": [
-      "sentinel",
-      "dummy node"
-    ],
-    "hints": [
-      "Often seen in linked lists.",
-      "Stores no user data."
-    ],
-    "explanation": "Sentinel nodes act as guards so code avoids repeated null checks."
+    "explanation": "AVL trees perform rotations whenever the balance factor exceeds 1 in magnitude to keep height O(log n)."
   },
   {
     "id": "vocab-binary-tree",
@@ -114,33 +24,51 @@
     "topic": "vocabulary",
     "subtopic": "core",
     "term": "Binary tree",
-    "definition": "A hierarchical structure in which each node has at most two children called left and right.",
+    "definition": "A hierarchical structure in which each node has at most two children labeled left and right.",
     "acceptable_synonyms": [
       "binary tree"
     ],
     "hints": [
-      "Foundation for BSTs and heaps.",
-      "Each node has \u2264 2 children."
+      "Think about left and right child pointers.",
+      "Nodes can have zero, one, or two children."
     ],
-    "explanation": "Binary trees limit branching to two children per node."
+    "explanation": "Binary trees store values in nodes that each reference up to two child subtrees."
   },
   {
-    "id": "vocab-full",
+    "id": "vocab-coalescing",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Full binary tree",
-    "definition": "A binary tree where every internal node has exactly two children.",
+    "term": "Coalescing",
+    "definition": "The allocator action of merging neighboring free memory blocks into a single larger block after a free.",
     "acceptable_synonyms": [
-      "proper binary tree",
-      "strict binary tree"
+      "coalescing",
+      "coalesce"
     ],
     "hints": [
-      "No node has only one child.",
-      "Leaves may appear at different depths."
+      "It happens inside dynamic memory managers.",
+      "Reduces external fragmentation by joining adjacent holes."
     ],
-    "explanation": "Full binary trees require internal nodes to have two children."
+    "explanation": "Coalescing scans the free list for touching blocks and joins them so future large allocations can succeed."
+  },
+  {
+    "id": "vocab-compacting",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Compacting",
+    "definition": "Relocating live allocations so that all free memory becomes one contiguous region instead of scattered holes.",
+    "acceptable_synonyms": [
+      "compacting",
+      "compaction"
+    ],
+    "hints": [
+      "Often part of a copying garbage collector.",
+      "Requires updating pointers to moved objects."
+    ],
+    "explanation": "Compaction slides objects together and updates references so the remaining gap is a single large free block."
   },
   {
     "id": "vocab-complete",
@@ -148,16 +76,70 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Complete binary tree",
-    "definition": "A binary tree whose levels are completely filled except possibly the last, which is filled from left to right.",
+    "term": "Complete",
+    "definition": "A binary tree property where every level is full except possibly the last, which is filled from left to right.",
     "acceptable_synonyms": [
-      "complete tree"
+      "complete",
+      "complete binary tree"
     ],
     "hints": [
-      "Supports array representation.",
-      "Used by heaps."
+      "Heaps rely on this property.",
+      "Imagine numbering nodes level by level."
     ],
-    "explanation": "Complete binary trees have no gaps when laid out level by level."
+    "explanation": "Complete binary trees keep nodes as far left as possible, allowing array-based representations with no gaps."
+  },
+  {
+    "id": "vocab-complexity-class",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Complexity class",
+    "definition": "A set of problems or algorithms grouped by asymptotic resource bounds such as time or space.",
+    "acceptable_synonyms": [
+      "complexity class"
+    ],
+    "hints": [
+      "Examples include P, NP, and EXP.",
+      "Often described with Big-O style notation."
+    ],
+    "explanation": "Complexity classes categorize problems by the amount of computation they require as input size grows."
+  },
+  {
+    "id": "vocab-dominant-term",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Dominant term",
+    "definition": "The highest-order part of a running-time expression that determines its asymptotic growth.",
+    "acceptable_synonyms": [
+      "dominant term",
+      "leading term"
+    ],
+    "hints": [
+      "Drop lower-order pieces when using Big-O.",
+      "For 3n^2 + 2n, this is the n^2 term."
+    ],
+    "explanation": "The dominant term dictates the Big-O classification because it grows faster than the remaining terms."
+  },
+  {
+    "id": "vocab-equilibrium",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Equilibrium",
+    "definition": "In balanced trees like AVL, the state where a node's left and right subtrees have equal height so the balance factor is zero.",
+    "acceptable_synonyms": [
+      "equilibrium",
+      "balanced"
+    ],
+    "hints": [
+      "Occurs when the node is perfectly balanced.",
+      "No rotation is needed at that node."
+    ],
+    "explanation": "An AVL node is in equilibrium when both subtrees have the same height, yielding a balance factor of 0."
   },
   {
     "id": "vocab-extended",
@@ -165,505 +147,35 @@
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Extended binary tree",
-    "definition": "A binary tree where null children are replaced by special external nodes, aiding traversal proofs.",
+    "term": "Extended",
+    "definition": "Describes an extended binary tree where every internal node has two children and null links are represented by external nodes.",
     "acceptable_synonyms": [
-      "extended tree",
-      "full binary tree with externals"
+      "extended",
+      "extended binary tree"
     ],
     "hints": [
-      "Sometimes called a 2-tree.",
-      "External nodes represent null pointers."
+      "Sometimes called a 2-tree or proper binary tree.",
+      "Used when counting external nodes explicitly."
     ],
-    "explanation": "Extended binary trees insert external nodes to reason about structure."
+    "explanation": "Extended binary trees replace each null child with a special external node so every internal node has exactly two children."
   },
   {
-    "id": "vocab-bst",
+    "id": "vocab-fifo",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Binary search tree",
-    "definition": "A binary tree organized so left descendants are less than the node and right descendants are greater.",
+    "term": "FIFO",
+    "definition": "First-in, first-out ordering where the earliest enqueued element is removed first, as in a queue.",
     "acceptable_synonyms": [
-      "bst",
-      "binary search tree"
+      "fifo",
+      "first in first out"
     ],
     "hints": [
-      "In-order traversal lists keys in sorted order.",
-      "Supports logarithmic search when balanced."
+      "Think of people waiting in line.",
+      "Arrival order equals departure order."
     ],
-    "explanation": "BSTs maintain key order and power sorted operations."
-  },
-  {
-    "id": "vocab-avl",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "AVL tree",
-    "definition": "A self-balancing BST keeping subtree heights within one by using rotations.",
-    "acceptable_synonyms": [
-      "avl",
-      "avl tree"
-    ],
-    "hints": [
-      "Named for Adelson-Velsky and Landis.",
-      "Balance factor triggers rotations."
-    ],
-    "explanation": "AVL trees guarantee logarithmic height by rebalancing after inserts/deletes."
-  },
-  {
-    "id": "vocab-red-black",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Red-black tree",
-    "definition": "A balanced BST that colors nodes red or black and enforces color properties to bound height.",
-    "acceptable_synonyms": [
-      "red black tree",
-      "rbt"
-    ],
-    "hints": [
-      "All root-to-leaf paths have the same number of black nodes.",
-      "Rebalancing uses color flips and rotations."
-    ],
-    "explanation": "Red-black trees keep height O(log n) via coloring rules."
-  },
-  {
-    "id": "vocab-heap",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Heap",
-    "definition": "A tree-based structure satisfying the heap order property so parents dominate their children.",
-    "acceptable_synonyms": [
-      "heap"
-    ],
-    "hints": [
-      "Often stored in arrays.",
-      "Supports fast access to priority element."
-    ],
-    "explanation": "Heaps keep the extreme (min or max) key at the root."
-  },
-  {
-    "id": "vocab-min-heap",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Min-heap",
-    "definition": "A heap in which every parent key is \u2264 its children, so the minimum key sits at the root.",
-    "acceptable_synonyms": [
-      "min heap"
-    ],
-    "hints": [
-      "Used by priority queues selecting smallest element.",
-      "Delete-min is efficient."
-    ],
-    "explanation": "Min-heaps provide O(1) access to the minimum key."
-  },
-  {
-    "id": "vocab-max-heap",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Max-heap",
-    "definition": "A heap where each parent key is \u2265 its children, keeping the maximum at the root.",
-    "acceptable_synonyms": [
-      "max heap"
-    ],
-    "hints": [
-      "Used for priority queues needing the largest element.",
-      "Heapsort uses a max-heap."
-    ],
-    "explanation": "Max-heaps expose the largest key at the root with O(log n) updates."
-  },
-  {
-    "id": "vocab-priority-queue",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Priority queue",
-    "definition": "An abstract data type supporting insert and removal of the highest-priority item rather than FIFO order.",
-    "acceptable_synonyms": [
-      "priority queue",
-      "pq"
-    ],
-    "hints": [
-      "Often backed by heaps.",
-      "Removes based on key priority."
-    ],
-    "explanation": "Priority queues return elements by priority instead of arrival time."
-  },
-  {
-    "id": "vocab-height",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Height",
-    "definition": "The number of edges on the longest path from a node down to a leaf.",
-    "acceptable_synonyms": [
-      "tree height"
-    ],
-    "hints": [
-      "Leaves have height 0.",
-      "Height measures downward."
-    ],
-    "explanation": "Height measures how tall a subtree is and bounds recursion depth."
-  },
-  {
-    "id": "vocab-depth",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Depth",
-    "definition": "The number of edges from the root to a node.",
-    "acceptable_synonyms": [
-      "node depth"
-    ],
-    "hints": [
-      "Root has depth 0.",
-      "Each level increases depth by one."
-    ],
-    "explanation": "Depth counts distance from the root toward leaves."
-  },
-  {
-    "id": "vocab-leaf",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Leaf",
-    "definition": "A node in a tree that has no children.",
-    "acceptable_synonyms": [
-      "leaf node"
-    ],
-    "hints": [
-      "Also called an external node.",
-      "Terminates a path."
-    ],
-    "explanation": "Leaves represent endpoints in a tree with degree zero."
-  },
-  {
-    "id": "vocab-internal",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Internal node",
-    "definition": "Any node in a tree that has at least one child.",
-    "acceptable_synonyms": [
-      "internal node"
-    ],
-    "hints": [
-      "Opposite of a leaf.",
-      "Participates in branching."
-    ],
-    "explanation": "Internal nodes own children and create branching structure."
-  },
-  {
-    "id": "vocab-subtree",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Subtree",
-    "definition": "A tree formed by a node together with all its descendants.",
-    "acceptable_synonyms": [
-      "sub tree",
-      "sub-tree"
-    ],
-    "hints": [
-      "Every child defines one.",
-      "Supports recursive definitions."
-    ],
-    "explanation": "Subtrees form natural subproblems for recursive algorithms."
-  },
-  {
-    "id": "vocab-root",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Root",
-    "definition": "The unique top node in a tree that has no parent.",
-    "acceptable_synonyms": [
-      "tree root"
-    ],
-    "hints": [
-      "Depth zero.",
-      "All nodes descend from it."
-    ],
-    "explanation": "The root anchors the tree and defines traversal starting points."
-  },
-  {
-    "id": "vocab-level",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Level",
-    "definition": "All nodes at the same depth in a tree.",
-    "acceptable_synonyms": [
-      "tree level"
-    ],
-    "hints": [
-      "Level numbers start at zero at the root.",
-      "Level-order traversal visits by level."
-    ],
-    "explanation": "A level groups nodes of equal depth, helpful for BFS reasoning."
-  },
-  {
-    "id": "vocab-level-order",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Level-order traversal",
-    "definition": "A breadth-first traversal visiting nodes level by level from the root downward.",
-    "acceptable_synonyms": [
-      "bfs",
-      "breadth first"
-    ],
-    "hints": [
-      "Implemented with a queue.",
-      "Processes siblings before children."
-    ],
-    "explanation": "Level-order traversal explores a tree breadth-first."
-  },
-  {
-    "id": "vocab-preorder",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Pre-order traversal",
-    "definition": "A traversal order visiting the node, then the left subtree, then the right subtree.",
-    "acceptable_synonyms": [
-      "preorder"
-    ],
-    "hints": [
-      "Node is processed before its children.",
-      "Captures prefix expressions."
-    ],
-    "explanation": "Pre-order yields node-left-right order useful for copying trees."
-  },
-  {
-    "id": "vocab-inorder",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "In-order traversal",
-    "definition": "A traversal visiting the left subtree, then the node, then the right subtree.",
-    "acceptable_synonyms": [
-      "inorder"
-    ],
-    "hints": [
-      "Applied to BSTs produces sorted keys.",
-      "Node is processed between its children."
-    ],
-    "explanation": "In-order traversal prints BST keys in sorted order."
-  },
-  {
-    "id": "vocab-postorder",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Post-order traversal",
-    "definition": "A traversal order visiting the left subtree, then the right subtree, then the node.",
-    "acceptable_synonyms": [
-      "postorder"
-    ],
-    "hints": [
-      "Children processed before parent.",
-      "Useful for freeing trees."
-    ],
-    "explanation": "Post-order handles descendants before their parent node."
-  },
-  {
-    "id": "vocab-call-stack",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Call stack",
-    "definition": "The runtime stack of activation records for active function calls.",
-    "acceptable_synonyms": [
-      "callstack",
-      "activation stack"
-    ],
-    "hints": [
-      "Grows with recursion depth.",
-      "Stores locals and return addresses."
-    ],
-    "explanation": "The call stack pushes a new frame for each function call and pops on return."
-  },
-  {
-    "id": "vocab-base-case",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Base case",
-    "definition": "The simplest input of a recursive algorithm that can be solved directly without further recursion.",
-    "acceptable_synonyms": [
-      "basecase",
-      "base condition"
-    ],
-    "hints": [
-      "Prevents infinite recursion.",
-      "Often checks for empty input."
-    ],
-    "explanation": "Base cases stop recursion when a minimal instance is reached."
-  },
-  {
-    "id": "vocab-recursive-step",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Recursive step",
-    "definition": "The part of a recursive algorithm that breaks the problem into smaller instances and recurses.",
-    "acceptable_synonyms": [
-      "recursive case",
-      "inductive step"
-    ],
-    "hints": [
-      "Must move toward base case.",
-      "Combines results."
-    ],
-    "explanation": "Recursive steps reduce the problem and call the function again."
-  },
-  {
-    "id": "vocab-amortized",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Amortized analysis",
-    "definition": "A technique that averages costs over a sequence of operations to show a low average per operation despite occasional expensive ones.",
-    "acceptable_synonyms": [
-      "amortized",
-      "amortized cost"
-    ],
-    "hints": [
-      "Used for dynamic arrays.",
-      "Spreads expensive operations across many cheap ones."
-    ],
-    "explanation": "Amortized analysis charges costly operations to many cheap ones to get an average bound."
-  },
-  {
-    "id": "vocab-big-o",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Big-O",
-    "definition": "Asymptotic notation describing an upper bound on growth rate up to constant factors.",
-    "acceptable_synonyms": [
-      "big o"
-    ],
-    "hints": [
-      "Represents worst-case upper limit.",
-      "Ignores constant multipliers."
-    ],
-    "explanation": "Big-O provides an asymptotic upper bound on runtime or space."
-  },
-  {
-    "id": "vocab-big-theta",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Big-Theta",
-    "definition": "Asymptotic notation giving a tight bound, both upper and lower, on a function's growth.",
-    "acceptable_synonyms": [
-      "big theta",
-      "theta"
-    ],
-    "hints": [
-      "Means same order both ways.",
-      "Sandwiches the growth between two multiples."
-    ],
-    "explanation": "\u0398(f(n)) means the function grows on the same order as f(n)."
-  },
-  {
-    "id": "vocab-big-omega",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Big-Omega",
-    "definition": "Asymptotic notation describing a lower bound on growth rate.",
-    "acceptable_synonyms": [
-      "big omega",
-      "omega"
-    ],
-    "hints": [
-      "Guarantees at least this fast.",
-      "Opposite of Big-O."
-    ],
-    "explanation": "\u03a9(f(n)) says the runtime cannot be asymptotically faster than f(n)."
-  },
-  {
-    "id": "vocab-worst-case",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Worst-case complexity",
-    "definition": "The running time of an algorithm on the most expensive input of size n.",
-    "acceptable_synonyms": [
-      "worst case"
-    ],
-    "hints": [
-      "Provides safety guarantee.",
-      "Often expressed with Big-O."
-    ],
-    "explanation": "Worst-case analysis ensures performance never exceeds a stated bound."
-  },
-  {
-    "id": "vocab-average-case",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Average-case complexity",
-    "definition": "The expected running time over all inputs of size n under a specified distribution.",
-    "acceptable_synonyms": [
-      "average case"
-    ],
-    "hints": [
-      "Depends on probability assumptions.",
-      "Often matches everyday performance."
-    ],
-    "explanation": "Average-case complexity studies expected cost using input probabilities."
-  },
-  {
-    "id": "vocab-best-case",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Best-case complexity",
-    "definition": "The minimal running time achieved on the easiest inputs of size n.",
-    "acceptable_synonyms": [
-      "best case"
-    ],
-    "hints": [
-      "Rarely used for guarantees.",
-      "Sometimes constant time."
-    ],
-    "explanation": "Best-case complexity reflects the most favorable inputs."
+    "explanation": "FIFO disciplines ensure items leave in the same order they arrived, which is the defining behavior of queues."
   },
   {
     "id": "vocab-fragmentation",
@@ -672,15 +184,34 @@
     "topic": "vocabulary",
     "subtopic": "core",
     "term": "Fragmentation",
-    "definition": "Wasted memory caused when free space is split into small pieces that cannot satisfy large requests.",
+    "definition": "Wasted memory that cannot satisfy large requests because it is split into many separated free pieces.",
     "acceptable_synonyms": [
+      "fragmentation",
       "memory fragmentation"
     ],
     "hints": [
-      "External fragmentation scatters free space.",
-      "Compaction fights it."
+      "External fragmentation is the usual culprit.",
+      "Compaction or coalescing can mitigate it."
     ],
-    "explanation": "Fragmentation prevents allocating large contiguous blocks even if total free space is large."
+    "explanation": "Fragmentation leaves sufficient total space but not enough contiguous memory to fit a big allocation."
+  },
+  {
+    "id": "vocab-frame-pointer",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Frame pointer",
+    "definition": "A register that holds the base address of the current stack frame so local variables and saved registers can be accessed easily.",
+    "acceptable_synonyms": [
+      "frame pointer",
+      "fp"
+    ],
+    "hints": [
+      "Also known as EBP/RBP on x86.",
+      "Stays fixed while the stack pointer moves."
+    ],
+    "explanation": "The frame pointer anchors the active activation record, making consistent offsets for locals and parameters."
   },
   {
     "id": "vocab-free-list",
@@ -689,16 +220,16 @@
     "topic": "vocabulary",
     "subtopic": "core",
     "term": "Free list",
-    "definition": "A data structure that tracks available memory blocks for allocation.",
+    "definition": "A data structure used by allocators to track available memory blocks along with their sizes and addresses.",
     "acceptable_synonyms": [
-      "freelist",
-      "free list"
+      "free list",
+      "freelist"
     ],
     "hints": [
-      "Updated on every free.",
-      "May be organized by block size."
+      "Updated on every malloc/free cycle.",
+      "May be segregated by block sizes."
     ],
-    "explanation": "Free lists store addresses of unallocated blocks to reuse them."
+    "explanation": "Free lists store metadata about unused blocks so an allocator can quickly find a region that fits the next request."
   },
   {
     "id": "vocab-garbage-collection",
@@ -713,207 +244,63 @@
       "gc"
     ],
     "hints": [
-      "Seen in Java/Python.",
-      "Runs periodically or on demand."
+      "Languages like Java and Python rely on it.",
+      "Often implemented with tracing or reference counting."
     ],
-    "explanation": "Garbage collectors find unreachable objects and free their memory."
+    "explanation": "Garbage collectors identify unreachable objects and free their memory without manual deletes."
   },
   {
-    "id": "vocab-coalescing",
+    "id": "vocab-heap",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Coalescing",
-    "definition": "The allocator action of merging adjacent free blocks into a larger block.",
+    "term": "Heap",
+    "definition": "A complete binary tree that satisfies the heap-order property so each node is ordered with respect to its children.",
     "acceptable_synonyms": [
-      "coalescence",
-      "coalesce"
+      "heap",
+      "binary heap"
     ],
     "hints": [
-      "Happens after freeing.",
-      "Reduces fragmentation."
+      "Root holds the extremal key.",
+      "Backs priority queues."
     ],
-    "explanation": "Coalescing combines neighboring free blocks to create larger chunks."
+    "explanation": "Heaps support efficient insert and delete-extreme operations in \u0398(log n) time by maintaining both order and completeness."
   },
   {
-    "id": "vocab-compaction",
+    "id": "vocab-height",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Memory compaction",
-    "definition": "Relocating allocated blocks to eliminate gaps and form large contiguous free regions.",
+    "term": "Height",
+    "definition": "The number of edges on the longest path from a node down to a leaf; the height of a leaf is zero.",
     "acceptable_synonyms": [
-      "compaction",
-      "compact"
+      "height"
     ],
     "hints": [
-      "Requires updating pointers.",
-      "Often part of garbage collectors."
+      "Relates directly to recursive tree depth.",
+      "Controls search cost in BSTs."
     ],
-    "explanation": "Compaction moves live objects so free space becomes contiguous."
+    "explanation": "Tree height measures the longest downward path and determines how deep recursion or search may go."
   },
   {
-    "id": "vocab-roving-pointer",
+    "id": "vocab-in-order",
     "level": 1,
     "question_type": "vocab",
     "topic": "vocabulary",
     "subtopic": "core",
-    "term": "Roving pointer",
-    "definition": "An allocator technique that remembers the last position searched in the free list to distribute scanning cost.",
+    "term": "In-order",
+    "definition": "A depth-first traversal that visits the left subtree, then the node, then the right subtree\u2014yielding sorted order for BSTs.",
     "acceptable_synonyms": [
-      "roving pointer",
-      "next fit"
+      "in-order",
+      "inorder"
     ],
     "hints": [
-      "Avoids starting from the head each time.",
-      "Walks the free list in a loop."
+      "Think left, node, right.",
+      "Produces sorted keys in a BST."
     ],
-    "explanation": "Roving pointers continue searching from where the last allocation stopped to balance effort."
-  },
-  {
-    "id": "vocab-trie",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Trie",
-    "definition": "A prefix tree storing keys character by character where each edge represents a symbol.",
-    "acceptable_synonyms": [
-      "trie",
-      "prefix tree"
-    ],
-    "hints": [
-      "Great for autocomplete.",
-      "Each node may mark the end of a word."
-    ],
-    "explanation": "Tries support fast prefix queries by branching per character."
-  },
-  {
-    "id": "vocab-stack-overflow",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Stack overflow",
-    "definition": "An error that occurs when the call stack exceeds its capacity, often due to runaway recursion.",
-    "acceptable_synonyms": [
-      "stack overflow"
-    ],
-    "hints": [
-      "Happens when recursion lacks a base case.",
-      "Process aborts when stack memory is exhausted."
-    ],
-    "explanation": "Stack overflow occurs when recursion depth or local allocations exceed stack limits."
-  },
-  {
-    "id": "vocab-branch-factor",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Branching factor",
-    "definition": "The number of children an internal node has on average, influencing tree height.",
-    "acceptable_synonyms": [
-      "fanout",
-      "branch factor"
-    ],
-    "hints": [
-      "Binary trees have factor 2.",
-      "Higher branching shrinks height."
-    ],
-    "explanation": "Branching factor affects how quickly trees expand and impacts height analysis."
-  },
-  {
-    "id": "vocab-subtree-size",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Subtree size",
-    "definition": "The number of nodes contained in a node's subtree, including the node itself.",
-    "acceptable_synonyms": [
-      "size",
-      "subtree count"
-    ],
-    "hints": [
-      "Used in order-statistic trees.",
-      "Helps answer rank queries."
-    ],
-    "explanation": "Subtree size counts nodes below a node and enables augmented tree operations."
-  },
-  {
-    "id": "vocab-order-statistic",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Order statistic tree",
-    "definition": "A BST augmented with subtree sizes so it can select the k-th smallest element in O(log n).",
-    "acceptable_synonyms": [
-      "order statistic tree",
-      "os tree"
-    ],
-    "hints": [
-      "Stores subtree counts.",
-      "Supports select and rank queries."
-    ],
-    "explanation": "Order statistic trees keep subtree sizes to answer rank and select queries."
-  },
-  {
-    "id": "vocab-heapify",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Heapify",
-    "definition": "The bottom-up process of converting an arbitrary array into a heap by sifting down non-leaf nodes.",
-    "acceptable_synonyms": [
-      "heapify",
-      "build heap"
-    ],
-    "hints": [
-      "Runs in linear time.",
-      "Start from the last parent."
-    ],
-    "explanation": "Heapify rearranges an array in \u0398(n) to satisfy the heap order property."
-  },
-  {
-    "id": "vocab-splay",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Splay tree",
-    "definition": "A self-adjusting BST that moves accessed nodes to the root using rotations, giving amortized O(log n) operations.",
-    "acceptable_synonyms": [
-      "splay",
-      "splay tree"
-    ],
-    "hints": [
-      "Uses zig/zig-zig/zig-zag steps.",
-      "Recently accessed items stay near the top."
-    ],
-    "explanation": "Splay trees adapt to access patterns by splaying accessed nodes to the root."
-  },
-  {
-    "id": "vocab-treap",
-    "level": 1,
-    "question_type": "vocab",
-    "topic": "vocabulary",
-    "subtopic": "core",
-    "term": "Treap",
-    "definition": "A randomized BST that stores both a key and a random priority, maintaining BST order by key and heap order by priority.",
-    "acceptable_synonyms": [
-      "treap",
-      "tree heap"
-    ],
-    "hints": [
-      "Random priorities keep tree balanced.",
-      "Insert rotates to restore heap order."
-    ],
-    "explanation": "Treaps combine BST and heap properties using random priorities."
+    "explanation": "In-order traversal mirrors the BST ordering relation, so it outputs keys from smallest to largest."
   },
   {
     "id": "vocab-internal-path-length",
@@ -922,16 +309,247 @@
     "topic": "vocabulary",
     "subtopic": "core",
     "term": "Internal path length",
-    "definition": "The sum of the depths of all internal nodes in a tree.",
+    "definition": "The sum of the depths of all internal (non-leaf) nodes in a tree.",
     "acceptable_synonyms": [
       "internal path length",
       "ipl"
     ],
     "hints": [
-      "Measures total search cost in BSTs.",
-      "Related to average depth."
+      "Measures overall search cost.",
+      "Closely related to average depth."
     ],
-    "explanation": "Internal path length approximates the total work of visiting every internal node."
+    "explanation": "Internal path length approximates the total work required to visit every internal node once."
+  },
+  {
+    "id": "vocab-lifo",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "LIFO",
+    "definition": "Last-in, first-out ordering where the most recently added element is removed next, as in a stack.",
+    "acceptable_synonyms": [
+      "lifo",
+      "last in first out"
+    ],
+    "hints": [
+      "Imagine stacking plates.",
+      "Undo operations follow this discipline."
+    ],
+    "explanation": "LIFO disciplines remove the newest element first, which is exactly how stacks behave."
+  },
+  {
+    "id": "vocab-leaf",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Leaf",
+    "definition": "A node in a tree that has no children; it sits at the fringe of the structure.",
+    "acceptable_synonyms": [
+      "leaf",
+      "external node"
+    ],
+    "hints": [
+      "Paths end here.",
+      "Degree zero when rooted."
+    ],
+    "explanation": "Leaves terminate downward paths, so recursive traversals stop at them."
+  },
+  {
+    "id": "vocab-level",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Level",
+    "definition": "All nodes that share the same depth measured from the root; level 0 is the root, level 1 its children, and so on.",
+    "acceptable_synonyms": [
+      "level",
+      "tree level"
+    ],
+    "hints": [
+      "Breadth-first search visits by this grouping.",
+      "Depth equals level number."
+    ],
+    "explanation": "Levels group nodes by distance from the root, which is useful for analyzing complete trees and BFS."
+  },
+  {
+    "id": "vocab-level-order",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Level-order",
+    "definition": "A traversal (breadth-first search) that visits nodes level by level from the root downward.",
+    "acceptable_synonyms": [
+      "level-order",
+      "breadth first"
+    ],
+    "hints": [
+      "Use a queue to implement it.",
+      "Heaps are stored in this order."
+    ],
+    "explanation": "Level-order traversal processes nodes in the same sequence as a queue-driven BFS."
+  },
+  {
+    "id": "vocab-pre-order",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Pre-order",
+    "definition": "A depth-first traversal that visits the node first, then its left subtree, then its right subtree.",
+    "acceptable_synonyms": [
+      "pre-order",
+      "preorder"
+    ],
+    "hints": [
+      "Root, left, right is the mantra.",
+      "Useful for copying trees."
+    ],
+    "explanation": "Pre-order traversal records a node before its descendants, which is handy for serializing a tree."
+  },
+  {
+    "id": "vocab-post-order",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Post-order",
+    "definition": "A depth-first traversal that visits the left subtree, then the right subtree, and finally the node itself.",
+    "acceptable_synonyms": [
+      "post-order",
+      "postorder"
+    ],
+    "hints": [
+      "Left, right, root.",
+      "Useful for freeing nodes."
+    ],
+    "explanation": "Post-order traversal processes children before their parent, which is perfect for deleting or evaluating subtrees."
+  },
+  {
+    "id": "vocab-queue",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Queue",
+    "definition": "A linear collection supporting enqueue at the rear and dequeue at the front so elements follow FIFO order.",
+    "acceptable_synonyms": [
+      "queue"
+    ],
+    "hints": [
+      "Used for scheduling and BFS.",
+      "Departure order matches arrival order."
+    ],
+    "explanation": "Queues enforce FIFO discipline, ensuring the first item inserted is the first removed."
+  },
+  {
+    "id": "vocab-recurrence",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Recurrence relation",
+    "definition": "An equation that defines the running time or value of a function based on smaller input sizes.",
+    "acceptable_synonyms": [
+      "recurrence relation",
+      "recurrence"
+    ],
+    "hints": [
+      "Common when analyzing divide-and-conquer algorithms.",
+      "Often solved with the Master Theorem."
+    ],
+    "explanation": "Recurrences express T(n) in terms of T on smaller arguments, capturing recursive work plus combination cost."
+  },
+  {
+    "id": "vocab-root",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Root",
+    "definition": "The unique top node of a rooted tree that has no parent and depth zero.",
+    "acceptable_synonyms": [
+      "root"
+    ],
+    "hints": [
+      "All other nodes descend from it.",
+      "Acts as the entry point for traversals."
+    ],
+    "explanation": "The root anchors a tree; traversals and recursion typically start from this node."
+  },
+  {
+    "id": "vocab-roving-pointer",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Roving pointer",
+    "definition": "A heap allocator optimization that resumes the search for free space from where the previous search ended.",
+    "acceptable_synonyms": [
+      "roving pointer",
+      "next fit"
+    ],
+    "hints": [
+      "Prevents rescanning the free list from the head.",
+      "Distributes search effort."
+    ],
+    "explanation": "Roving pointers walk the free list in a circular fashion to balance the cost of finding a fitting block."
+  },
+  {
+    "id": "vocab-stack",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Stack",
+    "definition": "A linear collection with push and pop at one end only, enforcing LIFO order.",
+    "acceptable_synonyms": [
+      "stack"
+    ],
+    "hints": [
+      "Think undo/redo operations.",
+      "Newest element leaves first."
+    ],
+    "explanation": "Stacks remove the most recently inserted element first, mirroring call-stack behavior."
+  },
+  {
+    "id": "vocab-trie",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Trie",
+    "definition": "A prefix tree that stores keys character by character so each edge represents one symbol of the key.",
+    "acceptable_synonyms": [
+      "trie",
+      "prefix tree"
+    ],
+    "hints": [
+      "Great for autocomplete and dictionaries.",
+      "Each node may mark the end of a word."
+    ],
+    "explanation": "Tries branch per character so prefix queries run in time proportional to the key length."
+  },
+  {
+    "id": "vocab-two-three-tree",
+    "level": 1,
+    "question_type": "vocab",
+    "topic": "vocabulary",
+    "subtopic": "core",
+    "term": "Two-three tree",
+    "definition": "A balanced search tree where every internal node has either two children and one key or three children and two keys, keeping all leaves at the same depth.",
+    "acceptable_synonyms": [
+      "two-three tree",
+      "2-3 tree"
+    ],
+    "hints": [
+      "Nodes can temporarily split when inserting.",
+      "All leaves stay perfectly level."
+    ],
+    "explanation": "Two-three trees maintain balance by allowing nodes with two or three children so the height stays logarithmic."
   },
   {
     "id": "sa-nested-loop-n2",
