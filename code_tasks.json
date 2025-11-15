@@ -1,0 +1,170 @@
+[
+  {
+    "id": "ct-1-count-less-than",
+    "level": 5,
+    "topic": "bst",
+    "prompt": "Write a recursive function that counts how many nodes in a binary search tree have keys strictly less than a given value x.",
+    "function_name": "bst_count_less_than",
+    "function_signature": "def bst_count_less_than(root, x):",
+    "helper_description": "Assume a Node class with attributes: key, left, right. The root may be None for an empty tree.",
+    "hints": [
+      "Base case: if root is None, there are 0 such nodes.",
+      "If root.key < x, then this node counts and you may be able to skip some part of the tree.",
+      "Use the BST property to decide when you can ignore a subtree."
+    ],
+    "explanation": "Use recursion and the BST property: if root.key < x, count this node plus both subtrees; if root.key >= x, you do not count this node and you only need to explore the left subtree.",
+    "reference_impl": "def bst_count_less_than(root, x):\n    if root is None:\n        return 0\n    if root.key < x:\n        return 1 + bst_count_less_than(root.left, x) + bst_count_less_than(root.right, x)\n    else:\n        return bst_count_less_than(root.left, x)",
+    "test_cases": [
+      {
+        "description": "Empty tree",
+        "tree_builder": "root = None",
+        "args": [10],
+        "expected": 0
+      },
+      {
+        "description": "Simple BST",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(10,\n    left=Node(5,\n        left=Node(2),\n        right=Node(7)),\n    right=Node(15,\n        left=Node(12),\n        right=Node(20)))",
+        "args": [11],
+        "expected": 3
+      },
+      {
+        "description": "All less than x",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(5, Node(3), Node(7))",
+        "args": [100],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "ct-2-tree-max",
+    "level": 5,
+    "topic": "binary_tree",
+    "prompt": "Write a recursive function that returns the maximum key in a general binary tree (not necessarily a BST). Assume all keys are integers and the tree is non-empty.",
+    "function_name": "tree_max",
+    "function_signature": "def tree_max(root):",
+    "helper_description": "Assume a Node class with attributes: key, left, right. The root is not None.",
+    "hints": [
+      "Base case: if both children are None, return the node's key.",
+      "Recursively get max from left and right, then combine.",
+      "Use Python's max() to combine values."
+    ],
+    "explanation": "The function should visit every node, recursively compute the maximum from left and right subtrees, and then return the maximum of root.key, leftMax, and rightMax.",
+    "reference_impl": "def tree_max(root):\n    if root is None:\n        return float('-inf')\n    left_max = tree_max(root.left)\n    right_max = tree_max(root.right)\n    return max(root.key, left_max, right_max)",
+    "test_cases": [
+      {
+        "description": "Single node",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(42)",
+        "args": [],
+        "expected": 42
+      },
+      {
+        "description": "Mixed tree",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(10,\n    left=Node(5,\n        left=Node(3),\n        right=Node(8)),\n    right=Node(20,\n        left=Node(15),\n        right=Node(30)))",
+        "args": [],
+        "expected": 30
+      }
+    ]
+  },
+  {
+    "id": "ct-3-bst-sum-range",
+    "level": 5,
+    "topic": "bst",
+    "prompt": "Write a recursive function that returns the sum of all keys in a BST that lie in the inclusive range [low, high].",
+    "function_name": "bst_sum_range",
+    "function_signature": "def bst_sum_range(root, low, high):",
+    "helper_description": "Assume a Node class with attributes: key, left, right. The root may be None.",
+    "hints": [
+      "Use the BST property to skip subtrees that are entirely < low or > high.",
+      "Base case: if root is None, return 0.",
+      "If root.key is in range, add it and recurse on both sides."
+    ],
+    "explanation": "Recursively traverse the BST, adding keys within [low, high]. If root.key < low, ignore the left subtree; if root.key > high, ignore the right subtree.",
+    "reference_impl": "def bst_sum_range(root, low, high):\n    if root is None:\n        return 0\n    if root.key < low:\n        return bst_sum_range(root.right, low, high)\n    if root.key > high:\n        return bst_sum_range(root.left, low, high)\n    return root.key + bst_sum_range(root.left, low, high) + bst_sum_range(root.right, low, high)",
+    "test_cases": [
+      {
+        "description": "Empty tree",
+        "tree_builder": "root = None",
+        "args": [0, 100],
+        "expected": 0
+      },
+      {
+        "description": "BST with some keys in range",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(10,\n    left=Node(5,\n        left=Node(2),\n        right=Node(7)),\n    right=Node(15,\n        left=Node(12),\n        right=Node(20)))",
+        "args": [5, 15],
+        "expected": 10 + 5 + 7 + 12 + 15
+      }
+    ]
+  },
+  {
+    "id": "ct-4-bst-contains",
+    "level": 5,
+    "topic": "bst",
+    "prompt": "Write a recursive function that returns True if a given key x is present in a binary search tree, and False otherwise.",
+    "function_name": "bst_contains",
+    "function_signature": "def bst_contains(root, x):",
+    "helper_description": "Assume a Node class with attributes: key, left, right.",
+    "hints": [
+      "Base case: if root is None, x is not in the tree.",
+      "Use the BST property: go left if x < root.key, right if x > root.key.",
+      "If x == root.key, return True."
+    ],
+    "explanation": "This is standard BST search: at each node, compare x to root.key and recurse into the appropriate subtree.",
+    "reference_impl": "def bst_contains(root, x):\n    if root is None:\n        return False\n    if x == root.key:\n        return True\n    elif x < root.key:\n        return bst_contains(root.left, x)\n    else:\n        return bst_contains(root.right, x)",
+    "test_cases": [
+      {
+        "description": "Empty tree",
+        "tree_builder": "root = None",
+        "args": [5],
+        "expected": false
+      },
+      {
+        "description": "Value present",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(10,\n    left=Node(5),\n    right=Node(15))",
+        "args": [15],
+        "expected": true
+      },
+      {
+        "description": "Value absent",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(10,\n    left=Node(5),\n    right=Node(15))",
+        "args": [7],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "ct-5-tree-height",
+    "level": 5,
+    "topic": "binary_tree",
+    "prompt": "Write a recursive function that computes the height of a binary tree. Define the height of an empty tree as -1 and a tree with one node as 0.",
+    "function_name": "tree_height",
+    "function_signature": "def tree_height(root):",
+    "helper_description": "Assume a Node class with attributes: key, left, right.",
+    "hints": [
+      "Base case: if root is None, return -1.",
+      "Compute height of left and right subtrees, then take 1 + max of the two.",
+      "A single node has left/right height -1, so height becomes 0."
+    ],
+    "explanation": "Recursively compute the height of each subtree; the tree height is 1 plus the maximum of the left and right subtree heights, with empty trees having height -1.",
+    "reference_impl": "def tree_height(root):\n    if root is None:\n        return -1\n    left_h = tree_height(root.left)\n    right_h = tree_height(root.right)\n    return 1 + max(left_h, right_h)",
+    "test_cases": [
+      {
+        "description": "Empty tree",
+        "tree_builder": "root = None",
+        "args": [],
+        "expected": -1
+      },
+      {
+        "description": "Single node",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(1)",
+        "args": [],
+        "expected": 0
+      },
+      {
+        "description": "Three-level tree",
+        "tree_builder": "class Node:\n    def __init__(self, key, left=None, right=None):\n        self.key = key\n        self.left = left\n        self.right = right\nroot = Node(1,\n    left=Node(2,\n        left=Node(4),\n        right=Node(5)),\n    right=Node(3))",
+        "args": [],
+        "expected": 2
+      }
+    ]
+  }
+]
